@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AndroidFinalProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/my_primary</item>
+        <item name="colorSecondary">@color/my_secondary</item>
+        <item name="android:statusBarColor">@color/my_statusbar</item>
+        <item name="android:textColor">@color/my_text</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AndroidFinalProject" parent="Base.Theme.AndroidFinalProject" />
+</resources>
