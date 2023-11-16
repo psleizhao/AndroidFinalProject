@@ -21,7 +21,7 @@
         android:paddingVertical="8dp"
         android:background="@color/black"
         android:fontFamily="monospace"
-        android:text=" All-in-One Hub "
+        android:text=" ALL-IN-ONE HUB "
         android:textColor="@color/white"
         android:textSize="30sp" />
 
