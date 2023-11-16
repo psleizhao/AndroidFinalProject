@@ -2,6 +2,7 @@ package algonquin.cst2335.androidfinalproject.recipe;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import java.util.concurrent.Executors;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityRecipeBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
+
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -157,5 +159,6 @@ public class RecipeActivity extends AppCompatActivity {
             recipeName = itemView.findViewById(R.id.recipeResult);
             recipeIcon = itemView.findViewById(R.id.recipeIcon);
         }
+
     }
 }
