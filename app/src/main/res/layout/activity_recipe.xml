@@ -6,11 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".recipe.RecipeActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipeRecycleView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/recipeTextInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeTitleText"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recipeTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recipe"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="268dp" />
+        android:text="Lei's Cuisine"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/recipeTextInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Type here..."
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recipeSearchButton" />
+
+    <Button
+        android:id="@+id/recipeSearchButton"
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
