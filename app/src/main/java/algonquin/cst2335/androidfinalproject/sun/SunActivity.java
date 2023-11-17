@@ -17,11 +17,9 @@ import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
 public class SunActivity extends AppCompatActivity {
 
     ActivitySunBinding binding;
-    ArrayList<Sun> suns = null;
-
-    SunViewModel sunModel;
-    private RecyclerView.Adapter sunAdapter;
-
+    ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
+    SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
+    private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
 
     @Override
@@ -31,10 +29,22 @@ public class SunActivity extends AppCompatActivity {
         binding = ActivitySunBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sunModel = new ViewModelProvider(this).get(SunViewModel.class);
-        suns = sunModel.suns.getValue();
+        // onCreateOptionMenu
+        setSupportActionBar(binding.sunToolbar);// initialize the toolbar
 
-        SunDatabase db = Room.databaseBuilder(getApplicationContext(),SunDatabase.class, "sundb").build();
+        sunModel = new ViewModelProvider(this).get(SunViewModel.class);
+        suns = sunModel.suns.getValue(); //get the array list from ViewModelProvider, might be NULL
+
+        //listener to the MutableLiveData object
+        sunModel.selectedSun.observe(this,(selectedSun) ->{
+            if(selectedSun != null) {
+                //create a Sun fragment
+
+            }
+        });
+
+
+        SunDatabase db = Room.databaseBuilder(getApplicationContext(),SunDatabase.class, "sunDatabase").build();
         sDAO = db.sunDAO();
 
         if (suns == null) {

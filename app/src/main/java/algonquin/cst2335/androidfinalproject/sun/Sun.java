@@ -30,11 +30,11 @@ public class Sun {
     protected String golder_hour;
 
     @ColumnInfo(name="timezone")
-    protected String timezone;
+    protected int timezone;
 
 
     // constructor
-    public Sun(String sunLatitude, String sunLongitude, String sunrise, String sunset, String solar_noon, String golder_hour, String timezone) {
+    public Sun(String sunLatitude, String sunLongitude, String sunrise, String sunset, String solar_noon, String golder_hour, int timezone) {
         this.sunLatitude = sunLatitude;
         this.sunLongitude = sunLongitude;
         this.sunrise = sunrise;
@@ -68,7 +68,7 @@ public class Sun {
         return golder_hour;
     }
 
-    public String getTimezone() {
+    public int getTimezone() {
         return timezone;
     }
 
