@@ -1,17 +1,5 @@
 package algonquin.cst2335.androidfinalproject.recipe;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,21 +9,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
+import algonquin.cst2335.androidfinalproject.databinding.Activity2RecipeBinding;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityRecipeBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
 
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity2 extends AppCompatActivity {
 
-    ActivityRecipeBinding binding;
+    Activity2RecipeBinding binding;
     ArrayList<Recipe> recipes = null;
     RecipeViewModel recipeModel;
     private RecyclerView.Adapter recipeAdapter;
@@ -45,7 +43,7 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityRecipeBinding.inflate(getLayoutInflater());
+        binding = Activity2RecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // call onCreateOptionsMenu()
@@ -141,7 +139,43 @@ public class RecipeActivity extends AppCompatActivity {
                     clk -> {
                         int position = getAbsoluteAdapterPosition();
                         Recipe selected = recipes.get(position);
+
+
                         recipeModel.selectedrecipe.postValue(selected);
+
+
+//                        int position = getAbsoluteAdapterPosition();
+//                        Recipe toDelete = recipes.get(position);
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
+//                        builder.setMessage("Do you want to delete the recipe of " + recipeName.getText())
+//                                .setTitle("Question: ")
+//                                .setPositiveButton("Yes", (dialog, cl) -> {
+//                                    Executor thread = Executors.newSingleThreadExecutor();
+//                                    thread.execute(() ->
+//                                    {
+//                                        rDAO.deleteRecipe(toDelete);
+//                                    });
+//
+//                                    recipes.remove(position);
+//                                    recipeAdapter.notifyDataSetChanged();
+//
+//                                    Snackbar.make(itemView, "You deleted recipe #" + (position+1), Snackbar.LENGTH_LONG)
+//                                            .setAction("Undo", click ->{
+//                                                Executor thread1 = Executors.newSingleThreadExecutor();
+//                                                thread.execute(() ->
+//                                                {
+//                                                    rDAO.insertRecipe(toDelete);
+//                                                });
+//                                                recipes.add(position, toDelete);
+//                                                recipeAdapter.notifyDataSetChanged();
+//                                            })
+//                                            .show();
+//                                })
+//                                .setNegativeButton("No", (dialog, cl) -> {
+//                                })
+//                                .create().show();
+//
+//
                     });
 
 
@@ -154,26 +188,25 @@ public class RecipeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.recipe_menu, menu);
+        getMenuInflater().inflate(R.menu.recipe_menu2, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch(item.getItemId()) {
-            case R.id.favoriteItem:
-                Intent nextPage = new Intent( RecipeActivity.this, RecipeActivity2.class);
-                startActivity(nextPage);
+            case R.id.backItem:
+
                 break;
 
-            case R.id.addItem:
+            case R.id.deleteItem:
 
                 if (recipeModel.selectedrecipe != null) {
                     int position = recipes.indexOf(recipeModel.selectedrecipe.getValue());
                     if (position != -1) {
                         Recipe toDelete = recipes.get(position);
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity2.this);
                         builder.setMessage("Do you want to delete the recipe of " + toDelete.getRecipeName())
                                 .setTitle("Question: ")
                                 .setPositiveButton("Yes", (dialog, cl) -> {
@@ -196,12 +229,12 @@ public class RecipeActivity extends AppCompatActivity {
                                                 recipeAdapter.notifyDataSetChanged();
 
                                                 // after undo, go back to the fragment
-//                                                RecipeDetailsFragment newMessage = new RecipeDetailsFragment(recipes.get(position));
-//                                                FragmentManager fMgr = getSupportFragmentManager();
-//                                                FragmentTransaction transaction = fMgr.beginTransaction();
-//                                                transaction.addToBackStack("any string here");
-//                                                transaction.replace(R.id.searchFragmentLocation, newMessage); //first is the FrameLayout id
-//                                                transaction.commit();//loads it
+                                                RecipeDetailsFragment newMessage = new RecipeDetailsFragment(recipes.get(position));
+                                                FragmentManager fMgr = getSupportFragmentManager();
+                                                FragmentTransaction transaction = fMgr.beginTransaction();
+                                                transaction.addToBackStack("any string here");
+                                                transaction.replace(R.id.searchFragmentLocation, newMessage); //first is the FrameLayout id
+                                                transaction.commit();//loads it
                                             })
                                             .show();
                                 })
