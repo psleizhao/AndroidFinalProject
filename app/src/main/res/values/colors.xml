@@ -12,5 +12,7 @@
     <color name="tabletBG">#B5E8F1</color>
     <color name="frameBG">#EFEABA</color>
     <color name="msgBG">#D5EFB6</color>
+    <color name="pink">#E91E63</color>
+    <color name="red">#F80303</color>
 
 </resources>

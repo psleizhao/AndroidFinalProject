@@ -12,7 +12,7 @@
         android:theme="@style/Theme.AndroidFinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".dictionary.DictionaryActivity"
+            android:name=".dictionary.DictActivity"
             android:exported="false" />
         <activity
             android:name=".music.MusicActivity"

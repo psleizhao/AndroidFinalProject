@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.content.Intent;
 
 import algonquin.cst2335.androidfinalproject.databinding.ActivityMainBinding;
-import algonquin.cst2335.androidfinalproject.dictionary.DictionaryActivity;
+import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
 import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 import algonquin.cst2335.androidfinalproject.sun.SunActivity;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         dictButton.setOnClickListener( clk-> {
 
-            Intent nextPage = new Intent( MainActivity.this, DictionaryActivity.class);
+            Intent nextPage = new Intent( MainActivity.this, DictActivity.class);
             startActivity(nextPage);
         } );
     }
