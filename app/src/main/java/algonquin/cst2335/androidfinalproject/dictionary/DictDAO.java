@@ -14,5 +14,5 @@ public interface DictDAO {
     @Query("Select * from Dict")
     List<Dict> getAllDicts();
     @Delete
-    void deleteDict(Dict t);
+    void deleteDict(Dict d);
 }

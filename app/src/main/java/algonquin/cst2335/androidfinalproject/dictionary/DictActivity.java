@@ -23,10 +23,6 @@ import java.util.concurrent.Executors;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityDictBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchDictBinding;
-import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
-import algonquin.cst2335.androidfinalproject.recipe.Recipe;
-import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
-import algonquin.cst2335.androidfinalproject.recipe.RecipeDatabase;
 
 public class DictActivity extends AppCompatActivity {
     ActivityDictBinding binding;
@@ -46,13 +42,13 @@ public class DictActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         dictModel = new ViewModelProvider(this).get(DictViewModel.class);
-        dict = dictModel.dicts.getValue();
+        dicts = dictModel.Dicts.getValue();
 
         DictDatabase db = Room.databaseBuilder(getApplicationContext(),DictDatabase.class, "dictdb").build();
-        dDAO = db.dictDAO();
+        dDAO = db.DictDAO();
 
         if(dicts == null) {
-            dictModel.dicts.postValue(dicts = new ArrayList<Dict>());
+            dictModel.Dicts.postValue(dicts = new ArrayList<Dict>());
 
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() ->
@@ -65,9 +61,9 @@ public class DictActivity extends AppCompatActivity {
 
         binding.dictSearchButton.setOnClickListener(clk ->{
 
-            String recipeName = "Fried Chicken";
+            String dictName = "Fabulous";
             String imgUrl = "";
-            String summary = "I like Fried Chicken";
+            String summary = "Wonderful";
             String srcUrl = "";
 
             Dict d = new Dict(dictName, imgUrl, summary, srcUrl);
@@ -85,17 +81,17 @@ public class DictActivity extends AppCompatActivity {
 
         });
 
-        binding.dictRecycleView.setAdapter(dictAdapter = new RecyclerView.Adapter<DictActivity.MyRowHolder>() {
+        binding.dictRecycleView.setAdapter(dictAdapter = new RecyclerView.Adapter<MyRowHolder>() {
 
             @NonNull
             @Override
-            public DictActivity.MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 SearchDictBinding binding = SearchDictBinding.inflate(getLayoutInflater(), parent, false);
-                return new DictActivity.MyRowHolder(binding.getRoot());
+                return new MyRowHolder(binding.getRoot());
             }
 
             @Override
-            public void onBindViewHolder(@NonNull RecipeActivity.MyRowHolder holder, int position) {
+            public void onBindViewHolder(@NonNull DictActivity.MyRowHolder holder, int position) {
                 Dict obj = dicts.get(position);
 
                 holder.dictName.setText(obj.getDictName()+position);

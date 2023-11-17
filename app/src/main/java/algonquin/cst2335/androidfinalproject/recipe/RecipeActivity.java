@@ -112,7 +112,7 @@ public class RecipeActivity extends AppCompatActivity {
         binding.recipeRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    class MyRowHolder extends RecyclerView.ViewHolder {
+    public class MyRowHolder extends RecyclerView.ViewHolder {
         public TextView recipeName;
         public ImageView recipeIcon;
 
