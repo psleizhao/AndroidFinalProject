@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey;
 public class Sun {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="SunId")
-    public long SunId;
+    @ColumnInfo(name="sunId")
+    public long sunId;
 
     @ColumnInfo(name="sunLatitude")
     protected String sunLatitude;
@@ -30,11 +30,11 @@ public class Sun {
     protected String golder_hour;
 
     @ColumnInfo(name="timezone")
-    protected int timezone;
+    protected String timezone;
 
 
     // constructor
-    public Sun(String sunLatitude, String sunLongitude, String sunrise, String sunset, String solar_noon, String golder_hour, int timezone) {
+    public Sun(String sunLatitude, String sunLongitude, String sunrise, String sunset, String solar_noon, String golder_hour, String timezone) {
         this.sunLatitude = sunLatitude;
         this.sunLongitude = sunLongitude;
         this.sunrise = sunrise;
@@ -68,7 +68,7 @@ public class Sun {
         return golder_hour;
     }
 
-    public int getTimezone() {
+    public String getTimezone() {
         return timezone;
     }
 

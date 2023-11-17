@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/deleteLocation"
+        android:id="@+id/deleteSunLocation"
         android:icon="@android:drawable/ic_delete"
         android:title="Delete this location"
         app:showAsAction="always" />

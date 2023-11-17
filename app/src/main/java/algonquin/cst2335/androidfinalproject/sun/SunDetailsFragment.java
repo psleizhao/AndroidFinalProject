@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -26,7 +25,6 @@ public class SunDetailsFragment extends Fragment {
         selected = toDisplay;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -40,24 +38,26 @@ public class SunDetailsFragment extends Fragment {
         binding.sunSunsetDetail.setText(selected.sunset);
         binding.sunTimezoneDetail.setText(selected.timezone);
 
-        /*
-        The below date time function requires Api > 26
-         */
         // Get the current time in the selected timezone
         TimeZone timeZone = TimeZone.getTimeZone("GMT");  // Set your default timezone
-        int utcOffset = selected.timezone;  // Replace with selected.timezone or use a default value
+        int utcOffset = Integer.parseInt(selected.timezone);  // Replace with selected.timezone or use a default value
         timeZone.setRawOffset(utcOffset * 60 * 1000);  // Set the UTC offset in milliseconds
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime localDateTime = currentDateTime.plusMinutes(timeZone.getRawOffset() / (60 * 1000));
+        // Create a SimpleDateFormat instance for date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy", Locale.getDefault());
+        dateFormat.setTimeZone(timeZone);
+
+        // Create a SimpleDateFormat instance for time
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
+        timeFormat.setTimeZone(timeZone);
 
         // Format the date and time
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.getDefault());
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.getDefault());
+        String currentDate = dateFormat.format(new Date());
+        String currentTime = timeFormat.format(new Date());
 
         //set the text views:
-        binding.sunDateDetailTitle.setText(currentDateTime.format(dateFormatter));
-        binding.sunTimeDetailTitle.setText(localDateTime.format(timeFormatter));
+        binding.sunDateDetailTitle.setText(currentDate);
+        binding.sunTimeDetailTitle.setText(currentTime);
 
         return binding.getRoot();
     }
