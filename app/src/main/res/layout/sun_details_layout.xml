@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Date"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Time"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="@+id/sun_date_detail_title"
         app:layout_constraintStart_toStartOf="@+id/sun_date_detail_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_date_detail_title" />
@@ -32,10 +32,10 @@
         android:id="@+id/sun_sunrise_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
         android:text="Sunrise"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sun_time_detail_title" />
 
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Solar Noon"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_sunrise_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunrise_title" />
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Golder Hour"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_noon_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_noon_title" />
 
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Sunset"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_golden_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_golden_title" />
 
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Timezone"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_sunset_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunset_title" />
 
@@ -84,9 +84,9 @@
         android:id="@+id/sun_sunrise_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="380dp"
+        android:layout_marginStart="180dp"
         android:text="sunrise"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="@+id/sun_sunrise_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sun_sunrise_title" />
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="solar_noon"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_sunrise_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunrise_detail" />
 
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="golder_hour"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_noon_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_noon_detail" />
 
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="sunset"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_golden_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_golden_detail" />
 
@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="timezone"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/sun_sunset_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunset_detail" />
 
