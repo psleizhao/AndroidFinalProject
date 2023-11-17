@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
-
+@Dao
 public interface SunDAO {
     @Insert
     long insertSun(Sun s);
