@@ -6,16 +6,15 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
-
 @Dao
-public interface ChatMessageDAO {
-    @Insert
-    long insertMessage(ChatMessage m);
+public interface RecipeDAO {
 
-    @Query("Select * from ChatMessage")
-    List<ChatMessage> getAllMessages();
+    @Insert
+    long insertRecipe(Recipe r);
+
+    @Query("Select * from Recipe")
+    List<Recipe> getAllRecipes();
 
     @Delete
-    void deleteMessage(ChatMessage m);
-
+    void deleteRecipe(Recipe r);
 }

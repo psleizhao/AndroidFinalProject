@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 import algonquin.cst2335.androidfinalproject.R;
+import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
 
 public class SunActivity extends AppCompatActivity {
 
+    ActivitySunBinding binding;
+    ArrayList<Sun> suns = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

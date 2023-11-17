@@ -1,243 +1,164 @@
 package algonquin.cst2335.androidfinalproject.recipe;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityRecipeBinding;
-import algonquin.cst2335.androidfinalproject.databinding.ReceiveMessageBinding;
-import algonquin.cst2335.androidfinalproject.recipe.data.RecipeViewModel;
-import algonquin.cst2335.androidfinalproject.databinding.SentMessageBinding;
+import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
+
 
 public class RecipeActivity extends AppCompatActivity {
 
     ActivityRecipeBinding binding;
-    ArrayList<ChatMessage> messages = null;
 
+    ArrayList<Recipe> recipes = null;
     RecipeViewModel recipeModel;
-    private RecyclerView.Adapter myAdapter;
 
-    ChatMessageDAO mDAO;
+    private RecyclerView.Adapter recipeAdapter;
 
+    RecipeDAO rDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         recipeModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        messages = recipeModel.messages.getValue();
+        recipes = recipeModel.recipes.getValue();
 
-        recipeModel.selectedMessage.observe(this, (selectedMessage) -> {
+        RecipeDatabase db = Room.databaseBuilder(getApplicationContext(),RecipeDatabase.class, "recipedb").build();
+        rDAO = db.recipeDAO();
 
-            if(selectedMessage != null) {
-                MessageDetailsFragment newMessage = new MessageDetailsFragment(selectedMessage);
-
-                FragmentManager fMgr = getSupportFragmentManager();
-                FragmentTransaction transaction = fMgr.beginTransaction();
-                transaction.addToBackStack("any string here");
-                transaction.replace(R.id.fragmentLocation, newMessage); //first is the FrameLayout id
-                transaction.commit();//loads it
-
-            }
-        });
-
-        MessageDatabase db = Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").build();
-        mDAO = db.cmDAO();
-
-        if (messages == null) {
-            recipeModel.messages.postValue(messages = new ArrayList<ChatMessage>());
+        if(recipes == null) {
+            recipeModel.recipes.postValue(recipes = new ArrayList<Recipe>());
 
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() ->
             {
-                messages.addAll(mDAO.getAllMessages()); //Once you get the data from database
+                recipes.addAll(rDAO.getAllRecipes()); //Once you get the data from database
 
-                runOnUiThread(() -> binding.recycleView.setAdapter(myAdapter)); //You can then load the RecyclerView
+                runOnUiThread(() -> binding.recipeRecycleView.setAdapter(recipeAdapter)); //You can then load the RecyclerView
             });
         }
 
-        binding.sendButton.setOnClickListener(clk -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM-yyyy hh-mm-ss a");
-            String currentDateandTime = sdf.format(new Date());
-            String inputMessage = binding.textInput.getText().toString();
-            boolean sentButton = true;
+        binding.recipeSearchButton.setOnClickListener(clk ->{
 
-            ChatMessage m = new ChatMessage(inputMessage, currentDateandTime, sentButton);
-            messages.add(m);
+            String recipeName = "Fried Chicken";
+            String imgUrl = "";
+            String summary = "I like Fried Chicken";
+            String srcUrl = "";
 
-            // clear teh previous text
-            binding.textInput.setText("");
+            Recipe r = new Recipe(recipeName, imgUrl, summary, srcUrl);
+            recipes.add(r);
 
-            myAdapter.notifyDataSetChanged();
+            binding.recipeTextInput.setText("");
 
-            Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() ->
-            {
-                m.id = mDAO.insertMessage(m); //Once you get the data from database
-                Log.d("TAG", "The id created is" + m.id);
-            });
-
-        });
-
-
-        binding.receiveButton.setOnClickListener(clk -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM-yyyy hh-mm-ss a");
-            String currentDateAndTime = sdf.format(new Date());
-            String inputMessage = binding.textInput.getText().toString();
-            boolean sentButton = false;
-
-            ChatMessage m = new ChatMessage(inputMessage, currentDateAndTime, sentButton);
-            messages.add(m);
-
-            myAdapter.notifyDataSetChanged();
-
-            // clear teh previous text
-            binding.textInput.setText("");
+            recipeAdapter.notifyDataSetChanged();
 
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() ->
             {
-                m.id = mDAO.insertMessage(m); //Once you get the data from database
-                Log.d("TAG", "The id created is" + m.id);
+                r.id = rDAO.insertRecipe(r); //Once you get the data from database
             });
 
         });
 
-        // will draw the recycle view.
-        binding.recycleView.setAdapter(myAdapter = new RecyclerView.Adapter<MyRowHolder>() {
-
-            @Override
-            public int getItemViewType(int position) {
-                // determine which layout to load at row position
-                if (messages.get(position).isSentButton() == true) // for the first 5 rows
-                {
-                    return 0;
-                } else return 1;
-            }
+        binding.recipeRecycleView.setAdapter(recipeAdapter = new RecyclerView.Adapter<MyRowHolder>() {
 
             @NonNull
-            @Override                                                       // which layout to load?
+            @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                // viewType will either be 0 or 1
-
-                if (viewType == 0) {
-                   //  1. load a XML layout
-                    SentMessageBinding binding =                            // parent is incase matchparent
-                            SentMessageBinding.inflate(getLayoutInflater(), parent, false);
-
-                    // 2. call our constructor below
-                    return new MyRowHolder(binding.getRoot()); // getRoot returns a ConstraintLayout with TextViews inside
-                }
-                else {
-                    // 1. load a XML layout
-                    ReceiveMessageBinding binding =                            // parent is incase matchparent
-                            ReceiveMessageBinding.inflate(getLayoutInflater(), parent, false);
-
-                    // 2. call our constructor below
-                    return new MyRowHolder(binding.getRoot()); // getRoot returns a ConstraintLayout with TextViews inside
-
-                }
+                SearchRecipeBinding binding = SearchRecipeBinding.inflate(getLayoutInflater(), parent, false);
+                return new MyRowHolder(binding.getRoot());
             }
-
 
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
-                ChatMessage obj = messages.get(position);
+                Recipe obj = recipes.get(position);
 
-                holder.messageText.setText(obj.getMessage());
-                holder.timeText.setText(obj.getTimeSent());
+                holder.recipeName.setText(obj.getRecipeName()+position);
+   //             holder.recipeIcon.setImageURI(Uri.parse((obj.getImgUrl())));
             }
 
             @Override
             public int getItemCount() {
-                return messages.size();
+                return recipes.size();
             }
         });
 
-        binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recipeRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-
     class MyRowHolder extends RecyclerView.ViewHolder {
-        public TextView messageText;
-        public TextView timeText;
+        public TextView recipeName;
+        public ImageView recipeIcon;
 
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
-
             itemView.setOnClickListener(
                     clk -> {
 
                         int position = getAbsoluteAdapterPosition();
-                        ChatMessage selected = messages.get(position);
+                        Recipe toDelete = recipes.get(position);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
+                        builder.setMessage("Do you want to delete the recipe of " + recipeName.getText())
+                                .setTitle("Question: ")
+                                .setPositiveButton("Yes", (dialog, cl) -> {
+                                    Executor thread = Executors.newSingleThreadExecutor();
+                                    thread.execute(() ->
+                                    {
+                                        rDAO.deleteRecipe(toDelete);
+                                    });
 
+                                    recipes.remove(position);
+                                    recipeAdapter.notifyDataSetChanged();
 
-                        recipeModel.selectedMessage.postValue(selected);
-
-//
-//                        int position = getAbsoluteAdapterPosition();
-//                        ChatMessage toDelete = messages.get(position);
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
-//                        builder.setMessage("Do you want to delete the message: " + messageText.getText())
-//                                .setTitle("Question: ")
-//                                .setPositiveButton("Yes", (dialog, cl) -> {
-//                                    Executor thread = Executors.newSingleThreadExecutor();
-//                                    thread.execute(() ->
-//                                    {
-//                                        mDAO.deleteMessage(toDelete);
-//                                    });
-//
-//                                    messages.remove(position);
-//                                    myAdapter.notifyDataSetChanged();
-//
-//                                    Snackbar.make(itemView, "You deleted message #" + (position+1), Snackbar.LENGTH_LONG)
-//                                            .setAction("Undo", click ->{
-//                                                Executor thread1 = Executors.newSingleThreadExecutor();
-//                                                thread.execute(() ->
-//                                                {
-//                                                    mDAO.insertMessage(toDelete);
-//                                                });
-//                                                messages.add(position, toDelete);
-//                                                myAdapter.notifyDataSetChanged();
-//                                            })
-//                                            .show();
-//                                })
-//                                .setNegativeButton("No", (dialog, cl) -> {
-//                                })
-//                                .create().show();
+                                    Snackbar.make(itemView, "You deleted recipe #" + (position+1), Snackbar.LENGTH_LONG)
+                                            .setAction("Undo", click ->{
+                                                Executor thread1 = Executors.newSingleThreadExecutor();
+                                                thread.execute(() ->
+                                                {
+                                                    rDAO.insertRecipe(toDelete);
+                                                });
+                                                recipes.add(position, toDelete);
+                                                recipeAdapter.notifyDataSetChanged();
+                                            })
+                                            .show();
+                                })
+                                .setNegativeButton("No", (dialog, cl) -> {
+                                })
+                                .create().show();
 
 
                     });
 
-            messageText = itemView.findViewById(R.id.messageText);
-            timeText = itemView.findViewById(R.id.timeText);
+
+            recipeName = itemView.findViewById(R.id.recipeResult);
+            recipeIcon = itemView.findViewById(R.id.recipeIcon);
         }
+
     }
 }
