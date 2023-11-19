@@ -121,7 +121,7 @@ public class RecipeActivity extends AppCompatActivity {
             try {
                 url = "https://api.spoonacular.com/recipes/complexSearch?query="
                         + URLEncoder.encode(recipeTextInput, "UTF-8")
-                        + "&apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
+                        + "&apiKey=aee190b735d046eea12abceaf17ac29c";
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
@@ -284,11 +284,10 @@ public class RecipeActivity extends AppCompatActivity {
                     clk -> {
                         int position = getAbsoluteAdapterPosition();
                         Recipe selected = recipes.get(position);
-                        recipeModel.selectedrecipe.postValue(selected);
 
                         String url = "https://api.spoonacular.com/recipes/"
                                 + selected.getId()
-                                + "/information?apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
+                                + "/information?apiKey=aee190b735d046eea12abceaf17ac29c";
 
                         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
                             String summary = null;
@@ -316,7 +315,11 @@ public class RecipeActivity extends AppCompatActivity {
                             try {
                                 imageUrl = response.getString("image");
                             } catch (JSONException e) {
-                                throw new RuntimeException(e);
+//                                throw new RuntimeException(e);
+                                runOnUiThread(() ->
+                                        Toast.makeText(RecipeActivity.this, "This recipe is not available for now", Toast.LENGTH_SHORT).show()
+                                );
+
                             }
 
                             String fileName = selected.getId() + "-556x370.jpg";
@@ -325,6 +328,7 @@ public class RecipeActivity extends AppCompatActivity {
 
                             if (file.exists()) {
                                 Log.d("Recipe App", "File path: " + file.getAbsolutePath());
+                                recipeModel.selectedrecipe.postValue(selected);
                             } else {
                                 Log.d("Recipe App", "got in else " + imageUrl);
                                 ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
@@ -340,16 +344,18 @@ public class RecipeActivity extends AppCompatActivity {
                                         e.printStackTrace();
 
                                     }
+                                    recipeModel.selectedrecipe.postValue(selected);
                                 }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
 
                                 });
 
                                 queue.add(imgReq);
+
                             }
+//                            recipeModel.selectedrecipe.postValue(selected);
 
                         }, error -> {});
                         queue.add(request);
-                        recipeModel.selectedrecipe.postValue(selected);
                     });
 
             recipeName = itemView.findViewById(R.id.recipeResult);
