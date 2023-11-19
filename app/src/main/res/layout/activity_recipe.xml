@@ -40,7 +40,7 @@
                 android:id="@+id/recipeTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lei's Cuisine"
+                android:text="My Favorite"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Type here..."
                 android:inputType="text"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/recipeSearchButton"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -62,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Search"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
