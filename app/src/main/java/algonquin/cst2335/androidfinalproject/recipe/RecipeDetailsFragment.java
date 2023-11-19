@@ -3,6 +3,7 @@ package algonquin.cst2335.androidfinalproject.recipe;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,9 @@ public class RecipeDetailsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         RecipeDetailsLayoutBinding binding = RecipeDetailsLayoutBinding.inflate(getLayoutInflater());
-        File file = new File(selected.getId() + "-556x370.jpg" );
+        File file = new File(requireContext().getFilesDir(), selected.getId() + "-556x370.jpg" );
         if(file.exists()) {
+            Log.d("Image Log", "Got the larger image");
             Bitmap img = BitmapFactory.decodeFile(file.getAbsolutePath());
             binding.recipeImageView.setImageBitmap(img);
         }

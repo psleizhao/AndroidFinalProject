@@ -285,6 +285,71 @@ public class RecipeActivity extends AppCompatActivity {
                         int position = getAbsoluteAdapterPosition();
                         Recipe selected = recipes.get(position);
                         recipeModel.selectedrecipe.postValue(selected);
+
+                        String url = "https://api.spoonacular.com/recipes/"
+                                + selected.getId()
+                                + "/information?apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
+
+                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+                            String summary = null;
+                            String srcUrl = null;
+                            try {
+                                summary = response.getString("summary");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            selected.setSummary(summary);
+                            try {
+                                srcUrl = response.getString("sourceUrl");
+                                selected.setSrcUrl(srcUrl);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            selected.setSrcUrl(srcUrl);
+
+                            Executor thread1 = Executors.newSingleThreadExecutor();
+                            thread1.execute(() -> {
+                                rDAO.updateRecipe(selected);
+                            });
+
+                            String imageUrl = null;
+                            try {
+                                imageUrl = response.getString("image");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            String fileName = selected.getId() + "-556x370.jpg";
+
+                            File file = new File( getFilesDir(), fileName);
+
+                            if (file.exists()) {
+                                Log.d("Recipe App", "File path: " + file.getAbsolutePath());
+                            } else {
+                                Log.d("Recipe App", "got in else " + imageUrl);
+                                ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
+                                    // Do something with loaded bitmap...
+                                    FileOutputStream fOut = null;
+                                    try {
+                                        fOut = openFileOutput(fileName, Context.MODE_PRIVATE);
+
+                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                                        fOut.flush();
+                                        fOut.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+
+                                    }
+                                }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
+
+                                });
+
+                                queue.add(imgReq);
+                            }
+
+                        }, error -> {});
+                        queue.add(request);
+                        recipeModel.selectedrecipe.postValue(selected);
                     });
 
             recipeName = itemView.findViewById(R.id.recipeResult);
