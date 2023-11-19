@@ -32,6 +32,7 @@ public class Sun {
     @ColumnInfo(name="timezone")
     protected String timezone;
 
+    public Sun(){}
 
     // constructor
     public Sun(String sunLatitude, String sunLongitude, String sunrise, String sunset, String solar_noon, String golder_hour, String timezone) {
