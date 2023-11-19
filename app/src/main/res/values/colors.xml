@@ -10,7 +10,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="tabletBG">#B5E8F1</color>
-    <color name="frameBG">#EFEABA</color>
-    <color name="msgBG">#D5EFB6</color>
+    <color name="frameBG">#BFED8A</color>
+    <color name="pageBG">#CFFBFF</color>
 
 </resources>
