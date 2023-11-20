@@ -31,7 +31,6 @@ import java.util.concurrent.Executors;
 
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
-import algonquin.cst2335.androidfinalproject.databinding.SunDetailsLayoutBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SunRecordBinding;
 
 public class SunActivity extends AppCompatActivity {
@@ -41,7 +40,7 @@ public class SunActivity extends AppCompatActivity {
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
-    int selectedRow;
+    int selectedRow; // to hold the "position", find which row this is"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +107,15 @@ public class SunActivity extends AppCompatActivity {
                 sDAO.insertSun(s); //Once you get the data from database
 //                s.sunId = sDAO.insertSun(s); //Once you get the data from database
             });
+
+            //create a Sun fragment
+            SunDetailsFragment sunFragment = new SunDetailsFragment(suns.get(selectedRow));
+
+            FragmentManager fMgr = getSupportFragmentManager();
+            FragmentTransaction transaction = fMgr.beginTransaction();
+            transaction.addToBackStack("Add to back stack"); // adds to the history
+            transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+            transaction.commit();// This line actually loads the fragment into the specified FrameLayout
 
             //clear the previous text
             binding.latInput.setText("");
