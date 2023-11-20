@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -45,6 +48,8 @@ public class MusicActivity extends AppCompatActivity {
 
         binding = ActivityMusicBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        binding.musicTextInput.setText(prefs.getString("musicName", ""));
 
         musicModel = new ViewModelProvider(this).get(MusicViewModel.class);
         music1 = musicModel.musics.getValue();
@@ -65,7 +70,10 @@ public class MusicActivity extends AppCompatActivity {
         }
 
         binding.musicSearchButton.setOnClickListener(clk ->{
-
+            String musicTextInput = binding.musicTextInput.getText().toString();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("musicName", musicTextInput);
+            editor.apply();
             String musicName = "In the end";
             String imgUrl = "";
             String summary = "Linkin Park";
@@ -145,6 +153,9 @@ public class MusicActivity extends AppCompatActivity {
                                                 });
                                                 music1.add(position, toDelete);
                                                 musicAdapter.notifyDataSetChanged();
+                                                runOnUiThread(() ->
+                                                        Toast.makeText(MusicActivity.this, "This Song add back to your list", Toast.LENGTH_SHORT).show()
+                                                );
                                             })
                                             .show();
                                 })
