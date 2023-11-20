@@ -62,11 +62,10 @@
 
     <Button
         android:id="@+id/sourceButton"
-        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Like it? Go to the cuisine!"
+        android:text="Like it? Get details!"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

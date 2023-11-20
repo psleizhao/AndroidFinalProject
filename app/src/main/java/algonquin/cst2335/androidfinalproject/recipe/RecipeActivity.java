@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityRecipeBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
@@ -112,7 +113,7 @@ public class RecipeActivity extends AppCompatActivity {
         binding.recipeSearchButton.setOnClickListener(clk -> {
             recipes.clear();
             String recipeTextInput = binding.recipeTextInput.getText().toString();
-            binding.recipeTitleText.setText("Try One?");
+//            binding.recipeTitleText.setText("Try One?");
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("recipeName", recipeTextInput);
             editor.apply();
@@ -232,7 +233,8 @@ public class RecipeActivity extends AppCompatActivity {
 
                                     });
                                     queue.add(imgReq);
-                                }
+                                }                                    binding.recipeTitleText.setText("Try One?");
+
                             }
                             recipeAdapter.notifyDataSetChanged();
 
@@ -463,8 +465,20 @@ public class RecipeActivity extends AppCompatActivity {
                 }
                 break;
 
+            case R.id.backItem:
+                Intent nextPage1 = new Intent(RecipeActivity.this, MainActivity.class);
+                startActivity(nextPage1);
+                break;
+
             case R.id.helpItem:
-                Toast.makeText(this, "❤️Go To Saved Recipes\n\uD83D\uDCE5Save This Recipe\n\uD83D\uDDD1️Delete This Recipe", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "❤️Go To Saved Recipes\n\uD83D\uDCE5Save This Recipe\n\uD83D\uDDD1️Delete This Recipe", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
+                builder.setMessage("❤️ Go To Saved Recipes\n\n\uD83D\uDCE5 Save This Recipe"
+                                + "\n\n\uD83D\uDDD1 ️Delete This Recipe\n\nFind a recipe from search bar")
+                        .setTitle("How to use me: ")
+                        .setPositiveButton("OK", (dialog, cl) -> {
+                         }).create().show();
+
                 break;
 
             case R.id.aboutRecipe:
