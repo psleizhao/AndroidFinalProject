@@ -8,14 +8,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.ColumnInfo;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +32,7 @@ import java.util.concurrent.Executors;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SunDetailsLayoutBinding;
-import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
+import algonquin.cst2335.androidfinalproject.databinding.SunRecordBinding;
 
 public class SunActivity extends AppCompatActivity {
 
@@ -37,6 +41,7 @@ public class SunActivity extends AppCompatActivity {
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
+    int selectedRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +88,8 @@ public class SunActivity extends AppCompatActivity {
 
         binding.sunSearchButton.setOnClickListener( cli ->{
 
-            String sunLatitude = "latitude";
-            String sunLongitude = "longitude";
+            String sunLatitude = binding.latInput.getText().toString(); //todo: add a number filter
+            String sunLongitude = binding.lngInput.getText().toString(); //todo: add a number filter
             String sunrise = "sunrise";
             String sunset = "sunset";
             String solar_noon = "noon";
@@ -100,8 +105,8 @@ public class SunActivity extends AppCompatActivity {
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() ->
             {
-//                sDAO.insertSun(s); //Once you get the data from database
-                s.sunId = sDAO.insertSun(s); //Once you get the data from database
+                sDAO.insertSun(s); //Once you get the data from database
+//                s.sunId = sDAO.insertSun(s); //Once you get the data from database
             });
 
             //clear the previous text
@@ -115,8 +120,10 @@ public class SunActivity extends AppCompatActivity {
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
-                return new SunActivity.MyRowHolder(binding.getRoot());
+//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
+
+                SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
+                return new MyRowHolder(binding2.getRoot());
             }
 
             @Override
@@ -124,11 +131,15 @@ public class SunActivity extends AppCompatActivity {
                 // where to overwrite default text:
                 Sun obj = suns.get(position);
 
-                holder.sunriseView.setText(obj.getSunrise());
-                holder.sunsetView.setText(obj.getSunset());
-                holder.solar_noonView.setText(obj.getSolar_noon());
-                holder.golden_hourView.setText(obj.getGolder_hour());
-                holder.timezoneView.setText(obj.getTimezone());
+                holder.sunLatitudeView.setText(obj.getSunLatitude());
+                holder.sunLongitudeView.setText(obj.getSunLongitude());
+
+
+//                holder.sunriseView.setText(obj.getSunrise());
+//                holder.sunsetView.setText(obj.getSunset());
+//                holder.solar_noonView.setText(obj.getSolar_noon());
+//                holder.golden_hourView.setText(obj.getGolder_hour());
+//                holder.timezoneView.setText(obj.getTimezone());
             }
 
 
@@ -145,8 +156,8 @@ public class SunActivity extends AppCompatActivity {
     // This class represents one row
     public class MyRowHolder extends RecyclerView.ViewHolder {
 
-//        public TextView sunLatitudeView; // maybe not needed?
-//        public TextView sunLongitudeView; // maybe not needed?
+        public TextView sunLatitudeView; // maybe not needed?
+        public TextView sunLongitudeView; // maybe not needed?
         public TextView sunriseView;
         public TextView sunsetView;
         public TextView solar_noonView;
@@ -163,17 +174,18 @@ public class SunActivity extends AppCompatActivity {
 
                 //starts the loading
                 sunModel.selectedSun.postValue(selected);
+
+                selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
 
             // theRootConstraintLayout.findViewById
-//            sunLatitudeView = theRootConstraintLayout.findViewById(R.id.latInput);// maybe not needed?
-//            sunLongitudeView = theRootConstraintLayout.findViewById(R.id.lngInput);// maybe not needed?
+            sunLatitudeView = theRootConstraintLayout.findViewById(R.id.lat_detail);// maybe not needed?
+            sunLongitudeView = theRootConstraintLayout.findViewById(R.id.lng_detail);// maybe not needed?
             sunriseView= theRootConstraintLayout.findViewById(R.id.sun_sunrise_detail);
             sunsetView= theRootConstraintLayout.findViewById(R.id.sun_sunset_detail);
             solar_noonView= theRootConstraintLayout.findViewById(R.id.sun_noon_detail);
             golden_hourView= theRootConstraintLayout.findViewById(R.id.sun_golden_detail);
             timezoneView= theRootConstraintLayout.findViewById(R.id.sun_timezone_detail);
-
 
         }
     }
@@ -183,7 +195,7 @@ public class SunActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         //inflate a menu into the toolbar
-        getMenuInflater().inflate(R.menu.sun_menu, menu);
+        getMenuInflater().inflate(R.menu.sun_detail_menu, menu);
         return true;
     }
 
@@ -210,7 +222,7 @@ public class SunActivity extends AppCompatActivity {
                         Executor thread = Executors.newSingleThreadExecutor();
                         thread.execute(() -> {
                             //delete from database
-                            sDAO.deleteSun(toDelete); //which chat message to delete?
+                            sDAO.deleteSun(toDelete); //which sun location to delete?
                         });
                         suns.remove(position); //remove from the array list
 
@@ -248,4 +260,46 @@ public class SunActivity extends AppCompatActivity {
         }// Handle other menu items if needed
         return true;
     }
+
+    //Todo: write a function to check the input range: -90 to +90, 6 decimal places
+//    public static void setupDecimalInput(final EditText editText) {
+//        // Set an InputFilter to limit the decimal places
+//        InputFilter decimalFilter = (source, start, end, dest, dstart, dend) -> {
+//            String text = dest.toString();
+//            if (text.contains(".") && text.substring(text.indexOf(".")).length() > 6) {
+//                return "";
+//            }
+//            return null;
+//        };
+//
+//        // Set a TextWatcher to check the range
+//        editText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+//                // No action needed
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+//                // No action needed
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                try {
+//                    // Parse the input to a double
+//                    double input = Double.parseDouble(editable.toString());
+//
+//                    // Check the range
+//                    if (input < -90 || input > 90) {
+//                        // If out of range, set the text to the limit
+//                        editText.setText(String.valueOf(Math.max(-90, Math.min(90, input))));
+//                        editText.setSelection(editText.getText().length()); // Move cursor to the end
+//                    }
+//                } catch (NumberFormatException ignored) {
+//                    // Ignore if the input cannot be parsed to a double
+//                }
+//            }
+//        });
+
 }
