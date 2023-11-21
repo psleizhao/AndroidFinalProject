@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -48,6 +50,10 @@ public class SunActivity extends AppCompatActivity {
 
         binding = ActivitySunBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
+        binding.latInput.setText(prefs.getString("latitude",""));
+        binding.lngInput.setText(prefs.getString("longitude",""));
 
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
@@ -94,6 +100,11 @@ public class SunActivity extends AppCompatActivity {
             String solar_noon = "noon";
             String golden_hour = "golden hour";
             String timezone = "-300";
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("latitude", sunLatitude);
+            editor.putString("longitude", sunLongitude);
+            editor.apply();
 
             Sun s = new Sun(sunLatitude, sunLongitude, sunrise, sunset, solar_noon, golden_hour, timezone);
             suns.add(s);
