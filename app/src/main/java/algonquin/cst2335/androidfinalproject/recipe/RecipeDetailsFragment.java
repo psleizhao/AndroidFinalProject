@@ -25,7 +25,9 @@ import algonquin.cst2335.androidfinalproject.databinding.RecipeDetailsLayoutBind
 public class RecipeDetailsFragment extends Fragment {
     Recipe selected;
 
-    public RecipeDetailsFragment(Recipe r) {selected = r;}
+    public RecipeDetailsFragment(Recipe r) {
+        selected = r;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -33,39 +35,32 @@ public class RecipeDetailsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         RecipeDetailsLayoutBinding binding = RecipeDetailsLayoutBinding.inflate(getLayoutInflater());
-        File file = new File(requireContext().getFilesDir(), selected.getId() + "-556x370.jpg" );
-        if(file.exists()) {
+        File file = new File(requireContext().getFilesDir(), selected.getId() + "-556x370.jpg");
+        if (file.exists()) {
             Log.d("Image Log", "Got the larger image");
             Bitmap img = BitmapFactory.decodeFile(file.getAbsolutePath());
             binding.recipeImageView.setImageBitmap(img);
         }
         binding.recipeNameText.setText(selected.recipeName);
 
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
-            binding.summary.setText(spannedText);
+        Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
+        binding.summary.setText(spannedText);
 
-//        }
-
-//        binding.summary.setText(spannedText);
-
-        //   binding.sourceButton.setText("Went to source");
         binding.sourceButton.setOnClickListener(v -> {
-       // Get the URL associated with the button
-       String url = selected.getSrcUrl(); // Replace with your actual URL
+                    String url = selected.getSrcUrl(); // Replace with your actual URL
 
-       // Create an Intent to open the URL in a web browser
-       Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    // Create an Intent to open the URL in a web browser
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 
-       // Check if there's an app to handle the Intent
-       if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-           // Open the URL in the web browser
-           startActivity(intent);
-       } else {
-           // Handle the case where there is no app to handle the Intent
-           Toast.makeText(getContext(), "No app to handle URL", Toast.LENGTH_SHORT).show();
-       }
-   }
+                    // Check if there's an app to handle the Intent
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        // Open the URL in the web browser
+                        startActivity(intent);
+                    } else {
+                        // Handle the case where there is no app to handle the Intent
+                        Toast.makeText(getContext(), "No app to handle URL", Toast.LENGTH_SHORT).show();
+                    }
+                }
         );
         return binding.getRoot();
     }

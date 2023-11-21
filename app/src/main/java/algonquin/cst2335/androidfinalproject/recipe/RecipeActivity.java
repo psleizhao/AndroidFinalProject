@@ -53,7 +53,6 @@ import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityRecipeBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
 
-
 public class RecipeActivity extends AppCompatActivity {
 
     ActivityRecipeBinding binding;
@@ -85,14 +84,12 @@ public class RecipeActivity extends AppCompatActivity {
             if (selectedRecipe != null) {
                 RecipeDetailsFragment newRecipe = new RecipeDetailsFragment(selectedRecipe);
 
-
                 FragmentManager fMgr = getSupportFragmentManager();
                 FragmentTransaction transaction = fMgr.beginTransaction();
                 transaction.addToBackStack("any string here");
                 transaction.replace(R.id.searchFragmentLocation, newRecipe); //first is the FrameLayout id
                 transaction.commit();//loads it
             }
-
         });
 
         RecipeDatabase db = Room.databaseBuilder(getApplicationContext(), RecipeDatabase.class, "recipedb").build();
@@ -111,7 +108,7 @@ public class RecipeActivity extends AppCompatActivity {
         }
 
         binding.recipeSearchButton.setOnClickListener(clk -> {
-            recipes.clear();
+
             String recipeTextInput = binding.recipeTextInput.getText().toString();
 //            binding.recipeTitleText.setText("Try One?");
             SharedPreferences.Editor editor = prefs.edit();
@@ -122,7 +119,7 @@ public class RecipeActivity extends AppCompatActivity {
             try {
                 url = "https://api.spoonacular.com/recipes/complexSearch?query="
                         + URLEncoder.encode(recipeTextInput, "UTF-8")
-                        + "&apiKey=aee190b735d046eea12abceaf17ac29c";
+                        + "&apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
@@ -132,112 +129,52 @@ public class RecipeActivity extends AppCompatActivity {
                     (response) -> {
                         try {
                             JSONArray resultsArray = response.getJSONArray("results");
+                            if (resultsArray.length() == 0) {
+                                Toast.makeText(this, "Sorry, found nothing", Toast.LENGTH_SHORT).show();
+                            } else {
+                                recipes.clear();
+                                for (int i = 0; i < resultsArray.length(); i++) {
+                                    JSONObject result = resultsArray.getJSONObject(i);
+                                    long id = result.getInt("id");
+                                    String title = result.getString("title");
+                                    String imageUrl = result.getString("image");
+                                    String imgType = result.getString("imageType");
+                                    String summary = "summary";
+                                    String srcUrl = "url";
 
-                            for (int i = 0; i < resultsArray.length(); i++) {
-                                JSONObject result = resultsArray.getJSONObject(i);
-                                long id = result.getInt("id");
-                                String title = result.getString("title");
-                                String imageUrl = result.getString("image");
-                                String imgType = result.getString("imageType");
-                                String summary = "summary";
-                                String srcUrl = "url";
+                                    String fileName = id + "-312x231.jpg";
 
-                                String fileName = id + "-312x231.jpg";
+                                    Recipe recipe = new Recipe(title, fileName, summary, srcUrl, id);
+                                    recipes.add(recipe);
 
-
-//                                String urlSummary = "https://api.spoonacular.com/recipes/"
-//                                        + id
-//                                        + "/information?apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
-//
-//                                JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, urlSummary, null, response1 -> {
-//                                    String summary;
-//                                    String srcUrl;
-//                                    try {
-//                                         summary = response.getString("summary");
-////                                        selected.setSummary(summary);
-//
-//                                    } catch (JSONException e) {
-//                                        throw new RuntimeException(e);
-//                                    }
-//
-//
-//                                    try {
-//                                        srcUrl = response.getString("sourceUrl");
-////                                        selected.setSrcUrl(srcUrl);
-//                                    } catch (JSONException e) {
-//                                        throw new RuntimeException(e);
-//                                    }
-//
-//                                    String imageUrl1;
-//                                    try {
-//                                        imageUrl1 = response.getString("image");
-//                                    } catch (JSONException e) {
-//                                        throw new RuntimeException(e);
-//                                    }
-//
-//                                    String fileName1 = id + "-556x370.jpg";
-//
-//                                    File file = new File( getFilesDir(), fileName1);
-//
-//                                    if (file.exists()) {
-//                                        Log.d("Recipe App", "File path: " + file.getAbsolutePath());
-//                                    } else {
-//                                        Log.d("Recipe App", "got in else " + imageUrl1);
-//                                        ImageRequest imgReq = new ImageRequest(imageUrl1, bitmap -> {
-//                                            // Do something with loaded bitmap...
-//                                            FileOutputStream fOut = null;
-//                                            try {
-//                                                fOut = openFileOutput(fileName1, Context.MODE_PRIVATE);
-//
-//                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-//                                                fOut.flush();
-//                                                fOut.close();
-//                                            } catch (IOException e) {
-//                                                e.printStackTrace();
-//
-//                                            }
-//                                        }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
-//
-//                                        });
-//
-//                                        queue.add(imgReq);
-//
-//                                    }
-//                                    Recipe recipe = new Recipe(title, fileName, summary, srcUrl, id);
-//                                    recipes.add(recipe);
-//                                }, error -> {});
-//
-//                                queue.add(request1);
-
-                                Recipe recipe = new Recipe(title, fileName, summary, srcUrl, id);
-                                recipes.add(recipe);
-
-                                File file = new File(getFilesDir(), fileName);
-                                Log.d("Recipe App", "File path: " + file.getAbsolutePath());
-                                if (file.exists()) {
+                                    File file = new File(getFilesDir(), fileName);
                                     Log.d("Recipe App", "File path: " + file.getAbsolutePath());
-                                } else {
-                                    Log.d("Recipe App", "got in else " + imageUrl);
-                                    ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
-                                        // Do something with loaded bitmap...
-                                        FileOutputStream fOut = null;
-                                        try {
-                                            fOut = openFileOutput(id + "-312x231.jpg", Context.MODE_PRIVATE);
-                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                                            fOut.flush();
-                                            fOut.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
+                                    if (file.exists()) {
+                                        Log.d("Recipe App", "File path: " + file.getAbsolutePath());
+                                        recipeAdapter.notifyDataSetChanged();
+                                    } else {
+                                        Log.d("Recipe App", "got in else " + imageUrl);
+                                        ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
+                                            // Do something with loaded bitmap...
+                                            FileOutputStream fOut = null;
+                                            try {
+                                                fOut = openFileOutput(id + "-312x231.jpg", Context.MODE_PRIVATE);
+                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                                                fOut.flush();
+                                                fOut.close();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }recipeAdapter.notifyDataSetChanged();
+                                        }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
 
-                                    });
-                                    queue.add(imgReq);
-                                }                                    binding.recipeTitleText.setText("Try One?");
+                                        });
 
+                                        queue.add(imgReq);
+                                    }
+
+                                    binding.recipeTitleText.setText("Try One?");
+                                }
                             }
-                            recipeAdapter.notifyDataSetChanged();
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -289,7 +226,7 @@ public class RecipeActivity extends AppCompatActivity {
 
                         String url = "https://api.spoonacular.com/recipes/"
                                 + selected.getId()
-                                + "/information?apiKey=aee190b735d046eea12abceaf17ac29c";
+                                + "/information?apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
 
                         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
                             String summary = null;
@@ -326,7 +263,7 @@ public class RecipeActivity extends AppCompatActivity {
 
                             String fileName = selected.getId() + "-556x370.jpg";
 
-                            File file = new File( getFilesDir(), fileName);
+                            File file = new File(getFilesDir(), fileName);
 
                             if (file.exists()) {
                                 Log.d("Recipe App", "File path: " + file.getAbsolutePath());
@@ -356,7 +293,8 @@ public class RecipeActivity extends AppCompatActivity {
                             }
 //                            recipeModel.selectedrecipe.postValue(selected);
 
-                        }, error -> {});
+                        }, error -> {
+                        });
                         queue.add(request);
                     });
 
@@ -477,7 +415,7 @@ public class RecipeActivity extends AppCompatActivity {
                                 + "\n\n\uD83D\uDDD1 ️Delete This Recipe\n\nFind a recipe from search bar")
                         .setTitle("How to use me: ")
                         .setPositiveButton("OK", (dialog, cl) -> {
-                         }).create().show();
+                        }).create().show();
 
                 break;
 
