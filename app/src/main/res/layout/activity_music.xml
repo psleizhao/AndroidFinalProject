@@ -6,11 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".music.MusicActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/musicRecycleView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/musicTextInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/musicTitleText"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/musicTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Music"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="59dp" />
+        android:text="Paul's Music"
+        android:textColor="#8951ED"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/musicTextInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter artist, album, or song"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/musicSearchButton" />
+
+    <Button
+        android:id="@+id/musicSearchButton"
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

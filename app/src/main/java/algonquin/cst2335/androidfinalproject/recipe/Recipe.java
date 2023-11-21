@@ -15,15 +15,18 @@ public class Recipe {
     @ColumnInfo(name="srcUrl")
     protected String srcUrl;
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name="id")
     public long id;
 
-    public Recipe(String recipeName, String imgUrl, String summary, String srcUrl) {
+
+
+    public Recipe(String recipeName, String imgUrl, String summary, String srcUrl, long id) {
         this.recipeName = recipeName;
         this.imgUrl = imgUrl;
         this.summary = summary;
         this.srcUrl = srcUrl;
+        this.id = id;
     }
 
     public String getRecipeName() {
@@ -40,5 +43,26 @@ public class Recipe {
 
     public String getSrcUrl() {
         return srcUrl;
+    }
+    public long getId() { return id; }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setSrcUrl(String srcUrl) {
+        this.srcUrl = srcUrl;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -7,21 +7,21 @@
     android:layout_marginBottom="8dp">
 
     <TextView
-        android:id="@+id/recipeResult"
+        android:id="@+id/musicResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Recipe Name goes here."
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recipeIcon"
-        app:layout_constraintStart_toEndOf="@+id/recipeIcon"
-        app:layout_constraintTop_toTopOf="@+id/recipeIcon" />
+        android:text="Music Name goes here."
+        android:textColor="#9052FF"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/musicIcon"
+        app:layout_constraintStart_toEndOf="@+id/musicIcon" />
 
     <ImageView
-        android:id="@+id/recipeIcon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/musicIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/star_big_off" />
 </androidx.constraintlayout.widget.ConstraintLayout>
