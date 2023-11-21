@@ -68,7 +68,7 @@ public class DictActivity extends AppCompatActivity {
         binding.dictTextInput.setText(savedSearchText);
 
         binding.dictSearchButton.setOnClickListener(clk -> {
-            String dictName = "Fabulous";
+            String dictName = binding.dictTextInput.getText().toString().trim(); // Use user input
             String imgUrl = "";
             String summary = "Wonderful";
             String srcUrl = "";
@@ -106,7 +106,7 @@ public class DictActivity extends AppCompatActivity {
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
                 Dict obj = dicts.get(position);
-                holder.dictName.setText(obj.getDictName() + position);
+                holder.dictName.setText(obj.getDictName());
             }
 
             @Override
