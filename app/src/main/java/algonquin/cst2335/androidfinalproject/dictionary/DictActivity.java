@@ -1,5 +1,13 @@
 package algonquin.cst2335.androidfinalproject.dictionary;
 
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,12 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,14 +27,15 @@ import algonquin.cst2335.androidfinalproject.databinding.ActivityDictBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchDictBinding;
 
 public class DictActivity extends AppCompatActivity {
-    ActivityDictBinding binding;
+    private ActivityDictBinding binding;
+    private SharedPreferences sharedPreferences;
+    private static final String PREFS_NAME = "DictPrefs";
+    private static final String SEARCH_TEXT_KEY = "searchText";
 
-    ArrayList<Dict> dicts = null;
-    DictViewModel dictModel;
-
+    private ArrayList<Dict> dicts = null;
+    private DictViewModel dictModel;
     private RecyclerView.Adapter dictAdapter;
-
-    DictDAO dDAO;
+    private DictDAO dDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +44,30 @@ public class DictActivity extends AppCompatActivity {
         binding = ActivityDictBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
         dictModel = new ViewModelProvider(this).get(DictViewModel.class);
         dicts = dictModel.Dicts.getValue();
 
-        DictDatabase db = Room.databaseBuilder(getApplicationContext(),DictDatabase.class, "dictdb").build();
+        DictDatabase db = Room.databaseBuilder(getApplicationContext(), DictDatabase.class, "dictdb").build();
         dDAO = db.DictDAO();
 
-        if(dicts == null) {
+        if (dicts == null) {
             dictModel.Dicts.postValue(dicts = new ArrayList<Dict>());
 
             Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() ->
-            {
-                dicts.addAll(dDAO.getAllDicts()); //Once you get the data from database
-
-                runOnUiThread(() -> binding.dictRecycleView.setAdapter(dictAdapter)); //You can then load the RecyclerView
+            thread.execute(() -> {
+                dicts.addAll(dDAO.getAllDicts());
+                runOnUiThread(() -> binding.dictRecycleView.setAdapter(dictAdapter));
             });
         }
 
-        binding.dictSearchButton.setOnClickListener(clk ->{
+        // Restore the previous search text from SharedPreferences
+        String savedSearchText = sharedPreferences.getString(SEARCH_TEXT_KEY, "");
+        binding.dictTextInput.setText(savedSearchText);
 
+        binding.dictSearchButton.setOnClickListener(clk -> {
             String dictName = "Fabulous";
             String imgUrl = "";
             String summary = "Wonderful";
@@ -69,16 +76,22 @@ public class DictActivity extends AppCompatActivity {
             Dict d = new Dict(dictName, imgUrl, summary, srcUrl);
             dicts.add(d);
 
-            binding.dictTextInput.setText("");
+            // Save the search text to SharedPreferences
+            String searchText = binding.dictTextInput.getText().toString().trim();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(SEARCH_TEXT_KEY, searchText);
+            editor.apply();
 
+            binding.dictTextInput.setText("");
             dictAdapter.notifyDataSetChanged();
 
             Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() ->
-            {
-                d.id = dDAO.insertDict(d); //Once you get the data from database
+            thread.execute(() -> {
+                d.id = dDAO.insertDict(d);
             });
 
+            // Display a Toast message
+            Toast.makeText(DictActivity.this, "Search completed!", Toast.LENGTH_SHORT).show();
         });
 
         binding.dictRecycleView.setAdapter(dictAdapter = new RecyclerView.Adapter<MyRowHolder>() {
@@ -91,11 +104,9 @@ public class DictActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBindViewHolder(@NonNull DictActivity.MyRowHolder holder, int position) {
+            public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
                 Dict obj = dicts.get(position);
-
-                holder.dictName.setText(obj.getDictName()+position);
-                //             holder.recipeIcon.setImageURI(Uri.parse((obj.getImgUrl())));
+                holder.dictName.setText(obj.getDictName() + position);
             }
 
             @Override
@@ -115,7 +126,6 @@ public class DictActivity extends AppCompatActivity {
             super(itemView);
             itemView.setOnClickListener(
                     clk -> {
-
                         int position = getAbsoluteAdapterPosition();
                         Dict toDelete = dicts.get(position);
                         AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
@@ -123,19 +133,17 @@ public class DictActivity extends AppCompatActivity {
                                 .setTitle("Question: ")
                                 .setPositiveButton("Yes", (dialog, cl) -> {
                                     Executor thread = Executors.newSingleThreadExecutor();
-                                    thread.execute(() ->
-                                    {
+                                    thread.execute(() -> {
                                         dDAO.deleteDict(toDelete);
                                     });
 
                                     dicts.remove(position);
                                     dictAdapter.notifyDataSetChanged();
 
-                                    Snackbar.make(itemView, "You deleted word #" + (position+1), Snackbar.LENGTH_LONG)
-                                            .setAction("Undo", click ->{
+                                    Snackbar.make(itemView, "You deleted word #" + (position + 1), Snackbar.LENGTH_LONG)
+                                            .setAction("Undo", click -> {
                                                 Executor thread1 = Executors.newSingleThreadExecutor();
-                                                thread.execute(() ->
-                                                {
+                                                thread1.execute(() -> {
                                                     dDAO.insertDict(toDelete);
                                                 });
                                                 dicts.add(position, toDelete);
@@ -146,14 +154,10 @@ public class DictActivity extends AppCompatActivity {
                                 .setNegativeButton("No", (dialog, cl) -> {
                                 })
                                 .create().show();
-
-
                     });
-
 
             dictName = itemView.findViewById(R.id.dictResult);
             dictIcon = itemView.findViewById(R.id.dictIcon);
         }
-
     }
 }
