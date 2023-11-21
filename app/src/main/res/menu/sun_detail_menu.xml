@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/deleteSunLocation"
+        android:icon="@android:drawable/ic_delete"
+        android:title="Delete this location"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/saveSun"
+        android:checkable="false"
+        android:checked="true"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="Save"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/aboutSun"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="About"
+        app:showAsAction="never" />
+</menu>

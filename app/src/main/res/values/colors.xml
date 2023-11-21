@@ -4,7 +4,8 @@
     <color name="my_primary">#f46a8f</color>
     <color name="my_secondary">#fbcdd9</color>
     <color name="my_statusbar">#f47295</color>
-    <color name="my_text">#880a2c</color>
+    <color name="my_text">#0E0B0C</color>
+    <color name="sun_text">#180a0e</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
