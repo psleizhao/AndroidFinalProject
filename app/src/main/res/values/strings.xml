@@ -44,5 +44,5 @@
     <string name="sun_no">No</string>
     <string name="sun_about">Sunrise &amp; Sunset, Version 1.0, created by Yu Song</string>
     <string name="sun_undo">Undo</string>
-
+    <string name="sun_help1">Help 1</string>
 </resources>
