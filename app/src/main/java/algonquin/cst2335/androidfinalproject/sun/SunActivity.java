@@ -57,7 +57,8 @@ public class SunActivity extends AppCompatActivity {
 
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
-        getSupportActionBar().setTitle("Sunrise & Sunset");
+        getSupportActionBar().setTitle(getString(R.string.sun_toolbar_title));
+
 
         sunModel = new ViewModelProvider(this).get(SunViewModel.class);
         suns = sunModel.suns.getValue(); //get the array list from ViewModelProvider, might be NULL
@@ -234,11 +235,14 @@ public class SunActivity extends AppCompatActivity {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
 
-                    builder.setMessage("Do you want to delete this record: " + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
-                    builder.setTitle("Question: ");
+//                    builder.setMessage("Do you want to delete this record: " + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
+//                    builder.setTitle("Question: ");
 
-                    builder.setNegativeButton("No", (btn, obj) -> { /* if no is clicked */ });
-                    builder.setPositiveButton("Yes", (btn, obj) -> { /* if yes is clicked */
+                    builder.setMessage(getString(R.string.sun_del_warning_text) + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
+                    builder.setTitle(getString(R.string.sun_del_warning_title));
+
+                    builder.setNegativeButton(getString(R.string.sun_no), (btn, obj) -> { /* if no is clicked */ });
+                    builder.setPositiveButton(getString(R.string.sun_yes), (btn, obj) -> { /* if yes is clicked */
                         Executor thread = Executors.newSingleThreadExecutor();
                         thread.execute(() -> {
                             //delete from database
@@ -249,8 +253,8 @@ public class SunActivity extends AppCompatActivity {
                         sunAdapter.notifyDataSetChanged(); //redraw the list
                         getSupportFragmentManager().popBackStack(); // go back to message list
 
-                        Snackbar.make(binding.sunRecycleView, "You deleted message #" + position, Snackbar.LENGTH_LONG)
-                                .setAction("Undo", click -> {
+                        Snackbar.make(binding.sunRecycleView, getString(R.string.sun_del_after) + position, Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.sun_undo), click -> {
                                     Executor thread2 = Executors.newSingleThreadExecutor();
                                     thread2.execute(() -> {
                                         sDAO.insertSun(toDelete);
