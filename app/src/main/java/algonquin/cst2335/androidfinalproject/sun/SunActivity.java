@@ -57,6 +57,7 @@ public class SunActivity extends AppCompatActivity {
 
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
+        getSupportActionBar().setTitle("Sunrise & Sunset");
 
         sunModel = new ViewModelProvider(this).get(SunViewModel.class);
         suns = sunModel.suns.getValue(); //get the array list from ViewModelProvider, might be NULL
