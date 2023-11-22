@@ -43,7 +43,8 @@
     <string name="sun_del_after">You deleted message #</string>
     <string name="sun_yes">Yes</string>
     <string name="sun_no">No</string>
-    <string name="sun_about">Sunrise &amp; Sunset, Version 1.0, created by Yu Song</string>
+    <string name="sun_about_title">About</string>
+    <string name="sun_about_detail">Sunrise &amp; Sunset, Version 1.0, created by Yu Song</string>
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">Help 1</string>
 </resources>

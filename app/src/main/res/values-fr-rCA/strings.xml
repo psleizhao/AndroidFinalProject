@@ -43,7 +43,8 @@
     <string name="sun_del_after">Vous avez supprimé le message #</string>
     <string name="sun_yes">Oui</string>
     <string name="sun_no">Non</string>
-    <string name="sun_about">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
+    <string name="sun_about_title">À propos</string>
+    <string name="sun_about_detail">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide 1</string>
 

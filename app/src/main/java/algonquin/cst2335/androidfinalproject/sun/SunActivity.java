@@ -277,7 +277,7 @@ public class SunActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.aboutSun:
-                Toast.makeText(this,"Sunrise & Sunset, Version 1.0, created by Yu Song", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
