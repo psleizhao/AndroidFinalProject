@@ -151,7 +151,8 @@ public class SunActivity extends AppCompatActivity {
                             String status = response.getString("status"); // get the JSONArray associated with "status"
 
                             if (results.length() == 0) {
-                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                                Log.e("API JSONObject N/A", "The API JSONObject not found");
+                                Toast.makeText(this, "Found nothing, API JSONObject length = 0", Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
                                 Log.e("API Status not OK", "The API status is not OK");
@@ -159,7 +160,7 @@ public class SunActivity extends AppCompatActivity {
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 suns.clear(); //???什么意思，我需要吗？
-                                Log.e("API Results Status OK", "Sun API Results and Status OK");
+                                Log.d("API Results Status OK", "Sun API Results and Status OK");
                                 String sunriseResult = results.getString("sunrise");
                                 String sunsetResult = results.getString("sunset");
                                 String solar_noonResult = results.getString("solar_noon");
@@ -169,17 +170,35 @@ public class SunActivity extends AppCompatActivity {
                                 Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
                                 suns.add(s);
 
+                                // tell the recycle view that there is new data SetChanged()
+                                sunAdapter.notifyDataSetChanged(); //redraw the screen
+
+                                Executor thread = Executors.newSingleThreadExecutor();
+                                thread.execute(() ->
+                                {
+                                    sDAO.insertSun(s); //Once you get the data from database
+                                });
+
+                                //create a Sun fragment
+                                SunDetailsFragment sunFragment = new SunDetailsFragment(suns.get(selectedRow));
+
+                                FragmentManager fMgr = getSupportFragmentManager();
+                                FragmentTransaction transaction = fMgr.beginTransaction();
+                                transaction.addToBackStack("Add to back stack"); // adds to the history
+                                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+                                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     },
                     (error) -> {
-
+                        Log.e("JSON Request Error", "JSON Object Request Error");
                     });
             queue.add(request);
 
-
+/*
             Sun s = new Sun(sunLatitude, sunLongitude, sunrise, sunset, solar_noon, golden_hour, timezone);
             suns.add(s);
 
@@ -200,7 +219,7 @@ public class SunActivity extends AppCompatActivity {
             transaction.addToBackStack("Add to back stack"); // adds to the history
             transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
             transaction.commit();// This line actually loads the fragment into the specified FrameLayout
-
+*/
             //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
