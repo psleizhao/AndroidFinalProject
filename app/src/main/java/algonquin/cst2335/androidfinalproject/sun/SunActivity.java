@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +26,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.jar.JarException;
 
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
@@ -44,11 +55,13 @@ public class SunActivity extends AppCompatActivity {
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
 
+    protected RequestQueue queue = null; // for volley
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivitySunBinding.inflate(getLayoutInflater());
+        queue = Volley.newRequestQueue(this);//HTTP Connections: Volley. A Volley object that will connect to a server
         setContentView(binding.getRoot());
 
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
@@ -108,6 +121,65 @@ public class SunActivity extends AppCompatActivity {
             editor.putString("longitude", sunLongitude);
             editor.apply();
 
+            /*
+            * This part can be used to expand the function: enter city name, get sun data
+            *
+            * cityName = binding.editCity.getText().toString();
+            * String cityNameEncode = "0";
+            * try {
+            *     cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
+            * } catch (UnsupportedEncodingException e) {
+            *     throw new RuntimeException(e);
+            * }
+            *
+            * */
+
+            // Prepare api url
+
+            // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
+//            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
+            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude;
+            Log.d("Sunrise Sunset", "Request URL: " + url);
+
+            //this goes in the button click handler:
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    (response) -> {
+                        try {
+//                            JSONArray sunArray = response.getJSONArray("results"); // get the JSONArray associated with "results"
+//                            JSONObject position0 = sunArray.getJSONObject(0); //get the JSONObject at position 0:
+                            JSONObject results = response.getJSONObject("results");
+                            String status = response.getString("status"); // get the JSONArray associated with "status"
+
+                            if (results.length() == 0) {
+                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                            } else if (!"OK".equals(status)) {
+                                // Status is not OK
+                                Log.e("API Status not OK", "The API status is not OK");
+                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // When sunArray and sunStatus both ok:
+                                suns.clear(); //???什么意思，我需要吗？
+                                Log.e("API Results Status OK", "Sun API Results and Status OK");
+                                String sunriseResult = results.getString("sunrise");
+                                String sunsetResult = results.getString("sunset");
+                                String solar_noonResult = results.getString("solar_noon");
+                                String golden_hourResult = results.getString("golden_hour");
+                                String timezoneResult = results.getString("timezone");
+
+                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
+                                suns.add(s);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    (error) -> {
+
+                    });
+            queue.add(request);
+
+
             Sun s = new Sun(sunLatitude, sunLongitude, sunrise, sunset, solar_noon, golden_hour, timezone);
             suns.add(s);
 
@@ -118,7 +190,6 @@ public class SunActivity extends AppCompatActivity {
             thread.execute(() ->
             {
                 sDAO.insertSun(s); //Once you get the data from database
-//                s.sunId = sDAO.insertSun(s); //Once you get the data from database
             });
 
             //create a Sun fragment
