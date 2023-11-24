@@ -3,9 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/recipeGotoSunItem"
+        android:icon="@drawable/sun_icon"
+        android:title="SunSeeker"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/recipeGotoMusicItem"
+        android:icon="@drawable/music_icon"
+        android:title="DeezerDiscover"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/recipeGotoDictItem"
+        android:icon="@drawable/dict_icon"
+        android:title="WordWiz"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/favoriteItem"
         android:icon="@drawable/favorite"
-        android:title="Go To My Favorites"
+        android:title="@string/recipe_favItem"
         app:showAsAction="always" />
 
     <item
@@ -20,13 +35,14 @@
         android:title="Delete This Recipe"
         app:showAsAction="always" />
     <item
-        android:id="@+id/backItem"
+        android:id="@+id/recipeBackToMainItem"
         android:title="Back to main page"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/helpItem"
         android:icon="@drawable/help"
-        android:title="Help"
+        android:title="@string/recipe_helpItem"
         app:showAsAction="never" />
     <item
         android:id="@+id/aboutRecipe"
