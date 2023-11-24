@@ -4,4 +4,50 @@
     <string name="recipe_favItem">Mes Favoris</string>
     <string name="recipe_helpItem">Aide</string>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--The following strings belong to Sun Activity-->
+    <string name="sun_toolbar_title">Lever et coucher du soleil</string>
+    <string name="sun_fav">Mes Favoris</string>
+    <string name="sun_lat_hint">Latitude : </string>
+    <string name="sun_lng_hint">Longitude : </string>
+    <string name="sun_lat_text">Latitude</string>
+    <string name="sun_lng_text">Longitude</string>
+    <string name="sun_search_btn">Rechercher</string>
+    <string name="sun_del_warning_text">Voulez-vous supprimer cet enregistrement : </string>
+    <string name="sun_del_warning_title">Question : </string>
+    <string name="sun_del_text">Voulez-vous supprimer cet enregistrement : </string>
+    <string name="sun_del_title">Question : </string>
+    <string name="sun_del_after">Vous avez supprimé le message #</string>
+    <string name="sun_yes">Oui</string>
+    <string name="sun_no">Non</string>
+    <string name="sun_about_title">À propos</string>
+    <string name="sun_about_detail">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
+    <string name="sun_undo">Annuler</string>
+    <string name="sun_help1">Aide 1</string>
+
 </resources>
