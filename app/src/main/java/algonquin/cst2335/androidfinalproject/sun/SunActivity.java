@@ -135,7 +135,6 @@ public class SunActivity extends AppCompatActivity {
             * */
 
             // Prepare api url
-
             // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
             String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude;
@@ -144,6 +143,17 @@ public class SunActivity extends AppCompatActivity {
             //this goes in the button click handler:
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                     (response) -> {
+                try {
+                    if(response.has("results")){
+                        Log.d("API Results", "Sun API Request has results");
+                        JSONObject results = response.getJSONObject("results");
+                        String status = response.getString("status"); // get the JSONArray associated with "status"
+                    }
+                }catch  (JSONException e) {
+                    Log.e("API response: ", "response don't have results");
+                            e.printStackTrace();
+                        }
+
                         try {
 //                            JSONArray sunArray = response.getJSONArray("results"); // get the JSONArray associated with "results"
 //                            JSONObject position0 = sunArray.getJSONObject(0); //get the JSONObject at position 0:
@@ -159,7 +169,7 @@ public class SunActivity extends AppCompatActivity {
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 suns.clear(); //???什么意思，我需要吗？
-                                Log.e("API Results Status OK", "Sun API Results and Status OK");
+                                Log.d("API Results Status OK", "Sun API Results and Status OK");
                                 String sunriseResult = results.getString("sunrise");
                                 String sunsetResult = results.getString("sunset");
                                 String solar_noonResult = results.getString("solar_noon");
