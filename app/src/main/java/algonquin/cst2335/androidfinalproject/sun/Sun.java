@@ -73,5 +73,21 @@ public class Sun {
         return timezone;
     }
 
+    public void setSunrise(String sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public void setSunset(String sunset) {
+        this.sunset = sunset;
+    }
+
+    public void setSolar_noon(String solar_noon) {
+        this.solar_noon = solar_noon;
+    }
+
+    public void setGolder_hour(String golder_hour) {
+        this.golder_hour = golder_hour;
+    }
+
 
 }

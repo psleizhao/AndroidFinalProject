@@ -29,7 +29,7 @@ public class SunDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         //inflate an XML layout for this Fragment
-        SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(inflater);
+        SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater());
 
         //set the text views:
         binding.sunSunriseDetail.setText(selected.sunrise);
@@ -37,27 +37,28 @@ public class SunDetailsFragment extends Fragment {
         binding.sunGoldenDetail.setText(selected.golder_hour);
         binding.sunSunsetDetail.setText(selected.sunset);
         binding.sunTimezoneDetail.setText(selected.timezone);
+//        binding.sunTimezoneDetail.setText("-600");
 
         // Get the current time in the selected timezone
-        TimeZone timeZone = TimeZone.getTimeZone("GMT");  // Set your default timezone
-        int utcOffset = Integer.parseInt(selected.timezone);  // Replace with selected.timezone or use a default value
-        timeZone.setRawOffset(utcOffset * 60 * 1000);  // Set the UTC offset in milliseconds
-
-        // Create a SimpleDateFormat instance for date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy", Locale.getDefault());
-        dateFormat.setTimeZone(timeZone);
-
-        // Create a SimpleDateFormat instance for time
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
-        timeFormat.setTimeZone(timeZone);
-
-        // Format the date and time
-        String currentDate = dateFormat.format(new Date());
-        String currentTime = timeFormat.format(new Date());
-
-        //set the text views:
-        binding.sunDateDetailTitle.setText(currentDate);
-        binding.sunTimeDetailTitle.setText(currentTime);
+//        TimeZone timeZone = TimeZone.getTimeZone("GMT");  // Set your default timezone
+//        int utcOffset = Integer.parseInt(selected.timezone);  // Replace with selected.timezone or use a default value
+//        timeZone.setRawOffset(utcOffset * 60 * 1000);  // Set the UTC offset in milliseconds
+//
+//        // Create a SimpleDateFormat instance for date
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy", Locale.getDefault());
+//        dateFormat.setTimeZone(timeZone);
+//
+//        // Create a SimpleDateFormat instance for time
+//        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
+//        timeFormat.setTimeZone(timeZone);
+//
+//        // Format the date and time
+//        String currentDate = dateFormat.format(new Date());
+//        String currentTime = timeFormat.format(new Date());
+//
+//        //set the text views:
+//        binding.sunDateDetailTitle.setText(currentDate);
+//        binding.sunTimeDetailTitle.setText(currentTime);
 
         return binding.getRoot();
     }
