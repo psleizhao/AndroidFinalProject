@@ -3,17 +3,52 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/deleteSunLocation"
-        android:icon="@android:drawable/ic_delete"
-        android:title="Delete this location"
+        android:id="@+id/sunGotoRecipeItem"
+        android:icon="@drawable/recipe_icon"
+        android:title="RecipeRover"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/sunGotoMusicItem"
+        android:icon="@drawable/music_icon"
+        android:title="DeezerDiscover"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/sunGotoDictItem"
+        android:icon="@drawable/dict_icon"
+        android:title="WordWiz"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/favoriteSun"
+        android:icon="@drawable/favorite"
+        android:title="@string/recipe_favItem"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/saveSun"
         android:checkable="false"
         android:checked="true"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/add"
         android:title="Save"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/deleteSun"
+        android:icon="@drawable/delete"
+        android:title="Delete this location"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/sunBackToMainItem"
+        android:title="Back to main page"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sunHelp"
+        android:icon="@drawable/help"
+        android:title="@string/recipe_helpItem"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/aboutSun"
         android:icon="@android:drawable/ic_dialog_info"

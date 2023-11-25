@@ -1,5 +1,7 @@
 package algonquin.cst2335.androidfinalproject.sun;
 
+import static java.security.AccessController.getContext;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,18 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Spanned;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,19 +30,20 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.jar.JarException;
 
+import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SunRecordBinding;
+import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
+import algonquin.cst2335.androidfinalproject.music.MusicActivity;
+import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
 public class SunActivity extends AppCompatActivity {
 
@@ -54,6 +53,8 @@ public class SunActivity extends AppCompatActivity {
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
+
+    Sun sToPass; // to hold the "sun" object to pass to other classes or methods
 
     protected RequestQueue queue = null; // for volley
 
@@ -135,7 +136,6 @@ public class SunActivity extends AppCompatActivity {
             * */
 
             // Prepare api url
-
             // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
             String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude;
@@ -145,8 +145,21 @@ public class SunActivity extends AppCompatActivity {
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                     (response) -> {
                         try {
-//                            JSONArray sunArray = response.getJSONArray("results"); // get the JSONArray associated with "results"
-//                            JSONObject position0 = sunArray.getJSONObject(0); //get the JSONObject at position 0:
+                            if (response.has("results")) {
+                                Log.d("Sun API Results", "Sun API Request has results");
+                                JSONObject results = response.getJSONObject("results");
+                                String status = response.getString("status"); // get the JSONArray associated with "status"
+                                Log.d("Sun API status", "Status" + status);
+                            }
+                        } catch (JSONException e) {
+                            Log.e("API response: ", "response don't have results");
+                            e.printStackTrace();
+                            runOnUiThread(() ->
+                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
+                            );
+                        }
+
+                        try {
                             JSONObject results = response.getJSONObject("results");
                             String status = response.getString("status"); // get the JSONArray associated with "status"
 
@@ -154,52 +167,48 @@ public class SunActivity extends AppCompatActivity {
                                 Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
-                                Log.e("API Status not OK", "The API status is not OK");
+                                Log.e("Sun API Status not OK", "The Sun API status is not OK");
                                 Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
                             } else {
                                 // When sunArray and sunStatus both ok:
-                                suns.clear(); //???什么意思，我需要吗？
-                                Log.e("API Results Status OK", "Sun API Results and Status OK");
+                                Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
+
+                                // Read the values in the "results" in JSON
                                 String sunriseResult = results.getString("sunrise");
                                 String sunsetResult = results.getString("sunset");
                                 String solar_noonResult = results.getString("solar_noon");
                                 String golden_hourResult = results.getString("golden_hour");
                                 String timezoneResult = results.getString("timezone");
 
-                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
-                                suns.add(s);
 
+                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
+                                sToPass = s; // pass the sun obj to the class level
+
+                                // tell the recycle view that there is new data SetChanged()
+                                sunAdapter.notifyDataSetChanged();//redraw the screen
+
+
+
+                                SunDetailsFragment sunFragment = new SunDetailsFragment(s);
+
+                                FragmentManager fMgr = getSupportFragmentManager();
+                                FragmentTransaction transaction = fMgr.beginTransaction();
+                                transaction.addToBackStack("Add to back stack"); // adds to the history
+                                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+                                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+
+                                //clear the previous text
+                                binding.latInput.setText("");
+                                binding.lngInput.setText("");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     },
                     (error) -> {
-
+                        Log.e("JsonObjectRequest Error", "JsonObjectRequest Error");
                     });
             queue.add(request);
-
-
-            Sun s = new Sun(sunLatitude, sunLongitude, sunrise, sunset, solar_noon, golden_hour, timezone);
-            suns.add(s);
-
-            // tell the recycle view that there is new data SetChanged()
-            sunAdapter.notifyDataSetChanged(); //redraw the screen
-
-            Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() ->
-            {
-                sDAO.insertSun(s); //Once you get the data from database
-            });
-
-            //create a Sun fragment
-            SunDetailsFragment sunFragment = new SunDetailsFragment(suns.get(selectedRow));
-
-            FragmentManager fMgr = getSupportFragmentManager();
-            FragmentTransaction transaction = fMgr.beginTransaction();
-            transaction.addToBackStack("Add to back stack"); // adds to the history
-            transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
-            transaction.commit();// This line actually loads the fragment into the specified FrameLayout
 
             //clear the previous text
             binding.latInput.setText("");
@@ -264,6 +273,46 @@ public class SunActivity extends AppCompatActivity {
                 int position = getAbsoluteAdapterPosition();//find which row this is
                 Sun selected = suns.get(position);
 
+                // Prepare api url
+                // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
+//            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
+                String url = "https://api.sunrisesunset.io/json?lat=" + selected.getSunLatitude() + "&lng=" + selected.getSunLongitude();
+                Log.d("Sunrise Sunset", "Request URL: " + url);
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        (response) -> {
+                    try {
+                        JSONObject results = response.getJSONObject("results");
+                        String status = response.getString("status"); // get the JSONArray associated with "status"
+                        if (results.length() == 0) {
+                              Toast.makeText(SunActivity.this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+
+                        } else if (!"OK".equals(status)) {
+                            Log.e("Sun API Status not OK", "The Sun API status is not OK");
+                            Toast.makeText(SunActivity.this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
+
+                            // Read the values in the "results" in JSON
+                            String sunriseResult = results.getString("sunrise");
+                            String sunsetResult = results.getString("sunset");
+                            String solar_noonResult = results.getString("solar_noon");
+                            String golden_hourResult = results.getString("golden_hour");
+                            String timezoneResult = results.getString("timezone");
+
+                            selected.setSunrise(sunriseResult);
+                            selected.setSunset(sunsetResult);
+                            selected.setSolar_noon(solar_noonResult);
+                            selected.setGolder_hour(golden_hourResult);
+
+                            sunAdapter.notifyDataSetChanged();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                        }, error -> {                });
+                queue.add(request);
+
                 //starts the loading
                 sunModel.selectedSun.postValue(selected);
 
@@ -294,7 +343,33 @@ public class SunActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch( item.getItemId() ){
-            case R.id.deleteSunLocation:
+            case R.id.favoriteSun:
+                Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
+                startActivity(nextPage);
+                break;
+
+             case R.id.saveSun:
+
+                        Executor threadS = Executors.newSingleThreadExecutor();
+                        threadS.execute(()->{
+                            try {
+                                Log.d("Sun Save", "try insert existing record");
+                                sDAO.insertSun(sToPass);
+                                runOnUiThread(()->{
+                                    Log.d("Sun Save", "Sun saved successfully");
+                                    // tell the recycle view that there is new data SetChanged()
+                                    sunAdapter.notifyDataSetChanged();//redraw the screen
+                                    Toast.makeText(this, getResources().getString(R.string.sun_save_success), Toast.LENGTH_SHORT).show();
+                                });
+                            } catch (Exception e) {
+                                Log.d("Sun Save", "Exception, sun already in Fav");
+                                runOnUiThread(() -> Toast.makeText(SunActivity.this, getString(R.string.sun_save_dupe_record_warning), Toast.LENGTH_SHORT).show());
+                            }
+                        });
+
+                break;
+
+            case R.id.deleteSun:
 
                 //put your Sun deletion code here. If you select this item, you should show the alert dialog
                 //asking if the user wants to delete this message
@@ -347,12 +422,42 @@ public class SunActivity extends AppCompatActivity {
                     builder.create().show(); //this has to be last
                 }
                 break;
+
+            case R.id.sunBackToMainItem:
+                Intent nextPage1 = new Intent(SunActivity.this, MainActivity.class);
+                startActivity(nextPage1);
+                break;
+
+            case R.id.sunGotoRecipeItem:
+                Intent nextPage2 = new Intent(SunActivity.this, RecipeActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.sunGotoMusicItem:
+                Intent nextPage3 = new Intent(SunActivity.this, MusicActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.sunGotoDictItem:
+                Intent nextPage4 = new Intent(SunActivity.this, DictActivity.class);
+                startActivity(nextPage4);
+                break;
+
+            case R.id.sunHelp:
+                AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
+                builder.setMessage(getResources().getString(R.string.sun_help2))
+                        .setTitle(getResources().getString(R.string.sun_help1))
+                        .setPositiveButton("OK", (dialog, cl) -> {})
+                        .create().show();
+                break;
+
             case R.id.aboutSun:
                 Toast.makeText(this,getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
                 break;
+
             default:
                 return super.onOptionsItemSelected(item);
-        }// Handle other menu items if needed
+        }
         return true;
     }
 
