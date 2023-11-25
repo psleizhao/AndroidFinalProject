@@ -53,7 +53,6 @@ public class SunActivity extends AppCompatActivity {
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
-
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
 
     protected RequestQueue queue = null; // for volley
@@ -187,8 +186,7 @@ public class SunActivity extends AppCompatActivity {
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-
-
+                                // Create a Fragment
                                 SunDetailsFragment sunFragment = new SunDetailsFragment(s);
 
                                 FragmentManager fMgr = getSupportFragmentManager();
@@ -221,9 +219,7 @@ public class SunActivity extends AppCompatActivity {
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
-
-                SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
+               SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
                 return new MyRowHolder(binding2.getRoot());
             }
 
@@ -235,14 +231,12 @@ public class SunActivity extends AppCompatActivity {
                 holder.sunLatitudeView.setText(obj.getSunLatitude());
                 holder.sunLongitudeView.setText(obj.getSunLongitude());
 
-
 //                holder.sunriseView.setText(obj.getSunrise());
 //                holder.sunsetView.setText(obj.getSunset());
 //                holder.solar_noonView.setText(obj.getSolar_noon());
 //                holder.golden_hourView.setText(obj.getGolder_hour());
 //                holder.timezoneView.setText(obj.getTimezone());
             }
-
 
             @Override
             public int getItemCount() {
@@ -274,7 +268,7 @@ public class SunActivity extends AppCompatActivity {
                 Sun selected = suns.get(position);
 
                 // Prepare api url
-                // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
+                // Expand: can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
                 String url = "https://api.sunrisesunset.io/json?lat=" + selected.getSunLatitude() + "&lng=" + selected.getSunLongitude();
                 Log.d("Sunrise Sunset", "Request URL: " + url);
