@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,8 +53,8 @@ import algonquin.cst2335.androidfinalproject.databinding.SearchMusicBinding;
 import algonquin.cst2335.androidfinalproject.music.Music;
 import algonquin.cst2335.androidfinalproject.music.MusicDatabase;
 import algonquin.cst2335.androidfinalproject.music.MusicDetailsFragment;
-import algonquin.cst2335.androidfinalproject.recipe.Recipe;
-import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
+import algonquin.cst2335.androidfinalproject.music.Music;
+import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 
 
 public class MusicActivity extends AppCompatActivity {
@@ -66,6 +67,7 @@ public class MusicActivity extends AppCompatActivity {
     private RecyclerView.Adapter musicAdapter;
 
     MusicDAO mDAO;
+    protected RequestQueue queue = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +175,7 @@ public class MusicActivity extends AppCompatActivity {
                                         queue.add(imgReq);
                                     }
 
-                                    binding.musicTitleText.setText("Try One?");
+                                    binding.musicTitleText.setText("Ready to Listen?");
                                 }
                             }
                         } catch (JSONException e) {
@@ -198,9 +200,10 @@ public class MusicActivity extends AppCompatActivity {
 
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
+                Music obj = null;
                 File file = new File(getFilesDir(), obj.getImgUrl());
                 Bitmap theImage = BitmapFactory.decodeFile(file.getAbsolutePath());
-                holder.musicName.setText(obj.getRecipeName());
+                holder.musicName.setText(obj.getMusicName());
                 holder.musicIcon.setImageBitmap(theImage);
 
             }
@@ -414,7 +417,7 @@ public class MusicActivity extends AppCompatActivity {
             case R.id.helpItem:
 //                Toast.makeText(this, "❤️Go To Saved Music\n\uD83D\uDCE5Save This Music\n\uD83D\uDDD1️Delete This Music", Toast.LENGTH_LONG).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-                builder.setMessage("❤️ Go To Saved Music\n\n\uD83D\uDCE5 Save This Musc"
+                builder.setMessage("❤️ Go To Saved Music\n\n\uD83D\uDCE5 Save This Music"
                                 + "\n\n\uD83D\uDDD1 ️Delete This Music\n\nFind a music from search bar")
                         .setTitle("How to use me: ")
                         .setPositiveButton("OK", (dialog, cl) -> {
