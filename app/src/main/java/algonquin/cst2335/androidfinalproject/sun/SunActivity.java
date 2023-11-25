@@ -35,9 +35,13 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivitySunBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SunRecordBinding;
+import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
+import algonquin.cst2335.androidfinalproject.music.MusicActivity;
+import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
 public class SunActivity extends AppCompatActivity {
 
@@ -384,6 +388,26 @@ public class SunActivity extends AppCompatActivity {
                     });
                     builder.create().show(); //this has to be last
                 }
+                break;
+
+            case R.id.sunBackToMainItem:
+                Intent nextPage1 = new Intent(SunActivity.this, MainActivity.class);
+                startActivity(nextPage1);
+                break;
+
+            case R.id.sunGotoRecipeItem:
+                Intent nextPage2 = new Intent(SunActivity.this, RecipeActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.sunGotoMusicItem:
+                Intent nextPage3 = new Intent(SunActivity.this, MusicActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.sunGotoDictItem:
+                Intent nextPage4 = new Intent(SunActivity.this, DictActivity.class);
+                startActivity(nextPage4);
                 break;
 
             case R.id.sunHelp:
