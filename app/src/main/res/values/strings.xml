@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AndroidFinalProject</string>
+    <string name="landingTitle"> ALL-IN-ONE HUB </string>
 
 
 
@@ -28,7 +29,8 @@
 
 
 
-<!--The following strings belong to Sun Activity-->
+
+    <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
     <string name="sun_fav">My Favourite</string>
     <string name="sun_lat_hint">Latitude: </string>

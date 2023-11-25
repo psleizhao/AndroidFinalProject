@@ -1,33 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AndroidFinalProject</string>
+    <string name="landingTitle"> CENTRE TOUT-EN-UN </string>
+
+    <!--   Recipe Strings -->
     <string name="recipe_favItem">Mes Favoris</string>
     <string name="recipe_helpItem">Aide</string>
+    <string name="recipe_addItem">Sauvegarder</string>
+    <string name="recipe_deleteItem">Supprimer</string>
+    <string name="recipe_backToMainItem">Accueil</string>
+    <string name="recipe_aboutItem">À Propos</string>
+    <string name="recipe_sampleList">Nom de recette ici</string>
 
+    <string name="recipe_titleText">Mes Favoris</string>
+    <string name="recipe_searchButton">Rechercher</string>
+    <string name="recipe_hintText">Tapez ici...</string>
+    <string name="recipe_searchTitle">Essayez?</string>
+    <string name="recipe_sourceButton">Intéressé? Obtenez des détails!</string>
+    <string name="recipe_summaryTitle">Résumé</string>
+    <string name="recipe_summaryDetail">Résumé</string>
+    <string name="recipe_frgTitle">Nom De Recette</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="recipe_notFoundToast">Désolé, rien trouvé</string>
+    <string name="recipe_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>
+    <string name="recipe_noBrowserToast">Aucune application pour gérer l\'URL.</string>
+    <string name="recipe_insertSucceedToast">Recette sauvegardée avec succès</string>
+    <string name="recipe_alreadyInToast">Recette déjà dans votre liste.</string>
+    <string name="recipe_noSelectedToast">Aucune recette sélectionnée</string>
+    <string name="recipe_deleteAlert">Voulez vous supprimer la recette de </string>
+    <string name="recipe_yes">Oui</string>
+    <string name="recipe_no">Non</string>
+    <string name="recipe_undo">Annuler</string>
+    <string name="recipe_deletedSnackbar">Vous avez supprimé la recette #</string>
+    <string name="recipe_aboutToast">RecipeRover créé par Lei Zhao</string>
+    <string name="recipe_helpTitle">Comment m\'utiliser: </string>
+    <string name="recipe_ok">OK</string>
+    <string name="recipe_helpAlert">\u2600 SunSeeker\n\n
+                                \uD83C\uDFB5 DeezerDiscover\n\n
+                                \uD83D\uDCD5 WordWiz\n\n
+                                \u2764 Recettes Sauvegardée\n\n
+                                \uD83D\uDCE5 Sauvegarder la recette\n\n
+                                \uD83D\uDDD1 ️Supprimer la recette\n\n
+                                Trouver une recette par la recherche</string>
 
 
     <!--The following strings belong to Sun Activity-->
