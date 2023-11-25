@@ -48,6 +48,14 @@
     <string name="sun_about_title">À propos</string>
     <string name="sun_about_detail">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
     <string name="sun_undo">Annuler</string>
-    <string name="sun_help1">Aide 1</string>
+    <string name="sun_help1">Aide</string>
+    <string name="sun_help2"><![CDATA[
+        \uD83C\uDF73 RecipeRover\n\n
+        \uD83C\uDFB5 DeezerDiscover\n\n
+        \uD83D\uDCD5 WordWiz\n\n
+        \u2764 Enregistrements sauvegardés\n\n
+        \uD83D\uDCE5 Enregistrer cet enregistrement\n\n
+        \uD83D\uDDD1 ️Supprimer cet enregistrement\n\n
+    ]]></string>
 
 </resources>

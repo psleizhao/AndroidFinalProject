@@ -329,6 +329,7 @@ public class SunActivity extends AppCompatActivity {
                 startActivity(nextPage);
                 break;
 
+            case R.id.addItem:
 
 
             case R.id.deleteSun:
@@ -384,9 +385,19 @@ public class SunActivity extends AppCompatActivity {
                     builder.create().show(); //this has to be last
                 }
                 break;
+
+            case R.id.sunHelp:
+                AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
+                builder.setMessage(getResources().getString(R.string.sun_help2))
+                        .setTitle(getResources().getString(R.string.sun_help1))
+                        .setPositiveButton("OK", (dialog, cl) -> {})
+                        .create().show();
+                break;
+
             case R.id.aboutSun:
                 Toast.makeText(this,getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
                 break;
+
             default:
                 return super.onOptionsItemSelected(item);
         }// Handle other menu items if needed

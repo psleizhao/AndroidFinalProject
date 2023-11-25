@@ -46,5 +46,14 @@
     <string name="sun_about_title">About</string>
     <string name="sun_about_detail">Sunrise &amp; Sunset, Version 1.0, created by Yu Song</string>
     <string name="sun_undo">Undo</string>
-    <string name="sun_help1">Help 1</string>
+    <string name="sun_help1">How to use SunSeeker:</string>
+    <string name="sun_help2"><![CDATA[
+        \uD83C\uDF73 Goto RecipeRover\n\n
+        \uD83C\uDFB5 Goto DeezerDiscover\n\n
+        \uD83D\uDCD5 Goto WordWiz\n\n
+        \u2764 My Saved Records\n\n
+        \uD83D\uDCE5 Save this Record\n\n
+        \uD83D\uDDD1 ️Delete this Record\n
+    ]]></string>
+
 </resources>
