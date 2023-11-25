@@ -36,7 +36,8 @@ public class SunDetailsFragment extends Fragment {
         binding.sunNoonDetail.setText(selected.solar_noon);
         binding.sunGoldenDetail.setText(selected.golder_hour);
         binding.sunSunsetDetail.setText(selected.sunset);
-        binding.sunTimezoneDetail.setText(selected.timezone);
+//        binding.sunTimezoneDetail.setText(selected.timezone);
+        binding.sunTimezoneDetail.setText("-600");
 
         // Get the current time in the selected timezone
         TimeZone timeZone = TimeZone.getTimeZone("GMT");  // Set your default timezone
