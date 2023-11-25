@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -43,7 +42,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -52,6 +50,9 @@ import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityRecipeBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchRecipeBinding;
+import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
+import algonquin.cst2335.androidfinalproject.music.MusicActivity;
+import algonquin.cst2335.androidfinalproject.sun.SunActivity;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -75,6 +76,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         // call onCreateOptionsMenu()
         setSupportActionBar(binding.recipeToolbar); // only one line required to initialize the toolbar
+        getSupportActionBar().setTitle("Lei's Cuisine");
 
         recipeModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipes = recipeModel.recipes.getValue();
@@ -403,20 +405,39 @@ public class RecipeActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.backItem:
+            case R.id.recipeBackToMainItem:
                 Intent nextPage1 = new Intent(RecipeActivity.this, MainActivity.class);
                 startActivity(nextPage1);
+                break;
+
+            case R.id.recipeGotoSunItem:
+                Intent nextPage2 = new Intent(RecipeActivity.this, SunActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.recipeGotoMusicItem:
+                Intent nextPage3 = new Intent(RecipeActivity.this, MusicActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.recipeGotoDictItem:
+                Intent nextPage4 = new Intent(RecipeActivity.this, DictActivity.class);
+                startActivity(nextPage4);
                 break;
 
             case R.id.helpItem:
 //                Toast.makeText(this, "❤️Go To Saved Recipes\n\uD83D\uDCE5Save This Recipe\n\uD83D\uDDD1️Delete This Recipe", Toast.LENGTH_LONG).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
-                builder.setMessage("❤️ Go To Saved Recipes\n\n\uD83D\uDCE5 Save This Recipe"
-                                + "\n\n\uD83D\uDDD1 ️Delete This Recipe\n\nFind a recipe from search bar")
+                builder.setMessage("\u2600 SunSeeker\n\n"
+                                + "\uD83C\uDFB5 DeezerDiscover\n\n"
+                                + "\uD83D\uDCD5 WordWiz\n\n"
+                                + "\u2764 Saved Recipes\n\n"
+                                + "\uD83D\uDCE5 Save Recipe\n\n"
+                                + "\uD83D\uDDD1 ️Delete Recipe\n\n"
+                                + "Find a recipe from search bar")
                         .setTitle("How to use me: ")
                         .setPositiveButton("OK", (dialog, cl) -> {
                         }).create().show();
-
                 break;
 
             case R.id.aboutRecipe:
