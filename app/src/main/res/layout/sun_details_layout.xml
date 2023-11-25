@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
-        android:text="Sunrise"
+        android:text="@string/sunrise_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sun_time_detail_title" />
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Solar Noon"
+        android:text="@string/solar_noon_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_sunrise_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunrise_title" />
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Golder Hour"
+        android:text="@string/golden_hour_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_noon_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_noon_title" />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Sunset"
+        android:text="@string/sunset_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_golden_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_golden_title" />
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Timezone"
+        android:text="@string/timezone_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_sunset_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunset_title" />

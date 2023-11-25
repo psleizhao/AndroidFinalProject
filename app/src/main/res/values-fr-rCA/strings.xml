@@ -88,11 +88,11 @@
     <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
     <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
     <string name="sun_save_success">Enregistrement de soleil sauvegardé avec succès</string>
-    <string name="sunrise_title">🌅 Lever du soleil</string>
-    <string name="sunset_title">🌇 Coucher du soleil</string>
+    <string name="sunrise_title">🌄 Lever du soleil</string>
+    <string name="sunset_title">🌅 Coucher du soleil</string>
     <string name="solar_noon_title">☀️ Midi solaire</string>
-    <string name="golden_hour_title">🌅 Heure dorée</string>
-    <string name="timezone_title">📍 Fuseau horaire</string>
+    <string name="golden_hour_title">🌇 Heure dorée</string>
+    <string name="timezone_title">🌍 Fuseau horaire</string>
 
 
 </resources>
