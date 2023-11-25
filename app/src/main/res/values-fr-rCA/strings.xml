@@ -57,5 +57,9 @@
         \uD83D\uDCE5 Enregistrer cet enregistrement\n\n
         \uD83D\uDDD1 ️Supprimer cet enregistrement\n
     ]]></string>
+    <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
+    <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
+    <string name="sun_save_success">Enregistrement de soleil sauvegardé avec succès</string>
+
 
 </resources>

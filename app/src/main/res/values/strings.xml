@@ -55,5 +55,8 @@
         \uD83D\uDCE5 Save this Record\n\n
         \uD83D\uDDD1 ️Delete this Record\n
     ]]></string>
+    <string name="sun_save_no_record_warning">No sun record selected</string>
+    <string name="sun_save_dupe_record_warning">Sun record already in your Favourite</string>
+    <string name="sun_save_success">Sun saved successfully</string>
 
 </resources>
