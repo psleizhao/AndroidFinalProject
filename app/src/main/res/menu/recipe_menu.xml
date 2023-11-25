@@ -26,17 +26,17 @@
     <item
     android:id="@+id/addItem"
     android:icon="@drawable/add"
-    android:title="Save This Recipe"
+    android:title="@string/recipe_addItem"
     app:showAsAction="always" />
 
     <item
         android:id="@+id/deleteItem"
         android:icon="@drawable/delete"
-        android:title="Delete This Recipe"
+        android:title="@string/recipe_deleteItem"
         app:showAsAction="always" />
     <item
         android:id="@+id/recipeBackToMainItem"
-        android:title="Back to main page"
+        android:title="@string/recipe_backToMainItem"
         app:showAsAction="never" />
 
     <item
@@ -46,6 +46,6 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/aboutRecipe"
-        android:title="About"
+        android:title="@string/recipe_aboutItem"
         app:showAsAction="never" />
 </menu>

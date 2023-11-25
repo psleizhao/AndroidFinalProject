@@ -58,7 +58,7 @@ public class RecipeDetailsFragment extends Fragment {
                         startActivity(intent);
                     } else {
                         // Handle the case where there is no app to handle the Intent
-                        Toast.makeText(getContext(), "No app to handle URL", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.recipe_noBrowserToast, Toast.LENGTH_SHORT).show();
                     }
                 }
         );

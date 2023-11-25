@@ -76,7 +76,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         // call onCreateOptionsMenu()
         setSupportActionBar(binding.recipeToolbar); // only one line required to initialize the toolbar
-        getSupportActionBar().setTitle("Lei's Cuisine");
 
         recipeModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipes = recipeModel.recipes.getValue();
@@ -132,7 +131,7 @@ public class RecipeActivity extends AppCompatActivity {
                         try {
                             JSONArray resultsArray = response.getJSONArray("results");
                             if (resultsArray.length() == 0) {
-                                Toast.makeText(this, "Sorry, found nothing", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, R.string.recipe_notFoundToast, Toast.LENGTH_SHORT).show();
                             } else {
                                 recipes.clear();
                                 for (int i = 0; i < resultsArray.length(); i++) {
@@ -174,7 +173,7 @@ public class RecipeActivity extends AppCompatActivity {
                                         queue.add(imgReq);
                                     }
 
-                                    binding.recipeTitleText.setText("Try One?");
+                                    binding.recipeTitleText.setText(R.string.recipe_frgTitle);
                                 }
                             }
                         } catch (JSONException e) {
@@ -338,11 +337,11 @@ public class RecipeActivity extends AppCompatActivity {
                                 rDAO.insertRecipe(toSave);
                                 runOnUiThread(() -> {
                                     Log.d("Recipe", "Recipe saved successfully");
-                                    Toast.makeText(RecipeActivity.this, "Recipe saved successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RecipeActivity.this, R.string.recipe_insertSucceedToast, Toast.LENGTH_SHORT).show();
                                 });
                             } catch (Exception e) {
                                 Log.d("Recipe", "catch exception");
-                                runOnUiThread(() -> Toast.makeText(RecipeActivity.this, "Recipe already in your list", Toast.LENGTH_SHORT).show());
+                                runOnUiThread(() -> Toast.makeText(RecipeActivity.this, R.string.recipe_alreadyInToast, Toast.LENGTH_SHORT).show());
                             }
                         });
 ////                                    recipeAdapter.notifyDataSetChanged();
@@ -352,7 +351,7 @@ public class RecipeActivity extends AppCompatActivity {
 //                                })
 //                                .create().show();
                     } else {
-                        Toast.makeText(this, "No recipe selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.recipe_noSelectedToast, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -365,9 +364,9 @@ public class RecipeActivity extends AppCompatActivity {
                         Recipe toDelete = recipes.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
-                        builder.setMessage("Do you want to delete the recipe of " + toDelete.getRecipeName())
+                        builder.setMessage(R.string.recipe_deleteAlert + toDelete.getRecipeName() + "?")
                                 .setTitle("Question: ")
-                                .setPositiveButton("Yes", (dialog, cl) -> {
+                                .setPositiveButton(R.string.recipe_yes, (dialog, cl) -> {
                                     Executor thread = Executors.newSingleThreadExecutor();
                                     thread.execute(() -> {
                                         rDAO.deleteRecipe(toDelete);
@@ -377,8 +376,8 @@ public class RecipeActivity extends AppCompatActivity {
                                     recipeAdapter.notifyDataSetChanged();
                                     getSupportFragmentManager().popBackStack(); // go back to message list
 
-                                    Snackbar.make(binding.recipeRecycleView, "You deleted recipe #" + (position + 1), Snackbar.LENGTH_LONG)
-                                            .setAction("Undo", click -> {
+                                    Snackbar.make(binding.recipeRecycleView, R.string.recipe_deletedSnackbar + (position + 1), Snackbar.LENGTH_LONG)
+                                            .setAction(R.string.recipe_undo, click -> {
                                                 Executor thread1 = Executors.newSingleThreadExecutor();
                                                 thread1.execute(() -> {
                                                     rDAO.insertRecipe(toDelete);
@@ -396,11 +395,11 @@ public class RecipeActivity extends AppCompatActivity {
                                             })
                                             .show();
                                 })
-                                .setNegativeButton("No", (dialog, cl) -> {
+                                .setNegativeButton(R.string.recipe_no, (dialog, cl) -> {
                                 })
                                 .create().show();
                     } else {
-                        Toast.makeText(this, "No Recipe selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.recipe_noSelectedToast, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -426,22 +425,15 @@ public class RecipeActivity extends AppCompatActivity {
                 break;
 
             case R.id.helpItem:
-//                Toast.makeText(this, "❤️Go To Saved Recipes\n\uD83D\uDCE5Save This Recipe\n\uD83D\uDDD1️Delete This Recipe", Toast.LENGTH_LONG).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
-                builder.setMessage("\u2600 SunSeeker\n\n"
-                                + "\uD83C\uDFB5 DeezerDiscover\n\n"
-                                + "\uD83D\uDCD5 WordWiz\n\n"
-                                + "\u2764 Saved Recipes\n\n"
-                                + "\uD83D\uDCE5 Save Recipe\n\n"
-                                + "\uD83D\uDDD1 ️Delete Recipe\n\n"
-                                + "Find a recipe from search bar")
-                        .setTitle("How to use me: ")
-                        .setPositiveButton("OK", (dialog, cl) -> {
+                builder.setMessage(R.string.recipe_helpAlert)
+                        .setTitle(R.string.recipe_helpTitle)
+                        .setPositiveButton(R.string.recipe_ok, (dialog, cl) -> {
                         }).create().show();
                 break;
 
             case R.id.aboutRecipe:
-                Toast.makeText(this, "RecipeRover created by Lei Zhao", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.recipe_aboutToast, Toast.LENGTH_LONG).show();
                 break;
 
             default:
