@@ -23,5 +23,5 @@
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/star_big_off" />
+        app:srcCompat="@drawable/music_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
