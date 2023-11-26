@@ -16,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
 
 import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
@@ -68,6 +71,49 @@ public class SunActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
         binding.lngInput.setText(prefs.getString("longitude",""));
+
+        // Set up InputFilter for latitude input validation. Range within the range of -90 to +90, up to 6 decimal places
+        InputFilter latitudeFilter = new InputFilter() {
+            final Pattern pattern = Pattern.compile("^(-?\\d{0,2}(\\.\\d{0,6})?|\\d{0,1}(\\.\\d{0,6})?|90(\\.0{0,6})?)$");
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+
+                if (!pattern.matcher(input).matches()) {
+                    showInvalidInputWarning("Valid Latitude Range: -90 to +90");
+                    Log.d("Latitude input invalid", "Latitude input invalid");
+                    return "";
+                }
+
+                return null;
+            }
+        };
+
+        // Set up InputFilter for longitude input validation, Range within the range of -180 to +180, up to 6 decimal places
+        InputFilter longitudeFilter = new InputFilter() {
+            final Pattern pattern = Pattern.compile("^(-?\\d{0,3}(\\.\\d{0,6})?|\\d{0,2}(\\.\\d{0,6})?|180(\\.0{0,6})?)$");
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+
+                if (!pattern.matcher(input).matches()) {
+                    Log.d("Longitude input invalid", "Longitude input invalid");
+                    showInvalidInputWarning("Valid Longitude Range: -180 to +180");
+                    return "";
+                }
+
+                return null;
+            }
+        };
+
+
+        // Apply the InputFilter to the EditText
+        binding.latInput.setFilters(new InputFilter[]{latitudeFilter});
+        // Apply the InputFilter to the EditText
+        binding.lngInput.setFilters(new InputFilter[]{longitudeFilter});
+
 
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
@@ -461,6 +507,14 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
+    // Method to show an AlertDialog for invalid input
+    private void showInvalidInputWarning(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Invalid Input");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
     //Todo: write a function to check the input range: -90 to +90, 6 decimal places
 //    public static void setupDecimalInput(final EditText editText) {
 //        // Set an InputFilter to limit the decimal places
