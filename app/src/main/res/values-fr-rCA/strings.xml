@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">AndroidFinalProject</string>
     <string name="landingTitle"> CENTRE TOUT-EN-UN </string>
 
@@ -44,6 +44,20 @@
                                 Trouver une recette par la recherche</string>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Lever et coucher du soleil</string>
     <string name="sun_fav">Mes Favoris</string>
@@ -74,6 +88,14 @@
     <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
     <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
     <string name="sun_save_success">Enregistrement de soleil sauvegardé avec succès</string>
-
+    <string name="sunrise_title">🌄 Lever du soleil</string>
+    <string name="sunset_title">🌅 Coucher du soleil</string>
+    <string name="solar_noon_title">☀️ Midi solaire</string>
+    <string name="golden_hour_title">🌇 Heure dorée</string>
+    <string name="timezone_title">🌍 Fuseau horaire</string>
+    <string name="invalid_input_title">Entrée invalide</string>
+    <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
+    <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
+    <string name="sun_refresh"> Actualiser / Détails </string>
 
 </resources>

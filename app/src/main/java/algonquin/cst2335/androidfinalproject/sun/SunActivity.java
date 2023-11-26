@@ -16,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
 
 import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
@@ -53,7 +56,6 @@ public class SunActivity extends AppCompatActivity {
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
-
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
 
     protected RequestQueue queue = null; // for volley
@@ -68,6 +70,49 @@ public class SunActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
         binding.lngInput.setText(prefs.getString("longitude",""));
+
+        // Set up InputFilter for latitude input validation. Range within the range of -90 to +90, up to 6 decimal places
+        InputFilter latitudeFilter = new InputFilter() {
+            final Pattern pattern = Pattern.compile("^(-?\\d{0,2}(\\.\\d{0,6})?|\\d{0,1}(\\.\\d{0,6})?|90(\\.0{0,6})?)$");
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+
+                if (!pattern.matcher(input).matches()) {
+                    showInvalidInputWarning(getString(R.string.valid_input_lat));
+                    Log.d("Latitude input invalid", "Latitude input invalid");
+                    return "";
+                }
+
+                return null;
+            }
+        };
+
+        // Set up InputFilter for longitude input validation, Range within the range of -180 to +180, up to 6 decimal places
+        InputFilter longitudeFilter = new InputFilter() {
+            final Pattern pattern = Pattern.compile("^(-?\\d{0,3}(\\.\\d{0,6})?|\\d{0,2}(\\.\\d{0,6})?|180(\\.0{0,6})?)$");
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+
+                if (!pattern.matcher(input).matches()) {
+                    Log.d("Longitude input invalid", "Longitude input invalid");
+                    showInvalidInputWarning(getString(R.string.valid_input_lng));
+                    return "";
+                }
+
+                return null;
+            }
+        };
+
+
+        // Apply the InputFilter to the EditText
+        binding.latInput.setFilters(new InputFilter[]{latitudeFilter});
+        // Apply the InputFilter to the EditText
+        binding.lngInput.setFilters(new InputFilter[]{longitudeFilter});
+
 
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
@@ -109,13 +154,13 @@ public class SunActivity extends AppCompatActivity {
 
         binding.sunSearchButton.setOnClickListener( cli ->{
 
-            String sunLatitude = binding.latInput.getText().toString(); //todo: add a number filter, latitude range -90 to +90; consider illegal and null input
-            String sunLongitude = binding.lngInput.getText().toString(); //todo: add a number filter, longitude range -180 to +180; consider illegal and null input
+            String sunLatitude = binding.latInput.getText().toString();
+            String sunLongitude = binding.lngInput.getText().toString();
             String sunrise = "sunrise";
             String sunset = "sunset";
             String solar_noon = "noon";
             String golden_hour = "golden hour";
-            String timezone = "-300";
+            String timezone = "Qingdao";
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("latitude", sunLatitude);
@@ -187,8 +232,7 @@ public class SunActivity extends AppCompatActivity {
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-
-
+                                // Create a Fragment
                                 SunDetailsFragment sunFragment = new SunDetailsFragment(s);
 
                                 FragmentManager fMgr = getSupportFragmentManager();
@@ -221,9 +265,7 @@ public class SunActivity extends AppCompatActivity {
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
-
-                SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
+               SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
                 return new MyRowHolder(binding2.getRoot());
             }
 
@@ -235,14 +277,12 @@ public class SunActivity extends AppCompatActivity {
                 holder.sunLatitudeView.setText(obj.getSunLatitude());
                 holder.sunLongitudeView.setText(obj.getSunLongitude());
 
-
 //                holder.sunriseView.setText(obj.getSunrise());
 //                holder.sunsetView.setText(obj.getSunset());
 //                holder.solar_noonView.setText(obj.getSolar_noon());
 //                holder.golden_hourView.setText(obj.getGolder_hour());
 //                holder.timezoneView.setText(obj.getTimezone());
             }
-
 
             @Override
             public int getItemCount() {
@@ -274,7 +314,7 @@ public class SunActivity extends AppCompatActivity {
                 Sun selected = suns.get(position);
 
                 // Prepare api url
-                // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
+                // Expand: can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
                 String url = "https://api.sunrisesunset.io/json?lat=" + selected.getSunLatitude() + "&lng=" + selected.getSunLongitude();
                 Log.d("Sunrise Sunset", "Request URL: " + url);
@@ -461,45 +501,13 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
-    //Todo: write a function to check the input range: -90 to +90, 6 decimal places
-//    public static void setupDecimalInput(final EditText editText) {
-//        // Set an InputFilter to limit the decimal places
-//        InputFilter decimalFilter = (source, start, end, dest, dstart, dend) -> {
-//            String text = dest.toString();
-//            if (text.contains(".") && text.substring(text.indexOf(".")).length() > 6) {
-//                return "";
-//            }
-//            return null;
-//        };
-//
-//        // Set a TextWatcher to check the range
-//        editText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-//                // No action needed
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-//                // No action needed
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                try {
-//                    // Parse the input to a double
-//                    double input = Double.parseDouble(editable.toString());
-//
-//                    // Check the range
-//                    if (input < -90 || input > 90) {
-//                        // If out of range, set the text to the limit
-//                        editText.setText(String.valueOf(Math.max(-90, Math.min(90, input))));
-//                        editText.setSelection(editText.getText().length()); // Move cursor to the end
-//                    }
-//                } catch (NumberFormatException ignored) {
-//                    // Ignore if the input cannot be parsed to a double
-//                }
-//            }
-//        });
+    // Method to show an AlertDialog for invalid input
+    protected void showInvalidInputWarning(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.invalid_input_title));
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
 
 }
