@@ -93,6 +93,10 @@
     <string name="solar_noon_title">☀️ Midi solaire</string>
     <string name="golden_hour_title">🌇 Heure dorée</string>
     <string name="timezone_title">🌍 Fuseau horaire</string>
+    <string name="invalid_input_title">Entrée invalide</string>
+    <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
+    <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
+
 
 
 </resources>

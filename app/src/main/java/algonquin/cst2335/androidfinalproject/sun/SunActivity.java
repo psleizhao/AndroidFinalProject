@@ -81,7 +81,7 @@ public class SunActivity extends AppCompatActivity {
                 String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
 
                 if (!pattern.matcher(input).matches()) {
-                    showInvalidInputWarning("Valid Latitude Range: -90 to +90");
+                    showInvalidInputWarning(getString(R.string.valid_input_lat));
                     Log.d("Latitude input invalid", "Latitude input invalid");
                     return "";
                 }
@@ -100,7 +100,7 @@ public class SunActivity extends AppCompatActivity {
 
                 if (!pattern.matcher(input).matches()) {
                     Log.d("Longitude input invalid", "Longitude input invalid");
-                    showInvalidInputWarning("Valid Longitude Range: -180 to +180");
+                    showInvalidInputWarning(getString(R.string.valid_input_lng));
                     return "";
                 }
 
@@ -508,52 +508,12 @@ public class SunActivity extends AppCompatActivity {
     }
 
     // Method to show an AlertDialog for invalid input
-    private void showInvalidInputWarning(String message) {
+    protected void showInvalidInputWarning(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Invalid Input");
+        builder.setTitle(getString(R.string.invalid_input_title));
         builder.setMessage(message);
         builder.setPositiveButton("OK", null);
         builder.show();
     }
-    //Todo: write a function to check the input range: -90 to +90, 6 decimal places
-//    public static void setupDecimalInput(final EditText editText) {
-//        // Set an InputFilter to limit the decimal places
-//        InputFilter decimalFilter = (source, start, end, dest, dstart, dend) -> {
-//            String text = dest.toString();
-//            if (text.contains(".") && text.substring(text.indexOf(".")).length() > 6) {
-//                return "";
-//            }
-//            return null;
-//        };
-//
-//        // Set a TextWatcher to check the range
-//        editText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-//                // No action needed
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-//                // No action needed
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                try {
-//                    // Parse the input to a double
-//                    double input = Double.parseDouble(editable.toString());
-//
-//                    // Check the range
-//                    if (input < -90 || input > 90) {
-//                        // If out of range, set the text to the limit
-//                        editText.setText(String.valueOf(Math.max(-90, Math.min(90, input))));
-//                        editText.setSelection(editText.getText().length()); // Move cursor to the end
-//                    }
-//                } catch (NumberFormatException ignored) {
-//                    // Ignore if the input cannot be parsed to a double
-//                }
-//            }
-//        });
 
 }
