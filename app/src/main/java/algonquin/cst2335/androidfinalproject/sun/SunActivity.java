@@ -296,8 +296,6 @@ public class SunActivity extends AppCompatActivity {
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-
-
                                 SunDetailsFragment sunFragment = new SunDetailsFragment(s);
 
                                 FragmentManager fMgr = getSupportFragmentManager();
@@ -453,7 +451,10 @@ public class SunActivity extends AppCompatActivity {
         switch( item.getItemId() ){
             case R.id.favoriteSun:
                 Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
+
                 startActivity(nextPage);
+                //clear the previous text
+
                 break;
 
              case R.id.saveSun:

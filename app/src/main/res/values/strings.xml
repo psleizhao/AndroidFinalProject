@@ -100,6 +100,7 @@
     <string name="valid_input_lng">Valid Longitude Range: -180 to +180</string>
     <string name="sun_refresh">Refresh / Details</string>
     <string name="sun_find_city"><![CDATA[Find a city\'s Lat & Lng]]></string>
+    <string name="sun_check">Check</string>
 
 
 </resources>
