@@ -32,9 +32,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -56,8 +59,10 @@ public class SunActivity extends AppCompatActivity {
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
-
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
+    protected String cityName; // to hold the city name input
+    protected String latClass; // to hold the latitude
+    protected String lngClass; // to hold the longitude
 
     protected RequestQueue queue = null; // for volley
 
@@ -152,6 +157,64 @@ public class SunActivity extends AppCompatActivity {
                 runOnUiThread(() -> binding.sunRecycleView.setAdapter(sunAdapter)); //You can then load the RecyclerView
             });
         }
+
+        binding.citySearchButton.setOnClickListener(cli->{
+            cityName = binding.editCity.getText().toString();
+            String cityNameEncode = "0";
+            try {
+                cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+
+            String urlCity = "https://api.openweathermap.org/data/2.5/weather?q=" + cityNameEncode + "&appid=" + "f5e255b0ecc652c392230100b5230cdb" + "&units=metric";
+            //this goes in the button click handler:
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlCity, null,
+                    (response) -> {
+                        try {
+                            if (response.has("coord")) {
+                                Log.d("City API response", "City API response has coord");
+                            }
+                        } catch (Exception e) {
+                            Log.e("City API response: ", "City API response don't have coord");
+                            e.printStackTrace();
+                            runOnUiThread(() ->
+                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show());
+                        }
+
+                        try {
+                            JSONObject coord = response.getJSONObject("coord"); // Get the "coord" object
+                            if (coord.length() == 0) {
+                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.d("City API response ok", "City API response ok, has coord");
+                            }
+
+                            // Extract "lat" and "lon" values
+                            double latitude = coord.getDouble("lat");
+                            double longitude = coord.getDouble("lon");
+
+                            // Pass the values to the class variable
+                            latClass = String.valueOf(latitude);
+                            lngClass = String.valueOf(longitude);
+
+                            binding.latInput.setText(latClass);
+                            binding.lngInput.setText(lngClass);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            throw new RuntimeException(e);
+                        }
+                        Log.d("City Response", "Received " + response.toString()); //this gets called if the server responded
+                    },
+                    (error) -> {/*this gets called if there was an error or no response*/}
+            );
+            queue.add(request);
+
+            //clear the previous text
+            binding.latInput.setText("");
+            binding.lngInput.setText("");
+        });
 
         binding.sunSearchButton.setOnClickListener( cli ->{
 
