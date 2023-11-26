@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Dict {
     @ColumnInfo(name="dictName")
-    protected String dictName;
+    public String dictName;
     @ColumnInfo(name="imgUrl")
     protected String imgUrl;
     @ColumnInfo(name="summary")
-    protected String summary;
+    public String summary;
     @ColumnInfo(name="srcUrl")
     protected String srcUrl;
 

@@ -94,6 +94,7 @@
     <string name="solar_noon_title">☀️ Solar Noon</string>
     <string name="golden_hour_title">🌇 Golden Hour</string>
     <string name="timezone_title">🌍 Timezone</string>
+    <string name="dict_summaryTitle" />
 
 
 </resources>

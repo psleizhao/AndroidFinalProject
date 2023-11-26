@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/recipeGotoSunItem"
+        android:icon="@drawable/sun_icon"
+        android:title="SunSeeker"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/recipeGotoMusicItem"
+        android:icon="@drawable/music_icon"
+        android:title="DeezerDiscover"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/recipeGotoDictItem"
+        android:icon="@drawable/dict_icon"
+        android:title="WordWiz"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/favoriteItem"
+        android:icon="@drawable/favorite"
+        android:title="View saved search terms"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/addItem"
+        android:icon="@drawable/add"
+        android:title="Save"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/deleteItem"
+        android:icon="@drawable/delete"
+        android:title="Delete"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/recipeBackToMainItem"
+        android:title="@string/recipe_backToMainItem"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/helpItem"
+        android:icon="@drawable/help"
+        android:title="@string/recipe_helpItem"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/aboutRecipe"
+        android:title="@string/recipe_aboutItem"
+        app:showAsAction="never" />
+</menu>
