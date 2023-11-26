@@ -2,33 +2,45 @@
     <string name="app_name">AndroidFinalProject</string>
     <string name="landingTitle"> ALL-IN-ONE HUB </string>
 
+    <!--The following strings belong to Recipe Activity-->
+    <string name="recipe_favItem">My Favorites</string>
+    <string name="recipe_addItem">Save This Recipe</string>
+    <string name="recipe_deleteItem">Delete This Recipe</string>
+    <string name="recipe_backToMainItem">Back To Main</string>
+    <string name="recipe_aboutItem">About</string>
+    <string name="recipe_helpItem">Help</string>
+    <string name="recipe_sampleList">Recipe name goes here</string>
 
+    <string name="recipe_titleText">My Favorites</string>
+    <string name="recipe_searchButton">Search</string>
+    <string name="recipe_hintText">Type here...</string>
+    <string name="recipe_searchTitle">Try One?</string>
+    <string name="recipe_sourceButton">Like it? Get details!</string>
+    <string name="recipe_summaryTitle">Summary</string>
+    <string name="recipe_summaryDetail">Summary</string>
+    <string name="recipe_frgTitle">Try One?</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="recipe_notFoundToast">Sorry, nothing found</string>
+    <string name="recipe_notAvailableToast">This recipe is not available for now</string>
+    <string name="recipe_noBrowserToast">No app to handle URL</string>
+    <string name="recipe_insertSucceedToast">Recipe saved successfully</string>
+    <string name="recipe_alreadyInToast">Recipe already in your list</string>
+    <string name="recipe_noSelectedToast">No recipe selected</string>
+    <string name="recipe_deleteAlert">Do you want to delete the recipe of </string>
+    <string name="recipe_yes">Yes</string>
+    <string name="recipe_no">No</string>
+    <string name="recipe_undo">Undo</string>
+    <string name="recipe_deletedSnackbar">You deleted recipe #</string>
+    <string name="recipe_aboutToast">RecipeRover created by Lei Zhao</string>
+    <string name="recipe_helpTitle">How to use me: </string>
+    <string name="recipe_ok">OK</string>
+    <string name="recipe_helpAlert">\u2600 SunSeeker\n\n
+                                \uD83C\uDFB5 DeezerDiscover\n\n
+                                \uD83D\uDCD5 WordWiz\n\n
+                                \u2764 Saved Recipes\n\n
+                                \uD83D\uDCE5 Save Recipe\n\n
+                                \uD83D\uDDD1 ️Delete Recipe\n\n
+                                Find a recipe from search bar</string>
 
 
 
