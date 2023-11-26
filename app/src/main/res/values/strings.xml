@@ -61,7 +61,7 @@
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
-    <string name="sun_fav">My Favourite</string>
+    <string name="sun_fav">My Saved List</string>
     <string name="sun_lat_hint">Latitude: </string>
     <string name="sun_lng_hint">Longitude: </string>
     <string name="sun_lat_text">Latitude</string>
@@ -94,6 +94,10 @@
     <string name="solar_noon_title">☀️ Solar Noon</string>
     <string name="golden_hour_title">🌇 Golden Hour</string>
     <string name="timezone_title">🌍 Timezone</string>
+    <string name="invalid_input_title">Invalid Input</string>
+    <string name="valid_input_lat">Valid Latitude Range: -90 to +90</string>
+    <string name="valid_input_lng">Valid Longitude Range: -180 to +180</string>
+    <string name="sun_refresh"> Refresh / Details </string>
 
 
 </resources>
