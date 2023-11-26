@@ -75,6 +75,7 @@
     <string name="sun_no">Non</string>
     <string name="sun_about_title">À propos</string>
     <string name="sun_about_detail">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
+    <string name="sun_to_main">Retour à la page d\'accueil</string>
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
     <string name="sun_help2"><![CDATA[

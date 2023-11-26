@@ -76,6 +76,7 @@
     <string name="sun_no">No</string>
     <string name="sun_about_title">About</string>
     <string name="sun_about_detail">Sunrise &amp; Sunset, Version 1.0, created by Yu Song</string>
+    <string name="sun_to_main">Back to main page</string>
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">How to use SunSeeker:</string>
     <string name="sun_help2"><![CDATA[
@@ -97,7 +98,8 @@
     <string name="invalid_input_title">Invalid Input</string>
     <string name="valid_input_lat">Valid Latitude Range: -90 to +90</string>
     <string name="valid_input_lng">Valid Longitude Range: -180 to +180</string>
-    <string name="sun_refresh"> Refresh / Details </string>
+    <string name="sun_refresh">Refresh / Details</string>
+
 
 
 </resources>
