@@ -96,7 +96,6 @@
     <string name="invalid_input_title">Entrée invalide</string>
     <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
     <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
-
-
+    <string name="sun_refresh"> Actualiser / Détails </string>
 
 </resources>

@@ -155,13 +155,13 @@ public class SunActivity extends AppCompatActivity {
 
         binding.sunSearchButton.setOnClickListener( cli ->{
 
-            String sunLatitude = binding.latInput.getText().toString(); //todo: add a number filter, latitude range -90 to +90; consider illegal and null input
-            String sunLongitude = binding.lngInput.getText().toString(); //todo: add a number filter, longitude range -180 to +180; consider illegal and null input
+            String sunLatitude = binding.latInput.getText().toString();
+            String sunLongitude = binding.lngInput.getText().toString();
             String sunrise = "sunrise";
             String sunset = "sunset";
             String solar_noon = "noon";
             String golden_hour = "golden hour";
-            String timezone = "-300";
+            String timezone = "Qingdao";
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("latitude", sunLatitude);
@@ -280,7 +280,6 @@ public class SunActivity extends AppCompatActivity {
 
                 holder.sunLatitudeView.setText(obj.getSunLatitude());
                 holder.sunLongitudeView.setText(obj.getSunLongitude());
-
 
 //                holder.sunriseView.setText(obj.getSunrise());
 //                holder.sunsetView.setText(obj.getSunset());
