@@ -123,8 +123,8 @@ public class RecipeActivity extends AppCompatActivity {
                 if (newRecipe == null) { // Save the fragment from rotation
                     newRecipe = new RecipeDetailsFragment(selectedRecipe);
                     FragmentTransaction transaction = fMgr.beginTransaction();
-                    transaction.addToBackStack("any string here");
-                    transaction.replace(R.id.searchFragmentLocation, newRecipe); //first is the FrameLayout id
+                    transaction.addToBackStack("any string here");       // remvoe the back stack fragment
+                    transaction.replace(R.id.searchFragmentLocation, newRecipe, RecipeDetailsFragment.TAG); //first is the FrameLayout id
                     transaction.commit();//loads it
                 }
             }
@@ -134,13 +134,6 @@ public class RecipeActivity extends AppCompatActivity {
         recipeModel.recipeTitleText.observe(this,recipeTitleText -> {
             binding.recipeTitleText.setText(recipeTitleText);
         });
-//
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.fragment_container_view_tag, new RecipeDetailsFragment(), RecipeDetailsFragment.TAG)
-//                    .commit();
-//        }
-//
 
         // Create/call the database, call the Data Access object
         RecipeDatabase db = Room.databaseBuilder(getApplicationContext(), RecipeDatabase.class, "recipedb").build();
@@ -438,7 +431,7 @@ public class RecipeActivity extends AppCompatActivity {
 
                         // Alert user about deletion
                         AlertDialog.Builder builder = new AlertDialog.Builder(RecipeActivity.this);
-                        builder.setMessage(R.string.recipe_deleteAlert + toDelete.getRecipeName() + "?")
+                        builder.setMessage(getString(R.string.recipe_deleteAlert) + " "+ toDelete.getRecipeName() + "?")
                                 .setTitle("Question: ")
                                 .setPositiveButton(R.string.recipe_yes, (dialog, cl) -> { // Yes to delete
                                     Executor thread = Executors.newSingleThreadExecutor();
@@ -450,7 +443,7 @@ public class RecipeActivity extends AppCompatActivity {
                                     recipeAdapter.notifyDataSetChanged();
                                     getSupportFragmentManager().popBackStack(); // go back to message list
 
-                                    Snackbar.make(binding.recipeRecycleView, R.string.recipe_deletedSnackbar + (position + 1), Snackbar.LENGTH_LONG)
+                                    Snackbar.make(binding.recipeRecycleView, getString(R.string.recipe_deletedSnackbar) + (position + 1), Snackbar.LENGTH_LONG)
                                             .setAction(R.string.recipe_undo, click -> {
                                                 Executor thread1 = Executors.newSingleThreadExecutor();
                                                 thread1.execute(() -> {
@@ -516,6 +509,11 @@ public class RecipeActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Called by the system when the device configuration changes while the activity is running.
+     *
+     * @param newConfig The new device configuration.
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
