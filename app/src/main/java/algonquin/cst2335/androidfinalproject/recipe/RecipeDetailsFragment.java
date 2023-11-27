@@ -29,6 +29,7 @@ import algonquin.cst2335.androidfinalproject.databinding.RecipeDetailsLayoutBind
 public class RecipeDetailsFragment extends Fragment {
     /** The selected Recipe object to display details. */
     Recipe selected;
+    public static final String TAG = "RecipeDetailsFragment";
 
     /** Default constructor for RecipeDetailsFragment. */
     public RecipeDetailsFragment() {     }
@@ -54,7 +55,7 @@ public class RecipeDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
+        setRetainInstance(true);
         RecipeDetailsLayoutBinding binding = RecipeDetailsLayoutBinding.inflate(getLayoutInflater());
         File file = new File(requireContext().getFilesDir(), selected.getId() + "-556x370.jpg");
         // Load the larger image if it exists

@@ -14,6 +14,7 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -57,7 +58,7 @@ import algonquin.cst2335.androidfinalproject.sun.SunActivity;
 /**
  * The main activity for managing and displaying recipes.
  * Allows users to search for recipes, view details, and perform various actions.
- * <p>
+ *
  * This activity integrates with Spoonacular API for recipe data and uses Room
  * database for local storage of recipes.
  */
@@ -116,16 +117,30 @@ public class RecipeActivity extends AppCompatActivity {
         recipeModel.selectedrecipe.observe(this, (selectedRecipe) -> {
 
             if (selectedRecipe != null) {
-                // create a new fragment to display the selected recipe details
-                RecipeDetailsFragment newRecipe = new RecipeDetailsFragment(selectedRecipe);
-
                 FragmentManager fMgr = getSupportFragmentManager();
-                FragmentTransaction transaction = fMgr.beginTransaction();
-                transaction.addToBackStack("any string here");
-                transaction.replace(R.id.searchFragmentLocation, newRecipe); //first is the FrameLayout id
-                transaction.commit();//loads it
+                RecipeDetailsFragment newRecipe = (RecipeDetailsFragment) fMgr.findFragmentByTag(RecipeDetailsFragment.TAG);
+                // create a new fragment to display the selected recipe details
+                if (newRecipe == null) { // Save the fragment from rotation
+                    newRecipe = new RecipeDetailsFragment(selectedRecipe);
+                    FragmentTransaction transaction = fMgr.beginTransaction();
+                    transaction.addToBackStack("any string here");
+                    transaction.replace(R.id.searchFragmentLocation, newRecipe); //first is the FrameLayout id
+                    transaction.commit();//loads it
+                }
             }
         });
+
+        // Keep the "Try One?" title when rotating
+        recipeModel.recipeTitleText.observe(this,recipeTitleText -> {
+            binding.recipeTitleText.setText(recipeTitleText);
+        });
+//
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.fragment_container_view_tag, new RecipeDetailsFragment(), RecipeDetailsFragment.TAG)
+//                    .commit();
+//        }
+//
 
         // Create/call the database, call the Data Access object
         RecipeDatabase db = Room.databaseBuilder(getApplicationContext(), RecipeDatabase.class, "recipedb").build();
@@ -216,7 +231,8 @@ public class RecipeActivity extends AppCompatActivity {
 
                                     // Change the page title to search result's title after images loaded
                                     // to prevent the asynchronous of the text and the images
-                                    binding.recipeTitleText.setText(R.string.recipe_frgTitle);
+                                    binding.recipeTitleText.setText(R.string.recipe_searchTitle);
+                                    recipeModel.recipeTitleText.postValue(getString(R.string.recipe_searchTitle));
                                 }
                             }
                         } catch (JSONException e) {
@@ -498,5 +514,15 @@ public class RecipeActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (!isChangingConfigurations()) {
+            // Check the current state of the back stack and pop if needed
+            getSupportFragmentManager().popBackStack(RecipeDetailsFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 }

@@ -27,4 +27,5 @@ public class RecipeViewModel extends ViewModel {
      */
     public MutableLiveData<Recipe> selectedrecipe = new MutableLiveData< >();
 
+    public MutableLiveData<String> recipeTitleText = new MutableLiveData< >();
 }
