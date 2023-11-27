@@ -411,8 +411,14 @@ public class SunActivity extends AppCompatActivity {
                             selected.setSolar_noon(solar_noonResult);
                             selected.setGolder_hour(golden_hourResult);
 
-                            sunAdapter.notifyDataSetChanged();
-                        }
+                            Executor threadUpdate = Executors.newSingleThreadExecutor();
+                            threadUpdate.execute(()->{
+                                sDAO.updateSun(selected); //Update selected sun
+                            });
+
+                            sunModel.selectedSun.postValue(selected);
+
+                        }sunAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
