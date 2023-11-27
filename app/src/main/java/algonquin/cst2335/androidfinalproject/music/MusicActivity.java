@@ -31,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -72,7 +73,7 @@ public class MusicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        queue = Volley.newRequestQueue(this); // Set the queue of API request by Volley
         binding = ActivityMusicBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
