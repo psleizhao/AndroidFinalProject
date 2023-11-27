@@ -16,10 +16,10 @@
     <string name="recipe_searchButton">Rechercher</string>
     <string name="recipe_hintText">Tapez ici...</string>
     <string name="recipe_searchTitle">Essayez?</string>
-    <string name="recipe_sourceButton">Intéressé? Obtenez des détails!</string>
+    <string name="recipe_sourceButton">Intéressé?\nObtenez des détails!</string>
     <string name="recipe_summaryTitle">Résumé</string>
     <string name="recipe_summaryDetail">Résumé</string>
-    <string name="recipe_frgTitle">Nom De Recette</string>
+    <string name="recipe_frgTitle">Nom de recette</string>
 
     <string name="recipe_notFoundToast">Désolé, rien trouvé</string>
     <string name="recipe_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>
