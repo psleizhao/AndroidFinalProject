@@ -18,7 +18,7 @@
     <string name="recipe_sourceButton">Like it? Get details!</string>
     <string name="recipe_summaryTitle">Summary</string>
     <string name="recipe_summaryDetail">Summary</string>
-    <string name="recipe_frgTitle">Try One?</string>
+    <string name="recipe_frgTitle">Recipe Name</string>
 
     <string name="recipe_notFoundToast">Sorry, nothing found</string>
     <string name="recipe_notAvailableToast">This recipe is not available for now</string>
