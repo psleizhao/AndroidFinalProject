@@ -9,7 +9,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/app_icon"
-        android:label="Dr. SM"
+        android:label="DR. SM"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidFinalProject"
         tools:targetApi="31">
