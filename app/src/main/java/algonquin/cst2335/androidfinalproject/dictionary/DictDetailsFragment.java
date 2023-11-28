@@ -1,24 +1,21 @@
 package algonquin.cst2335.androidfinalproject.dictionary;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-
-import java.io.File;
-
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.DictDetailsLayoutBinding;
 import algonquin.cst2335.androidfinalproject.dictionary.Dict;
@@ -31,8 +28,9 @@ public class DictDetailsFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         DictDetailsLayoutBinding binding = DictDetailsLayoutBinding.inflate(getLayoutInflater());
@@ -40,6 +38,7 @@ public class DictDetailsFragment extends Fragment {
         binding.dictNameText.setText(selected.dictName);
 
         Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
+        binding.timeView.setText(selected.timeSent);
         binding.summaryTitle.setText(spannedText);
 
         binding.sourceButton.setOnClickListener(v -> {

@@ -59,6 +59,110 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--   Dict Strings -->
+    <string name="Dictionary">Dictionary</string>
+    <string name="Type here">Type here</string>
+    <string name="Search">Search</string>
+
+    <string name="Word goes here">Word goes here</string>
+
+    <string name="Review">Review</string>
+    <string name="Delete">Delete</string>
+    <string name="Save">Save</string>
+    <string name="backToMainItem">Back To Main</string>
+    <string name="dict_helpItem">Help</string>
+    <string name="dict_aboutItem">About</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
     <string name="sun_fav">My Favourite</string>

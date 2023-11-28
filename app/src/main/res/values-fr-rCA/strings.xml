@@ -94,5 +94,11 @@
     <string name="golden_hour_title">🌇 Heure dorée</string>
     <string name="timezone_title">🌍 Fuseau horaire</string>
 
+    <!--   Dict Strings -->
+    <string name="yxeditSearchName">Enter word to search</string>
+    <string name="yxSearchBtNname">Seach</string>
+    <string name="yxSaveBtnName">See Saved Term</string>
+    <string name="yxSave_name">Saved Term</string>
+    <string name="yxAbout_name">About</string>
 
 </resources>

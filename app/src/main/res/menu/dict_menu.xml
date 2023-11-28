@@ -20,7 +20,7 @@
     <item
         android:id="@+id/favoriteItem"
         android:icon="@drawable/favorite"
-        android:title="View saved search terms"
+        android:title="Review"
         app:showAsAction="always" />
 
     <item
@@ -36,16 +36,16 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/recipeBackToMainItem"
-        android:title="@string/recipe_backToMainItem"
+        android:title="@string/dict_backToMainItem"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/helpItem"
         android:icon="@drawable/help"
-        android:title="@string/recipe_helpItem"
+        android:title="@string/dict_helpItem"
         app:showAsAction="never" />
     <item
         android:id="@+id/aboutRecipe"
-        android:title="@string/recipe_aboutItem"
+        android:title="@string/dict_aboutItem"
         app:showAsAction="never" />
 </menu>
