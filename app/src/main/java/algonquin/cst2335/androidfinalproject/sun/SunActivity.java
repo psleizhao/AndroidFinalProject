@@ -32,9 +32,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -57,6 +60,9 @@ public class SunActivity extends AppCompatActivity {
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
+    protected String cityName; // to hold the city name input
+    protected String latClass; // to hold the latitude
+    protected String lngClass; // to hold the longitude
 
     protected RequestQueue queue = null; // for volley
 
@@ -152,6 +158,64 @@ public class SunActivity extends AppCompatActivity {
             });
         }
 
+        binding.citySearchButton.setOnClickListener(cli->{
+            cityName = binding.editCity.getText().toString();
+            String cityNameEncode = "0";
+            try {
+                cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+
+            String urlCity = "https://api.openweathermap.org/data/2.5/weather?q=" + cityNameEncode + "&appid=" + "f5e255b0ecc652c392230100b5230cdb" + "&units=metric";
+            //this goes in the button click handler:
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlCity, null,
+                    (response) -> {
+                        try {
+                            if (response.has("coord")) {
+                                Log.d("City API response", "City API response has coord");
+                            }
+                        } catch (Exception e) {
+                            Log.e("City API response: ", "City API response don't have coord");
+                            e.printStackTrace();
+                            runOnUiThread(() ->
+                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show());
+                        }
+
+                        try {
+                            JSONObject coord = response.getJSONObject("coord"); // Get the "coord" object
+                            if (coord.length() == 0) {
+                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.d("City API response ok", "City API response ok, has coord");
+                            }
+
+                            // Extract "lat" and "lon" values
+                            double latitude = coord.getDouble("lat");
+                            double longitude = coord.getDouble("lon");
+
+                            // Pass the values to the class variable
+                            latClass = String.valueOf(latitude);
+                            lngClass = String.valueOf(longitude);
+
+                            binding.latInput.setText(latClass);
+                            binding.lngInput.setText(lngClass);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            throw new RuntimeException(e);
+                        }
+                        Log.d("City Response", "Received " + response.toString()); //this gets called if the server responded
+                    },
+                    (error) -> {/*this gets called if there was an error or no response*/}
+            );
+            queue.add(request);
+
+            //clear the previous text
+            binding.latInput.setText("");
+            binding.lngInput.setText("");
+        });
+
         binding.sunSearchButton.setOnClickListener( cli ->{
 
             String sunLatitude = binding.latInput.getText().toString();
@@ -232,7 +296,6 @@ public class SunActivity extends AppCompatActivity {
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-                                // Create a Fragment
                                 SunDetailsFragment sunFragment = new SunDetailsFragment(s);
 
                                 FragmentManager fMgr = getSupportFragmentManager();
@@ -265,7 +328,9 @@ public class SunActivity extends AppCompatActivity {
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-               SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
+//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
+
+                SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
                 return new MyRowHolder(binding2.getRoot());
             }
 
@@ -283,6 +348,7 @@ public class SunActivity extends AppCompatActivity {
 //                holder.golden_hourView.setText(obj.getGolder_hour());
 //                holder.timezoneView.setText(obj.getTimezone());
             }
+
 
             @Override
             public int getItemCount() {
@@ -314,7 +380,7 @@ public class SunActivity extends AppCompatActivity {
                 Sun selected = suns.get(position);
 
                 // Prepare api url
-                // Expand: can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
+                // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
                 String url = "https://api.sunrisesunset.io/json?lat=" + selected.getSunLatitude() + "&lng=" + selected.getSunLongitude();
                 Log.d("Sunrise Sunset", "Request URL: " + url);
@@ -345,8 +411,14 @@ public class SunActivity extends AppCompatActivity {
                             selected.setSolar_noon(solar_noonResult);
                             selected.setGolder_hour(golden_hourResult);
 
-                            sunAdapter.notifyDataSetChanged();
-                        }
+                            Executor threadUpdate = Executors.newSingleThreadExecutor();
+                            threadUpdate.execute(()->{
+                                sDAO.updateSun(selected); //Update selected sun
+                            });
+
+                            sunModel.selectedSun.postValue(selected);
+
+                        }sunAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -385,7 +457,10 @@ public class SunActivity extends AppCompatActivity {
         switch( item.getItemId() ){
             case R.id.favoriteSun:
                 Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
+
                 startActivity(nextPage);
+                //clear the previous text
+
                 break;
 
              case R.id.saveSun:

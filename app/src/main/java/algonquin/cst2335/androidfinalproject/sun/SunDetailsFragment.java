@@ -21,6 +21,7 @@ import algonquin.cst2335.androidfinalproject.databinding.SunDetailsLayoutBinding
 public class SunDetailsFragment extends Fragment {
     Sun selected;
 
+    // no-argument constructor to prevent app crash
     public SunDetailsFragment(){}
     //constructor for your class which takes a Sun object that it will use as a data source for the TextViews:
     public SunDetailsFragment(Sun toDisplay){
