@@ -20,23 +20,23 @@
     <item
         android:id="@+id/favoriteItem"
         android:icon="@drawable/favorite"
-        android:title="Review"
+        android:title="@string/Review"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/addItem"
         android:icon="@drawable/add"
-        android:title="Save"
+        android:title="@string/Save"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/deleteItem"
         android:icon="@drawable/delete"
-        android:title="Delete"
+        android:title="@string/Delete"
         app:showAsAction="always" />
     <item
         android:id="@+id/recipeBackToMainItem"
-        android:title="@string/dict_backToMainItem"
+        android:title="@string/backToMainItem"
         app:showAsAction="never" />
 
     <item

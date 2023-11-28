@@ -1,7 +1,10 @@
 package algonquin.cst2335.androidfinalproject.dictionary;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,15 +19,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.android.volley.RequestQueue;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityDictBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchDictBinding;
+import algonquin.cst2335.androidfinalproject.music.MusicActivity;
+import algonquin.cst2335.androidfinalproject.recipe.Recipe;
+import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
+import algonquin.cst2335.androidfinalproject.sun.SunActivity;
 
 public class DictActivity extends AppCompatActivity {
     private ActivityDictBinding binding;
@@ -37,6 +46,7 @@ public class DictActivity extends AppCompatActivity {
     private RecyclerView.Adapter dictAdapter;
     private DictDAO dDAO;
 
+    protected RequestQueue queue = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +56,7 @@ public class DictActivity extends AppCompatActivity {
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
+        setSupportActionBar(binding.dictToolbar);
         dictModel = new ViewModelProvider(this).get(DictViewModel.class);
         dicts = dictModel.Dicts.getValue();
 
@@ -159,5 +169,135 @@ public class DictActivity extends AppCompatActivity {
             dictName = itemView.findViewById(R.id.dictResult);
             dictIcon = itemView.findViewById(R.id.dictIcon);
         }
+
+    }    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.favoriteItem:
+                Intent nextPage = new Intent(DictActivity.this, DictActivity.class);
+                startActivity(nextPage);
+                break;
+
+            case R.id.addItem:
+                if (dictModel.selectedDict != null) {
+                    int position = dicts.indexOf(dictModel.selecteddict.getValue());
+                    if (position != -1) {
+                        Dict toSave = dicts.get(position);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
+//                        builder.setMessage("Do you want to save this word " + toSave.getRecipeName())
+//                                .setTitle("Question: ")
+//                                .setPositiveButton("Yes", (dialog, cl) -> {
+                        Executor thread = Executors.newSingleThreadExecutor();
+                        thread.execute(() -> {
+                            try {
+                                Log.d("Dict", "try insert existing record");
+                                dDAO.insertDict(toSave);
+                                runOnUiThread(() -> {
+                                    Log.d("Dict", "Dict saved successfully");
+                                    Toast.makeText(DictActivity.this, R.string.dict_insertSucceedToast, Toast.LENGTH_SHORT).show();
+                                });
+                            } catch (Exception e) {
+                                Log.d("Dict", "catch exception");
+                                runOnUiThread(() -> Toast.makeText(DictActivity.this, R.string.dict_alreadyInToast, Toast.LENGTH_SHORT).show());
+                            }
+                        });
+////                                   dictAdapter.notifyDataSetChanged();
+////                                    getSupportFragmentManager().popBackStack(); // go back to message list
+//                                })
+//                                .setNegativeButton("No", (dialog, cl) -> {
+//                                })
+//                                .create().show();
+                    } else {
+                        Toast.makeText(this, R.string.dict_noSelectedToast, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+
+            case R.id.deleteItem:
+
+                if (dictModel.selecteddict != null) {
+                    int position = dicts.indexOf(dictModel.selecteddict.getValue());
+                    if (position != -1) {
+                        Dict toDelete = dicts.get(position);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
+                        builder.setMessage(R.string.dict_deleteAlert + toDelete.getDictName() + "?")
+                                .setTitle("Question: ")
+                                .setPositiveButton(R.string.recipe_yes, (dialog, cl) -> {
+                                    Executor thread = Executors.newSingleThreadExecutor();
+                                    thread.execute(() -> {
+                                        dDAO.deleteDict(toDelete);
+                                    });
+
+                                    dicts.remove(position);
+                                    dictAdapter.notifyDataSetChanged();
+                                    getSupportFragmentManager().popBackStack(); // go back to message list
+
+                                    Snackbar.make(binding.dictRecycleView,R.string.dict_deletedSnackbar + (position + 1), Snackbar.LENGTH_LONG)
+                                            .setAction(R.string.recipe_undo, click -> {
+                                                Executor thread1 = Executors.newSingleThreadExecutor();
+                                                thread1.execute(() -> {
+                                                    dDAO.insertDict(toDelete);
+                                                });
+                                             dicts.add(position, toDelete);
+                                                dictAdapter.notifyDataSetChanged();
+
+                                                // after undo, go back to the fragment
+//                                                RecipeDetailsFragment newMessage = new RecipeDetailsFragment(recipes.get(position));
+//                                                FragmentManager fMgr = getSupportFragmentManager();
+//                                                FragmentTransaction transaction = fMgr.beginTransaction();
+//                                                transaction.addToBackStack("any string here");
+//                                                transaction.replace(R.id.searchFragmentLocation, newMessage); //first is the FrameLayout id
+//                                                transaction.commit();//loads it
+                                            })
+                                            .show();
+                                })
+                                .setNegativeButton(R.string.recipe_no, (dialog, cl) -> {
+                                })
+                                .create().show();
+                    } else {
+                        Toast.makeText(this, R.string.dict_noSelectedToast, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+
+            case R.id.recipeBackToMainItem:
+                Intent nextPage1 = new Intent(DictActivity.this, MainActivity.class);
+                startActivity(nextPage1);
+                break;
+
+            case R.id.recipeGotoSunItem:
+                Intent nextPage2 = new Intent(DictActivity.this, SunActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.recipeGotoMusicItem:
+                Intent nextPage3 = new Intent(DictActivity.this, MusicActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.recipeGotoDictItem:
+                Intent nextPage4 = new Intent(DictActivity.this, DictActivity.class);
+                startActivity(nextPage4);
+                break;
+
+            case R.id.helpItem:
+                AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
+                builder.setMessage(R.string.recipe_helpAlert)
+                        .setTitle(R.string.recipe_helpTitle)
+                        .setPositiveButton(R.string.recipe_ok, (dialog, cl) -> {
+                        }).create().show();
+                break;
+
+            case R.id.aboutDict:
+                Toast.makeText(this, R.string.dict_aboutToast, Toast.LENGTH_LONG).show();
+                break;
+
+            default:
+                break;
+        }
+        return true;
     }
 }

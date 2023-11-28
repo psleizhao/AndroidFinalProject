@@ -94,11 +94,41 @@
     <string name="golden_hour_title">🌇 Heure dorée</string>
     <string name="timezone_title">🌍 Fuseau horaire</string>
 
+
     <!--   Dict Strings -->
-    <string name="yxeditSearchName">Enter word to search</string>
-    <string name="yxSearchBtNname">Seach</string>
-    <string name="yxSaveBtnName">See Saved Term</string>
-    <string name="yxSave_name">Saved Term</string>
-    <string name="yxAbout_name">About</string>
+    <string name="Dictionary">Dictionary</string>
+    <string name="Typehere">Type here</string>
+    <string name="Search">Search</string>
+
+    <string name="Wordgoeshere">Word goes here</string>
+
+    <string name="Review">Review</string>
+    <string name="Delete">Delete</string>
+    <string name="Save">Save</string>
+    <string name="backToMainItem">Back To Main</string>
+    <string name="dict_helpItem">Help</string>
+    <string name="dict_aboutItem">About</string>
+
+    <string name="dict_notFoundToast">Désolé, rien trouvé</string>
+    <string name="dict_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>
+    <string name="dict_noBrowserToast">Aucune application pour gérer l\'URL.</string>
+    <string name="dict_insertSucceedToast">Sauvegardée avec succès</string>
+    <string name="dict_alreadyInToast">Déjà dans votre liste.</string>
+    <string name="dict_noSelectedToast">Aucune sélectionnée</string>
+    <string name="dict_deleteAlert">Voulez vous supprimer le mot de </string>
+    <string name="dict_yes">Oui</string>
+    <string name="dicte_no">Non</string>
+    <string name="dict_undo">Annuler</string>
+    <string name="dict_deletedSnackbar">Vous avez supprimé le mot #</string>
+    <string name="dict_aboutToast">DictRover créé par Yuling Guo</string>
+    <string name="dict_helpTitle">Comment m\'utiliser: </string>
+    <string name="dict_ok">OK</string>
+    <string name="dict_helpAlert">\u2600 SunSeeker\n\n
+                                \uD83C\uDFB5 DeezerDiscover\n\n
+                                \uD83D\uDCD5 WordWiz\n\n
+                                \u2764 Mots Sauvegardée\n\n
+                                \uD83D\uDCE5 Sauvegarder le mot\n\n
+                                \uD83D\uDDD1 ️Supprimer le mot\n\n
+                                Trouver un mot par la recherche</string>
 
 </resources>
