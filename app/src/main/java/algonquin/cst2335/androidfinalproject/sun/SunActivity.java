@@ -50,7 +50,7 @@ import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
 public class SunActivity extends AppCompatActivity {
 
-    ActivitySunBinding binding;
+    ActivitySunBinding binding; // for binding
     ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
     private RecyclerView.Adapter sunAdapter; // to hold the object below
@@ -217,6 +217,7 @@ public class SunActivity extends AppCompatActivity {
             //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
+            binding.editCity.setText("");
         });
 
         binding.sunSearchButton.setOnClickListener( cli ->{
@@ -291,9 +292,14 @@ public class SunActivity extends AppCompatActivity {
                                 String solar_noonResult = results.getString("solar_noon");
                                 String golden_hourResult = results.getString("golden_hour");
                                 String timezoneResult = results.getString("timezone");
+                                String cityNameFromInput;
+                                if(cityName != null) {
+                                    cityNameFromInput = cityName;
+                                } else {
+                                    cityNameFromInput = "Unnamed Location";
+                                }
 
-
-                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
+                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult, cityNameFromInput);
                                 sToPass = s; // pass the sun obj to the class level
 
                                 // tell the recycle view that there is new data SetChanged()
@@ -310,6 +316,7 @@ public class SunActivity extends AppCompatActivity {
                                 //clear the previous text
                                 binding.latInput.setText("");
                                 binding.lngInput.setText("");
+                                binding.editCity.setText("");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -323,7 +330,7 @@ public class SunActivity extends AppCompatActivity {
             //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
-
+            binding.editCity.setText("");
         });
 
         // Will draw the recycle view
