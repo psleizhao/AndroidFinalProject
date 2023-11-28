@@ -51,6 +51,9 @@ import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityMusicBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchMusicBinding;
+import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
+import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
+import algonquin.cst2335.androidfinalproject.sun.SunActivity;
 
 
 public class MusicActivity extends AppCompatActivity {
@@ -377,6 +380,21 @@ public class MusicActivity extends AppCompatActivity {
 
             case R.id.aboutMusic:
                 Toast.makeText(this, "MusicRover created by Zhicheng He", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.musicGotoSunItem: // Go to SunSeeker
+                Intent nextPage2 = new Intent(MusicActivity.this, SunActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.musicGotoRecipeItem: // Go to DeezerDiscover
+                Intent nextPage3 = new Intent(MusicActivity.this, RecipeActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.musicGotoDictItem: // Go to WordWiz
+                Intent nextPage4 = new Intent(MusicActivity.this, DictActivity.class);
+                startActivity(nextPage4);
                 break;
 
             default:
