@@ -37,33 +37,15 @@ public class MusicDetailsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         MusicDetailsLayoutBinding binding = MusicDetailsLayoutBinding.inflate(getLayoutInflater());
-        File file = new File(requireContext().getFilesDir(), selected.getId() + "-556x370.jpg");
+        File file = new File(requireContext().getFilesDir(), selected.getFileName());
         if (file.exists()) {
             Log.d("Image Log", "Got the larger image");
             Bitmap img = BitmapFactory.decodeFile(file.getAbsolutePath());
             binding.musicImageView.setImageBitmap(img);
         }
-        binding.musicNameText.setText(selected.musicName);
-
-        Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
-        binding.summary.setText(spannedText);
-
-        binding.sourceButton.setOnClickListener(v -> {
-                    String url = selected.getSrcUrl(); // Replace with your actual URL
-
-                    // Create an Intent to open the URL in a web browser
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-
-                    // Check if there's an app to handle the Intent
-                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        // Open the URL in the web browser
-                        startActivity(intent);
-                    } else {
-                        // Handle the case where there is no app to handle the Intent
-                        Toast.makeText(getContext(), "No app to handle URL", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+        binding.songTitle.setText(selected.songTitle);
+        binding.duration.setText(selected.duration + "s");
+        binding.albumName.setText(selected.albumName);
         return binding.getRoot();
     }
 }

@@ -2,15 +2,14 @@
 
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/frameBG">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -18,7 +17,7 @@
         android:background="@color/frameBG">
 
         <TextView
-            android:id="@+id/musicNameText"
+            android:id="@+id/songTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -29,47 +28,35 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
         <ImageView
             android:id="@+id/musicImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/musicNameText"
-            app:srcCompat="@drawable/recipe_sample" />
+            app:layout_constraintTop_toBottomOf="@+id/songTitle"
+            app:srcCompat="@drawable/app_icon" />
 
         <TextView
-            android:id="@+id/summaryTitle"
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Summary"
-            android:textSize="30dp"
+            android:text="Duration"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/musicImageView" />
 
         <TextView
-            android:id="@+id/summary"
+            android:id="@+id/albumName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Summary"
-            android:textSize="20dp"
+            android:text="Album Name"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/summaryTitle" />
-
-        <Button
-            android:id="@+id/sourceButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Like it? Get details!"
-            android:textSize="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/summary" />
+            app:layout_constraintTop_toBottomOf="@+id/duration" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
