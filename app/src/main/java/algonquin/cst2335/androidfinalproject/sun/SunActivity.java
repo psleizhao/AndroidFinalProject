@@ -50,7 +50,7 @@ import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
 public class SunActivity extends AppCompatActivity {
 
-    ActivitySunBinding binding;
+    ActivitySunBinding binding; // for binding
     ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
     private RecyclerView.Adapter sunAdapter; // to hold the object below
