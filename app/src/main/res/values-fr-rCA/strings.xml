@@ -96,18 +96,18 @@
 
 
     <!--   Dict Strings -->
-    <string name="Dictionary">Dictionary</string>
-    <string name="Typehere">Type here</string>
-    <string name="Search">Search</string>
+    <string name="dict_titleText">Dictionaire</string>
+    <string name="dict_hintText">Tapez ici</string>
+    <string name="dict_searchTitle">Rechercher</string>
 
-    <string name="Wordgoeshere">Word goes here</string>
+    <string name="dict_sampleList">Mots son ici</string>
 
-    <string name="Review">Review</string>
-    <string name="Delete">Delete</string>
-    <string name="Save">Save</string>
-    <string name="backToMainItem">Back To Main</string>
-    <string name="dict_helpItem">Help</string>
-    <string name="dict_aboutItem">About</string>
+    <string name="Review">revoir</string>
+    <string name="Delete">supprimer</string>
+    <string name="Save">amasser</string>
+    <string name="backToMainItem">Retour a Main</string>
+    <string name="dict_helpItem">Aid</string>
+    <string name="dict_aboutItem">Environ</string>
 
     <string name="dict_notFoundToast">Désolé, rien trouvé</string>
     <string name="dict_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>

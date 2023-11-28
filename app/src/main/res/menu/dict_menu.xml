@@ -45,7 +45,7 @@
         android:title="@string/dict_helpItem"
         app:showAsAction="never" />
     <item
-        android:id="@+id/aboutRecipe"
+        android:id="@+id/aboutDict"
         android:title="@string/dict_aboutItem"
         app:showAsAction="never" />
 </menu>

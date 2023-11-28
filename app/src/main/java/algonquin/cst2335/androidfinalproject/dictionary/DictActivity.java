@@ -180,8 +180,8 @@ public class DictActivity extends AppCompatActivity {
                 break;
 
             case R.id.addItem:
-                if (dictModel.selectedDict != null) {
-                    int position = dicts.indexOf(dictModel.selecteddict.getValue());
+                if (dictModel.selectedDicts != null) {
+                    int position = dicts.indexOf(dictModel.selectedDicts.getValue());
                     if (position != -1) {
                         Dict toSave = dicts.get(position);
 
@@ -217,8 +217,8 @@ public class DictActivity extends AppCompatActivity {
 
             case R.id.deleteItem:
 
-                if (dictModel.selecteddict != null) {
-                    int position = dicts.indexOf(dictModel.selecteddict.getValue());
+                if (dictModel.selectedDicts != null) {
+                    int position = dicts.indexOf(dictModel.selectedDicts.getValue());
                     if (position != -1) {
                         Dict toDelete = dicts.get(position);
 
