@@ -21,6 +21,10 @@ public class Dict {
     @ColumnInfo(name="isSentButton")
     protected boolean isSaveButton;
 
+    public Dict(){
+
+    }
+
     public Dict(String dictName, String imgUrl, String summary, String srcUrl) {
         this.dictName = dictName;
         this.summary = summary;

@@ -38,7 +38,7 @@ public class DictDetailsFragment extends Fragment {
         binding.dictNameText.setText(selected.dictName);
 
         Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
-        binding.timeView.setText(selected.timeSent);
+
         binding.summaryTitle.setText(spannedText);
 
         binding.sourceButton.setOnClickListener(v -> {

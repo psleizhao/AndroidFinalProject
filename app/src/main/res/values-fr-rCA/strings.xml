@@ -16,10 +16,10 @@
     <string name="recipe_searchButton">Rechercher</string>
     <string name="recipe_hintText">Tapez ici...</string>
     <string name="recipe_searchTitle">Essayez?</string>
-    <string name="recipe_sourceButton">Intéressé? Obtenez des détails!</string>
+    <string name="recipe_sourceButton">Intéressé?\nObtenez des détails!</string>
     <string name="recipe_summaryTitle">Résumé</string>
     <string name="recipe_summaryDetail">Résumé</string>
-    <string name="recipe_frgTitle">Nom De Recette</string>
+    <string name="recipe_frgTitle">Nom de recette</string>
 
     <string name="recipe_notFoundToast">Désolé, rien trouvé</string>
     <string name="recipe_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>
@@ -58,50 +58,48 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!--The following strings belong to Sun Activity-->
+    <string name="sun_toolbar_title">Lever et coucher du soleil</string>
+    <string name="sun_fav">Mes Favoris</string>
+    <string name="sun_lat_hint">Latitude : </string>
+    <string name="sun_lng_hint">Longitude : </string>
+    <string name="sun_lat_text">Latitude</string>
+    <string name="sun_lng_text">Longitude</string>
+    <string name="sun_search_btn">Chercher</string>
+    <string name="sun_del_warning_text">Voulez-vous supprimer cet enregistrement : </string>
+    <string name="sun_del_warning_title">Question : </string>
+    <string name="sun_del_text">Voulez-vous supprimer cet enregistrement : </string>
+    <string name="sun_del_title">Question : </string>
+    <string name="sun_del_after">Vous avez supprimé le message #</string>
+    <string name="sun_yes">Oui</string>
+    <string name="sun_no">Non</string>
+    <string name="sun_about_title">À propos</string>
+    <string name="sun_about_detail">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
+    <string name="sun_to_main">Retour à la page d\'accueil</string>
+    <string name="sun_undo">Annuler</string>
+    <string name="sun_help1">Aide</string>
+    <string name="sun_help2"><![CDATA[
+        \uD83C\uDF73 RecipeRover\n\n
+        \uD83C\uDFB5 DeezerDiscover\n\n
+        \uD83D\uDCD5 WordWiz\n\n
+        \u2764 Enregistrements sauvegardés\n\n
+        \uD83D\uDCE5 Enregistrer cet enregistrement\n\n
+        \uD83D\uDDD1 ️Supprimer cet enregistrement\n
+    ]]></string>
+    <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
+    <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
+    <string name="sun_save_success">Enregistrement de soleil sauvegardé avec succès</string>
+    <string name="sunrise_title">🌄 Lever du soleil</string>
+    <string name="sunset_title">🌅 Coucher du soleil</string>
+    <string name="solar_noon_title">☀️ Midi solaire</string>
+    <string name="golden_hour_title">🌇 Heure dorée</string>
+    <string name="timezone_title">🌍 Fuseau horaire</string>
+    <string name="invalid_input_title">Entrée invalide</string>
+    <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
+    <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
+    <string name="sun_refresh"> Actualiser / Détails </string>
+    <string name="sun_find_city"><![CDATA[Trouver la lat et la long d\'une ville]]></string>
+    <string name="sun_check">Trouver</string>
 
 
 
