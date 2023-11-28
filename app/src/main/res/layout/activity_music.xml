@@ -40,7 +40,7 @@
                 android:id="@+id/musicTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Paul's Favorite Music"
+                android:text="Favorite Music"
                 android:textColor="#8951ED"
                 android:textSize="30dp"
                 android:textStyle="bold"
