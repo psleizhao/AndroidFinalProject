@@ -107,13 +107,16 @@
     <string name="dict_titleText">Dictionaire</string>
     <string name="dict_hintText">Tapez ici</string>
     <string name="dict_searchTitle">Rechercher</string>
+    <string name="dict_summaryDetail">Definition</string>
+    <string name="dict_frgTitle">Nom de mot</string>
+
 
     <string name="dict_sampleList">Mots son ici</string>
 
-    <string name="Review">revoir</string>
-    <string name="Delete">supprimer</string>
-    <string name="Save">amasser</string>
-    <string name="backToMainItem">Retour a Main</string>
+    <string name="dict_favItem">revoir</string>
+    <string name="dict_deleteItem">supprimer</string>
+    <string name="dict_addItem">amasser</string>
+    <string name="dict_backToMainItem">Retour a Main</string>
     <string name="dict_helpItem">Aid</string>
     <string name="dict_aboutItem">Environ</string>
 

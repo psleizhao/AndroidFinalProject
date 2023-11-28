@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Word"
+            android:text="@string/dict_frgTitle"
             android:textSize="30dp"
+            android:background="@color/pink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,24 +33,12 @@
             android:id="@+id/summaryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Definition"
+            android:text="@string/dict_summaryDetail"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="154dp" />
-
-        <Button
-            android:id="@+id/sourceButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Details"
-            android:textSize="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="293dp" />
+            tools:layout_editor_absoluteY="129dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,7 @@ public class Dict {
     public Dict(String dictName, String imgUrl, String summary, String srcUrl) {
         this.dictName = dictName;
         this.summary = summary;
-        this.isSaveButton = isSaveButton;
+        this.id = id;
         this.srcUrl = srcUrl;
     }
 
@@ -40,10 +40,24 @@ public class Dict {
         return summary;
     }
 
-    public boolean isSaveButton() { return isSaveButton;}
+    public long getId() { return id; }
 
     public String getSrcUrl() {
         return srcUrl;
+    }
+    public void setDictName(String dictName) {
+        this.dictName = dictName;
+    }
 
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setSrcUrl(String srcUrl) {
+        this.srcUrl = srcUrl;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

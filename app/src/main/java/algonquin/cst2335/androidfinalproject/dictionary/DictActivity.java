@@ -260,7 +260,7 @@ public class DictActivity extends AppCompatActivity {
                                             })
                                             .show();
                                 })
-                                .setNegativeButton(R.string.recipe_no, (dialog, cl) -> {
+                                .setNegativeButton(R.string.dict_no, (dialog, cl) -> {
                                 })
                                 .create().show();
                     } else {
