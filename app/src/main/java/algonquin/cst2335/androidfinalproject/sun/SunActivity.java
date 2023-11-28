@@ -1,17 +1,5 @@
 package algonquin.cst2335.androidfinalproject.sun;
 
-import static java.security.AccessController.getContext;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,13 +14,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,6 +73,7 @@ public class SunActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
         binding.lngInput.setText(prefs.getString("longitude",""));
+        binding.editCity.setText(prefs.getString("cityName",""));
 
         // Set up InputFilter for latitude input validation. Range within the range of -90 to +90, up to 6 decimal places
         InputFilter latitudeFilter = new InputFilter() {
@@ -160,6 +158,11 @@ public class SunActivity extends AppCompatActivity {
 
         binding.citySearchButton.setOnClickListener(cli->{
             cityName = binding.editCity.getText().toString();
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("cityName", cityName);
+            editor.apply();
+
             String cityNameEncode = "0";
             try {
                 cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
