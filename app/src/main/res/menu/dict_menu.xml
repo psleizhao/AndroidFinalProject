@@ -13,7 +13,7 @@
         android:title="DeezerDiscover"
         app:showAsAction="always" />
     <item
-        android:id="@+id/recipeGotoDictItem"
+        android:id="@+id/dictGotoDictItem"
         android:icon="@drawable/dict_icon"
         android:title="WordWiz"
         app:showAsAction="always" />
@@ -35,7 +35,7 @@
         android:title="@string/Delete"
         app:showAsAction="always" />
     <item
-        android:id="@+id/recipeBackToMainItem"
+        android:id="@+id/dictBackToMainItem"
         android:title="@string/backToMainItem"
         app:showAsAction="never" />
 

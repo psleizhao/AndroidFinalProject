@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -169,7 +170,12 @@ public class DictActivity extends AppCompatActivity {
             dictName = itemView.findViewById(R.id.dictResult);
             dictIcon = itemView.findViewById(R.id.dictIcon);
         }
-
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            super.onCreateOptionsMenu(menu);
+            getMenuInflater().inflate(R.menu.dict_menu, menu);
+            return true;
+        }
     }    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
