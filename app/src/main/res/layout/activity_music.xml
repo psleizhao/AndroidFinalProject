@@ -40,7 +40,7 @@
                 android:id="@+id/musicTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Favorite Music"
+                android:text="@string/music_titleText"
                 android:textColor="#8951ED"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -52,7 +52,7 @@
         android:id="@+id/musicTextInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Enter artist, album, or song"
+        android:hint="@string/music_hintText"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
 
     <Button
         android:id="@+id/musicSearchButton"
-        android:text="Search"
+        android:text="@string/music_searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

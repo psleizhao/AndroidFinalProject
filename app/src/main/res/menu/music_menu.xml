@@ -20,32 +20,32 @@
     <item
         android:id="@+id/favoriteMusic"
         android:icon="@drawable/favorite"
-        android:title="@string/recipe_favItem"
+        android:title="@string/music_favItem"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/addItem"
         android:icon="@drawable/add"
-        android:title="@string/recipe_addItem"
+        android:title="@string/music_addItem"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/deleteItem"
         android:icon="@drawable/delete"
-        android:title="@string/recipe_deleteItem"
+        android:title="@string/music_deleteItem"
         app:showAsAction="always" />
     <item
         android:id="@+id/backItem"
-        android:title="@string/recipe_backToMainItem"
+        android:title="@string/music_backToMainItem"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/helpItem"
         android:icon="@drawable/help"
-        android:title="@string/recipe_helpItem"
+        android:title="@string/music_helpItem"
         app:showAsAction="never" />
     <item
         android:id="@+id/aboutMusic"
-        android:title="@string/recipe_aboutItem"
+        android:title="@string/music_aboutItem"
         app:showAsAction="never" />
 </menu>

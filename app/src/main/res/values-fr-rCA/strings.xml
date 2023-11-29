@@ -101,4 +101,35 @@
     <string name="sun_find_city"><![CDATA[Trouver la lat et la long d\'une ville]]></string>
     <string name="sun_check">Trouver</string>
 
+    <string name="music_favItem">Musique Préférée</string>
+    <string name="music_addItem">Enregistrer Cette Musique</string>
+    <string name="music_deleteItem">Supprimer Cette Musique</string>
+    <string name="music_backToMainItem">Retour à l\'Accueil</string>
+    <string name="music_aboutItem">À Propos</string>
+    <string name="music_helpItem">Aide</string>
+    <string name="music_sampleList">Le nom de la musique va ici</string>
+
+    <string name="music_titleText">Musique Préférée</string>
+    <string name="music_searchButton">Rechercher</string>
+    <string name="music_hintText">Entrer le nom de l\'artiste</string>
+    <string name="music_frgTitle">Nom de la Musique</string>
+    <string name="music_duration">Durée</string>
+
+    <string name="music_albumName">Nom de l\'album</string>
+    <string name="music_notFoundToast">Désolé, rien trouvé</string>
+    <string name="music_insertSucceedToast">Musique enregistrée avec succès</string>
+    <string name="music_alreadyInToast">Musique déjà dans votre liste</string>
+    <string name="music_noSelectedToast">Aucune musique sélectionnée</string>
+    <string name="music_aboutToast">MusicRover créé par Zhicheng He</string>
+    <string name="music_addTitle">Ajoutez votre chanson préférée</string>
+    <string name="music_deleteAlert">Voulez-vous supprimer la musique de</string>
+    <string name="music_yes">Oui</string>
+    <string name="music_no">Non</string>
+    <string name="music_undo">Annuler</string>
+    <string name="music_deleteSnackBar">Vous avez supprimé la musique #</string>
+    <string name="music_helpDetail">❤️ Aller à la musique enregistrée\n\n\uD83D\uDCE5 Enregistrer cette musique
+                                \n\n\uD83D\uDDD1 Supprimer cette musique\n\nTrouver une musique par la recherche</string>
+    <string name="music_helpTitle">Comment m\'utiliser : </string>
+
+
 </resources>
