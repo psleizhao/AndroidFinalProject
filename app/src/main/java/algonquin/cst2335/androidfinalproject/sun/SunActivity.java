@@ -3,6 +3,7 @@ package algonquin.cst2335.androidfinalproject.sun;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -47,6 +48,7 @@ import algonquin.cst2335.androidfinalproject.databinding.SunRecordBinding;
 import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
 import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
+import algonquin.cst2335.androidfinalproject.recipe.RecipeDetailsFragment;
 
 /**
  * The main activity class for the Sun app.
@@ -169,10 +171,13 @@ public class SunActivity extends AppCompatActivity {
         //listener to the MutableLiveData object
         sunModel.selectedSun.observe(this,(selectedSun) ->{
             if(selectedSun != null) {
+
+                FragmentManager fMgr = getSupportFragmentManager();
                 //create a Sun fragment
                 SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
 
-                FragmentManager fMgr = getSupportFragmentManager();
+
+
                 FragmentTransaction transaction = fMgr.beginTransaction();
                 transaction.addToBackStack("Add to back stack"); // adds to the history
                 transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
@@ -619,6 +624,21 @@ public class SunActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.setPositiveButton("OK", null);
         builder.show();
+    }
+
+    /**
+     * Called by the system when the device configuration changes while the activity is running.
+     *
+     * @param newConfig The new device configuration.
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (!isChangingConfigurations()) {
+            // Check the current state of the back stack and pop if needed
+            getSupportFragmentManager().popBackStack(RecipeDetailsFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
 }
