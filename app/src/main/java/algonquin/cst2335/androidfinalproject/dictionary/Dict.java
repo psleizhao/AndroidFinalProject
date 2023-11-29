@@ -31,7 +31,8 @@ public class Dict {
         this.id = id;
         this.srcUrl = srcUrl;
     }
-
+    public Dict() {
+    }
     public String getDictName() {
         return dictName;
     }

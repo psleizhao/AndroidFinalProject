@@ -230,7 +230,8 @@ public class DictActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.dict_menu, menu);
             return true;
         }
-    }    @Override
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
