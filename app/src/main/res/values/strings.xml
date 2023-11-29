@@ -73,7 +73,7 @@
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
-    <string name="sun_fav">My Saved List</string>
+    <string name="sun_fav">My Favourite</string>
     <string name="sun_lat_hint">Latitude: </string>
     <string name="sun_lng_hint">Longitude: </string>
     <string name="sun_lat_text">Latitude</string>
@@ -113,6 +113,10 @@
     <string name="sun_refresh">Refresh / Details</string>
     <string name="sun_find_city"><![CDATA[Find a city\'s Lat & Lng]]></string>
     <string name="sun_check">Check</string>
+    <string name="sun_no_name_location">XYZ Location</string>
+    <string name="sun_found_nothing">Found nothing, Array length = 0</string>
+    <string name="sun_sun_api_status_not_ok">Sunrise sunset API status not OK</string>
+    <string name="sun_sun_api_ok">Sun API Results and Status OK</string>
 
 
 </resources>

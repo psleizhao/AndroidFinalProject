@@ -46,7 +46,7 @@ public class SunDetailsFragment extends Fragment {
         binding.sunTimezoneDetail.setText(selected.timezone);
 
         // set the cityName view:
-        binding.sunCityName.setText(selected.cityName);
+        binding.sunCityName.setText(selected.cityName.toUpperCase());
 
         // Get the current date and time
         Date currentDate = Calendar.getInstance().getTime();

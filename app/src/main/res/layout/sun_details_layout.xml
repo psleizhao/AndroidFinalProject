@@ -10,15 +10,14 @@
         android:id="@+id/sun_date_detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:background="@color/my_primary"
+        android:fontFamily="sans-serif-light"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
-        android:fontFamily="monospace"
         android:text="Date"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="@+id/sun_lat_title"
         app:layout_constraintTop_toBottomOf="@+id/sun_lng_title"
         tools:text="@tools:sample/date/ddmmyy" />
 
@@ -26,24 +25,24 @@
         android:id="@+id/sun_time_detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:background="@color/my_primary"
+        android:fontFamily="sans-serif-light"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
-        android:fontFamily="monospace"
         android:text="Time"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="@+id/sun_date_detail_title"
-        app:layout_constraintStart_toStartOf="@+id/sun_date_detail_title"
-        app:layout_constraintTop_toBottomOf="@+id/sun_date_detail_title" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/sun_date_detail_title"
+        app:layout_constraintStart_toEndOf="@+id/sun_date_detail_title"
+        app:layout_constraintTop_toTopOf="@+id/sun_date_detail_title" />
 
     <TextView
         android:id="@+id/sun_sunrise_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="80dp"
 
+        android:fontFamily="sans-serif-light"
         android:text="@string/sunrise_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/solar_noon_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_sunrise_title"
@@ -64,6 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/golden_hour_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_noon_title"
@@ -74,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/sunset_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_golden_title"
@@ -84,6 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/timezone_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/sun_sunset_title"
@@ -94,11 +97,12 @@
         android:id="@+id/sun_sunrise_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="sans-serif-light"
         android:text="sunrise"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="@+id/sun_sunrise_title"
-        app:layout_constraintStart_toEndOf="@+id/sun_sunrise_title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sun_sunrise_title" />
 
     <TextView
@@ -106,9 +110,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="solar_noon"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="@+id/sun_sunrise_detail"
+        app:layout_constraintEnd_toEndOf="@+id/sun_sunrise_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunrise_detail" />
 
     <TextView
@@ -116,9 +121,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="golder_hour"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="@+id/sun_noon_detail"
+        app:layout_constraintEnd_toEndOf="@+id/sun_noon_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_noon_detail" />
 
     <TextView
@@ -126,9 +132,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="sunset"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="@+id/sun_golden_detail"
+        app:layout_constraintEnd_toEndOf="@+id/sun_golden_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_golden_detail" />
 
     <TextView
@@ -136,16 +143,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:text="timezone"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="@+id/sun_sunset_detail"
+        app:layout_constraintEnd_toEndOf="@+id/sun_sunset_detail"
         app:layout_constraintTop_toBottomOf="@+id/sun_sunset_detail" />
 
     <TextView
         android:id="@+id/sun_lat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="180dp"
+        android:fontFamily="sans-serif-condensed-light"
         android:text="Latitude: "
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="@+id/sun_sunrise_title"
@@ -155,6 +164,7 @@
         android:id="@+id/sun_lat_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
         android:text="80.000088"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="@+id/sun_lat_title"
@@ -166,6 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-condensed-light"
         android:text="Longitude:"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/sun_lng_detail"
@@ -175,7 +186,8 @@
         android:id="@+id/sun_lng_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="sans-serif-medium"
         android:text="-179.999999"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="@+id/sun_lng_title"
@@ -186,10 +198,11 @@
         android:id="@+id/sun_city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="City Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/sun_lat_title"
+        app:layout_constraintEnd_toEndOf="@+id/sun_lng_detail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

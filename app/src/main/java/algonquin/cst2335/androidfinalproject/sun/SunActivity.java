@@ -217,7 +217,6 @@ public class SunActivity extends AppCompatActivity {
             //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
-            binding.editCity.setText("");
         });
 
         binding.sunSearchButton.setOnClickListener( cli ->{
@@ -296,7 +295,7 @@ public class SunActivity extends AppCompatActivity {
                                 if(cityName != null) {
                                     cityNameFromInput = cityName;
                                 } else {
-                                    cityNameFromInput = "Unnamed Location";
+                                    cityNameFromInput = getResources().getString(R.string.sun_no_name_location);
                                 }
 
                                 Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult, cityNameFromInput);
