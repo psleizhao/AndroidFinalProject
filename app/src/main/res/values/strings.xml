@@ -51,6 +51,7 @@
     <string name="music_helpItem">Help</string>
     <string name="music_sampleList">Music name goes here</string>
 
+    <string name="music_activityTitle">DeezerDiscover</string>
     <string name="music_titleText">Favorite Music</string>
     <string name="music_searchButton">Search</string>
     <string name="music_hintText">Enter artist</string>
@@ -62,7 +63,7 @@
     <string name="music_insertSucceedToast">Music saved successfully</string>
     <string name="music_alreadyInToast">Music already in your list</string>
     <string name="music_noSelectedToast">No music selected</string>
-    <string name="music_aboutToast">MusicRover created by Zhicheng He</string>
+    <string name="music_aboutToast">DeezerDiscover created by Zhicheng He</string>
     <string name="music_addTitle">Add your favorite song</string>
     <string name="music_deleteAlert">Do you want to delete the music of</string>
     <string name="music_yes">Yes</string>

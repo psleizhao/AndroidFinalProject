@@ -189,6 +189,7 @@ public class MusicActivity extends AppCompatActivity {
                                                     Music music = new Music(id, songTitle, duration, albumName, imageUrl, albumId, fileName);
                                                     songs.add(music);
                                                     musicAdapter.notifyDataSetChanged();
+
                                                     binding.musicTitleText.setText(R.string.music_addTitle);
                                                     File file = new File(getFilesDir(), fileName);
                                                     Log.d("Music App", "File path: " + file.getAbsolutePath());
