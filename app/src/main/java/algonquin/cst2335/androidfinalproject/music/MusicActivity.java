@@ -55,19 +55,47 @@ import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 import algonquin.cst2335.androidfinalproject.sun.SunActivity;
 
-
+/**
+ * The main activity for the music application, handling the display and interaction with music items.
+ * This activity manages music search, list display, and interaction with the music database.
+ */
 public class MusicActivity extends AppCompatActivity {
 
+    /**
+     * Binding instance for ActivityMusic layout.
+     */
     ActivityMusicBinding binding;
 
+    /**
+     * ArrayList to hold music items.
+     */
     ArrayList<Music> songs = null;
+
+    /**
+     * ViewModel instance for handling music data.
+     */
     MusicViewModel musicModel;
 
+    /**
+     * Adapter for the RecyclerView to display music items.
+     */
     private RecyclerView.Adapter musicAdapter;
 
+    /**
+     * Data Access Object for music database operations.
+     */
     MusicDAO mDAO;
+
+    /**
+     * Queue for network requests.
+     */
     protected RequestQueue queue = null;
 
+    /**
+     * Called when the activity is starting. This is where most initialization should go.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +141,7 @@ public class MusicActivity extends AppCompatActivity {
         binding.musicSearchButton.setOnClickListener(clk -> {
 
             String musicTextInput = binding.musicTextInput.getText().toString();
-//            binding.musicTitleText.setText("Try One?");
+
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("musicName", musicTextInput);
             editor.apply();
@@ -209,11 +237,18 @@ public class MusicActivity extends AppCompatActivity {
                     });
             queue.add(request);
 
-//            binding.musicTextInput.setText("");
+
         });
 
         binding.musicRecycleView.setAdapter(musicAdapter = new RecyclerView.Adapter<MyRowHolder>() {
 
+            /**
+             * Called when RecyclerView needs a new {@link RecyclerView.ViewHolder} of the given type to represent an item.
+             *
+             * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position.
+             * @param viewType The view type of the new View.
+             * @return A new ViewHolder that holds a View of the given view type.
+             */
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -221,6 +256,12 @@ public class MusicActivity extends AppCompatActivity {
                 return new MyRowHolder(binding.getRoot());
             }
 
+            /**
+             * Called by RecyclerView to display the data at the specified position.
+             *
+             * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+             * @param position The position of the item within the adapter's data set.
+             */
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
                 Music obj = songs.get(position);
@@ -231,6 +272,11 @@ public class MusicActivity extends AppCompatActivity {
 
             }
 
+            /**
+             * Returns the total number of items in the data set held by the adapter.
+             *
+             * @return The total number of items in this adapter.
+             */
             @Override
             public int getItemCount() {
                 return songs.size();
@@ -239,11 +285,26 @@ public class MusicActivity extends AppCompatActivity {
 
         binding.musicRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
-
+    /**
+     * ViewHolder class for managing individual row views in the RecyclerView.
+     */
     public class MyRowHolder extends RecyclerView.ViewHolder {
+
+        /**
+         * TextView for displaying the name of the music.
+         */
         public TextView musicName;
+
+        /**
+         * ImageView for displaying the icon associated with the music.
+         */
         public ImageView musicIcon;
 
+        /**
+         * Constructor for ViewHolder, initializes the view elements and click listener.
+         *
+         * @param itemView The view corresponding to each row in the RecyclerView.
+         */
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(
@@ -262,6 +323,12 @@ public class MusicActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which items are placed.
+     * @return You must return true for the menu to be displayed; if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -269,6 +336,12 @@ public class MusicActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -285,9 +358,7 @@ public class MusicActivity extends AppCompatActivity {
                         Music toSave = songs.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-//                        builder.setMessage("Do you want to save the music of " + toSave.getMusicName())
-//                                .setTitle("Question: ")
-//                                .setPositiveButton("Yes", (dialog, cl) -> {
+
                         Executor thread = Executors.newSingleThreadExecutor();
                         thread.execute(() -> {
                             try {
@@ -338,13 +409,7 @@ public class MusicActivity extends AppCompatActivity {
                                                 songs.add(position, toDelete);
                                                 musicAdapter.notifyDataSetChanged();
 
-                                                // after undo, go back to the fragment
-//                                                MusicDetailsFragment newMessage = new MusicDetailsFragment(music1.get(position));
-//                                                FragmentManager fMgr = getSupportFragmentManager();
-//                                                FragmentTransaction transaction = fMgr.beginTransaction();
-//                                                transaction.addToBackStack("any string here");
-//                                                transaction.replace(R.id.searchFragmentLocation, newMessage); //first is the FrameLayout id
-//                                                transaction.commit();//loads it
+
                                             })
                                             .show();
                                 })

@@ -24,13 +24,30 @@ import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.MusicDetailsLayoutBinding;
 import algonquin.cst2335.androidfinalproject.music.Music;
 
+/**
+ * Fragment for displaying the details of a selected music item.
+ */
 public class MusicDetailsFragment extends Fragment {
     Music selected;
 
+    /**
+     * Constructor for creating a fragment with a specific music item.
+     *
+     * @param m The Music object whose details are to be displayed.
+     */
     public MusicDetailsFragment(Music m) {
         selected = m;
     }
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     * This is optional, and non-graphical fragments can return null.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     * @return Return the View for the fragment's UI, or null.
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
