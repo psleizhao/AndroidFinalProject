@@ -43,9 +43,7 @@ public class Dict {
 
     public long getId() { return id; }
 
-    public String getSrcUrl() {
-        return srcUrl;
-    }
+
     public void setDictName(String dictName) {
         this.dictName = dictName;
     }
