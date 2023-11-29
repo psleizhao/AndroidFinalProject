@@ -16,10 +16,10 @@
     <string name="recipe_searchButton">Rechercher</string>
     <string name="recipe_hintText">Tapez ici...</string>
     <string name="recipe_searchTitle">Essayez?</string>
-    <string name="recipe_sourceButton">Intéressé? Obtenez des détails!</string>
+    <string name="recipe_sourceButton">Intéressé?\nObtenez des détails!</string>
     <string name="recipe_summaryTitle">Résumé</string>
     <string name="recipe_summaryDetail">Résumé</string>
-    <string name="recipe_frgTitle">Nom De Recette</string>
+    <string name="recipe_frgTitle">Nom de recette</string>
 
     <string name="recipe_notFoundToast">Désolé, rien trouvé</string>
     <string name="recipe_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>
@@ -43,29 +43,50 @@
                                 \uD83D\uDDD1 ️Supprimer la recette\n\n
                                 Trouver une recette par la recherche</string>
 
+    <!--The following strings belong to Music Activity-->
+    <string name="music_favItem">Musique Préférée</string>
+    <string name="music_addItem">Enregistrer Cette Musique</string>
+    <string name="music_deleteItem">Supprimer Cette Musique</string>
+    <string name="music_backToMainItem">Retour à l\'Accueil</string>
+    <string name="music_aboutItem">À Propos</string>
+    <string name="music_helpItem">Aide</string>
+    <string name="music_sampleList">Le nom de la musique va ici</string>
 
+    <string name="music_titleText">Musique Préférée</string>
+    <string name="music_searchButton">Rechercher</string>
+    <string name="music_hintText">Entrer le nom de l\'artiste</string>
+    <string name="music_frgTitle">Nom de la Musique</string>
+    <string name="music_duration">Durée</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="music_albumName">Nom de l\'album</string>
+    <string name="music_notFoundToast">Désolé, rien trouvé</string>
+    <string name="music_insertSucceedToast">Musique enregistrée avec succès</string>
+    <string name="music_alreadyInToast">Musique déjà dans votre liste</string>
+    <string name="music_noSelectedToast">Aucune musique sélectionnée</string>
+    <string name="music_aboutToast">MusicRover créé par Zhicheng He</string>
+    <string name="music_addTitle">Ajoutez votre chanson préférée</string>
+    <string name="music_deleteAlert">Voulez-vous supprimer la musique de</string>
+    <string name="music_yes">Oui</string>
+    <string name="music_no">Non</string>
+    <string name="music_undo">Annuler</string>
+    <string name="music_deleteSnackBar">Vous avez supprimé la musique #</string>
+    <string name="music_helpDetail">\uD83C\uDF73 RecipeRover\n\n
+                                    \u2600 SunSeeker\n\n
+                                    \uD83D\uDCD5 WordWiz\n\n
+                                    ❤️ Aller à la musique enregistrée\n\n
+                                    \uD83D\uDCE5 Enregistrer cette musique\n\n
+                                    \uD83D\uDDD1 Supprimer cette musique\n\n
+                                    Trouver une musique par la recherche</string>
+    <string name="music_helpTitle">Comment m\'utiliser : </string>
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Lever et coucher du soleil</string>
-    <string name="sun_fav">Mes Favoris</string>
+    <string name="sun_fav">☀️ Mes Favoris 🌒</string>
     <string name="sun_lat_hint">Latitude : </string>
     <string name="sun_lng_hint">Longitude : </string>
     <string name="sun_lat_text">Latitude</string>
     <string name="sun_lng_text">Longitude</string>
-    <string name="sun_search_btn">Rechercher</string>
+    <string name="sun_search_btn">Chercher</string>
     <string name="sun_del_warning_text">Voulez-vous supprimer cet enregistrement : </string>
     <string name="sun_del_warning_title">Question : </string>
     <string name="sun_del_text">Voulez-vous supprimer cet enregistrement : </string>
@@ -79,12 +100,14 @@
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
     <string name="sun_help2"><![CDATA[
-        \uD83C\uDF73 RecipeRover\n\n
-        \uD83C\uDFB5 DeezerDiscover\n\n
-        \uD83D\uDCD5 WordWiz\n\n
-        \u2764 Enregistrements sauvegardés\n\n
+        Entrez un nom de ville, trouvez la latitude et la longitude
+        Entrez à la fois la latitude et la longitude, recherchez
+        \u2764 Mes enregistrements sauvegardés\n\n
         \uD83D\uDCE5 Enregistrer cet enregistrement\n\n
-        \uD83D\uDDD1 ️Supprimer cet enregistrement\n
+        \uD83D\uDDD1 ️Supprimer cet enregistrement\n\n
+        \uD83C\uDF73 Aller à RecipeRover\n\n
+        \uD83C\uDFB5 Aller à DeezerDiscover\n\n
+        \uD83D\uDCD5 Aller à WordWiz\n
     ]]></string>
     <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
     <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
@@ -98,5 +121,14 @@
     <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
     <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
     <string name="sun_refresh"> Actualiser / Détails </string>
+    <string name="sun_find_city"><![CDATA[Trouver la lat et la long d\'une ville]]></string>
+    <string name="sun_check">Trouver</string>
+    <string name="sun_no_name_location">Empl. XYZ</string>
+    <string name="sun_found_nothing">Aucun résultat trouvé, longueur du tableau = 0</string>
+    <string name="sun_sun_api_status_not_ok">Échec du statut de l\'API Sunrise Sunset</string>
+    <string name="sun_sun_api_ok">Résultats et statut de l\'API Sunrise OK</string>
+    <string name="sun_sun_api_not_available">L\'API Sun n\'est pas disponible actuellement</string>
+
+
 
 </resources>
