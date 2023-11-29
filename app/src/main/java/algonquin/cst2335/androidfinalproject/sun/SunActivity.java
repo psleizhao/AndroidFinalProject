@@ -417,7 +417,8 @@ public class SunActivity extends AppCompatActivity {
                                 sDAO.updateSun(selected); //Update selected sun
                             });
 
-                            sunModel.selectedSun.postValue(selected);
+                            // TODO: potentially the line creates an extra Fragment; but if not using it, updated data will now show.
+//                            sunModel.selectedSun.postValue(selected);
 
                         }sunAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
