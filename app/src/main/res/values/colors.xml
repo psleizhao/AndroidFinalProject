@@ -15,8 +15,10 @@
     <color name="pink">#E91E63</color>
     <color name="red">#F80303</color>
 
-    <color name="frameBG">#C0F6B4</color>
+    <color name="frameBG">#B4F4F6</color>
     <color name="pageBG">#CFFBFF</color>
+
+    <color name="recipeTitle">#F454C7</color>
 
 
 </resources>
