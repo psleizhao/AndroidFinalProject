@@ -298,7 +298,7 @@ public class DictActivity extends AppCompatActivity {
                         Dict toDelete = dicts.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
-                        builder.setMessage(R.string.dict_deleteAlert + "?")
+                        builder.setMessage(R.string.dict_deleteAlert)
                                 .setTitle("Question: ")
                                 .setPositiveButton(R.string.recipe_yes, (dialog, cl) -> {
                                     Executor thread = Executors.newSingleThreadExecutor();

@@ -140,7 +140,7 @@
     <string name="dict_insertSucceedToast">Word saved successfully</string>
     <string name="dict_alreadyInToast">Word already in your list</string>
     <string name="dict_noSelectedToast">No word selected</string>
-    <string name="dict_deleteAlert">Do you want to delete this word </string>
+    <string name="dict_deleteAlert">Do you want to delete this word?</string>
     <string name="dict_yes">Yes</string>
     <string name="dict_no">No</string>
     <string name="dict_undo">Undo</string>
