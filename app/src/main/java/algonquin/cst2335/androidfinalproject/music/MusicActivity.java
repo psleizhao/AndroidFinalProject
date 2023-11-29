@@ -14,6 +14,7 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -113,13 +114,17 @@ public class MusicActivity extends AppCompatActivity {
         musicModel.selectedMusic.observe(this, (selectedMusic) -> {
 
             if (selectedMusic != null) {
-                MusicDetailsFragment newMusic = new MusicDetailsFragment(selectedMusic);
-
                 FragmentManager fMgr = getSupportFragmentManager();
-                FragmentTransaction transaction = fMgr.beginTransaction();
-                transaction.addToBackStack("any string here");
-                transaction.replace(R.id.searchFragmentLocation, newMusic); //first is the FrameLayout id
-                transaction.commit();//loads it
+                // Find the TAG in fragment class
+                MusicDetailsFragment newMusic = (MusicDetailsFragment) fMgr.findFragmentByTag(MusicDetailsFragment.TAG);
+
+                if (newMusic == null) { // create a new fragment, only when no fragment exists, to display selected music details.
+                    newMusic = new MusicDetailsFragment(selectedMusic);
+                    FragmentTransaction transaction = fMgr.beginTransaction();
+                    transaction.addToBackStack("any string here");
+                    transaction.replace(R.id.searchFragmentLocation, newMusic); //first is the FrameLayout id
+                    transaction.commit();//loads it
+                }
             }
         });
 
@@ -463,5 +468,16 @@ public class MusicActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * onConfigurationChanged() to resolve the fragment problem when configuration changes, like rotation or change language
+     * */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        if (!isChangingConfigurations()) {
+            // Check the current state of the back stack and pop if needed
+            getSupportFragmentManager().popBackStack(MusicDetailsFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    }
 }

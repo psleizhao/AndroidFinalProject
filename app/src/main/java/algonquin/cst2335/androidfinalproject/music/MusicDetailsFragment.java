@@ -29,6 +29,11 @@ import algonquin.cst2335.androidfinalproject.music.Music;
  */
 public class MusicDetailsFragment extends Fragment {
     Music selected;
+    /**
+     * static final variable TAG for fragment
+     * */
+    public static final String TAG = "MusicDetailsFragment";
+    public MusicDetailsFragment() {    }
 
     /**
      * Constructor for creating a fragment with a specific music item.
@@ -52,7 +57,7 @@ public class MusicDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
+        setRetainInstance(true);
         MusicDetailsLayoutBinding binding = MusicDetailsLayoutBinding.inflate(getLayoutInflater());
         File file = new File(requireContext().getFilesDir(), selected.getFileName());
         if (file.exists()) {
