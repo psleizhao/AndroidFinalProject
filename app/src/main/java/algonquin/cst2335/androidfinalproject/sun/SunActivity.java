@@ -59,8 +59,8 @@ public class SunActivity extends AppCompatActivity {
 
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
     protected String cityName; // to hold the city name input
-    protected String latClass; // to hold the latitude
-    protected String lngClass; // to hold the longitude
+//    protected String latClass; // to hold the latitude
+//    protected String lngClass; // to hold the longitude
 
     protected RequestQueue queue = null; // for volley
 
@@ -70,6 +70,7 @@ public class SunActivity extends AppCompatActivity {
         binding = ActivitySunBinding.inflate(getLayoutInflater());
         queue = Volley.newRequestQueue(this);//HTTP Connections: Volley. A Volley object that will connect to a server
         setContentView(binding.getRoot());
+//        String cityName; // to hold the city name input
 
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
@@ -217,9 +218,11 @@ public class SunActivity extends AppCompatActivity {
             );
             queue.add(request);
 
+            //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
         });
+
         binding.sunSearchButton.setOnClickListener( cli ->{
 
             String sunLatitude = binding.latInput.getText().toString();
@@ -235,18 +238,6 @@ public class SunActivity extends AppCompatActivity {
             editor.putString("longitude", sunLongitude);
             editor.apply();
 
-            /*
-            * This part can be used to expand the function: enter city name, get sun data
-            *
-            * cityName = binding.editCity.getText().toString();
-            * String cityNameEncode = "0";
-            * try {
-            *     cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
-            * } catch (UnsupportedEncodingException e) {
-            *     throw new RuntimeException(e);
-            * }
-            *
-            * */
 
             // Prepare api url
             // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
@@ -268,7 +259,7 @@ public class SunActivity extends AppCompatActivity {
                             Log.e("API response: ", "response don't have results");
                             e.printStackTrace();
                             runOnUiThread(() ->
-                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show()
                             );
                         }
 
@@ -277,11 +268,12 @@ public class SunActivity extends AppCompatActivity {
                             String status = response.getString("status"); // get the JSONArray associated with "status"
 
                             if (results.length() == 0) {
-                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                                Log.e("Sun API Status not OK", "The Sun API results.length() == 0");
+                                Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
                                 Log.e("Sun API Status not OK", "The Sun API status is not OK");
-                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
@@ -318,6 +310,7 @@ public class SunActivity extends AppCompatActivity {
                                 //clear the previous text
                                 binding.latInput.setText("");
                                 binding.lngInput.setText("");
+                                binding.editCity.setText("");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -402,11 +395,11 @@ public class SunActivity extends AppCompatActivity {
                         JSONObject results = response.getJSONObject("results");
                         String status = response.getString("status"); // get the JSONArray associated with "status"
                         if (results.length() == 0) {
-                              Toast.makeText(SunActivity.this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                              Toast.makeText(SunActivity.this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
 
                         } else if (!"OK".equals(status)) {
                             Log.e("Sun API Status not OK", "The Sun API status is not OK");
-                            Toast.makeText(SunActivity.this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
                         } else {
                             Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
 
@@ -421,6 +414,16 @@ public class SunActivity extends AppCompatActivity {
                             selected.setSunset(sunsetResult);
                             selected.setSolar_noon(solar_noonResult);
                             selected.setGolder_hour(golden_hourResult);
+
+                            // TODO: this added thread cause an extra Fragment!
+                            Executor threadUpdate = Executors.newSingleThreadExecutor();
+                            threadUpdate.execute(()->{
+                                sDAO.updateSun(selected); //Update selected sun
+                            });
+
+                            // TODO: this added line cause an extra Fragment!
+//                            sunModel.selectedSun.postValue(selected);
+
 
                             sunAdapter.notifyDataSetChanged();
                         }
