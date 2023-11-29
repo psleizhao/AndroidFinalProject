@@ -60,7 +60,7 @@
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Lever et coucher du soleil</string>
-    <string name="sun_fav">Mes Favoris</string>
+    <string name="sun_fav">☀️ Mes Favoris 🌒</string>
     <string name="sun_lat_hint">Latitude : </string>
     <string name="sun_lng_hint">Longitude : </string>
     <string name="sun_lat_text">Latitude</string>
@@ -79,12 +79,14 @@
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
     <string name="sun_help2"><![CDATA[
-        \uD83C\uDF73 RecipeRover\n\n
-        \uD83C\uDFB5 DeezerDiscover\n\n
-        \uD83D\uDCD5 WordWiz\n\n
-        \u2764 Enregistrements sauvegardés\n\n
+        Entrez un nom de ville, trouvez la latitude et la longitude
+        Entrez à la fois la latitude et la longitude, recherchez
+        \u2764 Mes enregistrements sauvegardés\n\n
         \uD83D\uDCE5 Enregistrer cet enregistrement\n\n
-        \uD83D\uDDD1 ️Supprimer cet enregistrement\n
+        \uD83D\uDDD1 ️Supprimer cet enregistrement\n\n
+        \uD83C\uDF73 Aller à RecipeRover\n\n
+        \uD83C\uDFB5 Aller à DeezerDiscover\n\n
+        \uD83D\uDCD5 Aller à WordWiz\n
     ]]></string>
     <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
     <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
@@ -104,6 +106,8 @@
     <string name="sun_found_nothing">Aucun résultat trouvé, longueur du tableau = 0</string>
     <string name="sun_sun_api_status_not_ok">Échec du statut de l\'API Sunrise Sunset</string>
     <string name="sun_sun_api_ok">Résultats et statut de l\'API Sunrise OK</string>
+    <string name="sun_sun_api_not_available">L\'API Sun n\'est pas disponible actuellement</string>
+
 
 
 </resources>
