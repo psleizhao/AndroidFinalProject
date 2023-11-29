@@ -49,15 +49,13 @@ public class SunDetailsFragment extends Fragment {
         Date currentDate = Calendar.getInstance().getTime();
 
         // Format the date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(currentDate);
 
         // Format the time
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a z", Locale.getDefault());
         String formattedTime = timeFormat.format(currentDate);
 
-        // Combine date and time
-        String dateTimeString = formattedDate + " " + formattedTime;
         //set the text views:
         binding.sunDateDetailTitle.setText(formattedDate);
         binding.sunTimeDetailTitle.setText(formattedTime);
@@ -65,27 +63,4 @@ public class SunDetailsFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public class DateTimeGenerator {
-
-        public void main(String[] args) {
-            // Get the current date and time
-            Date currentDate = Calendar.getInstance().getTime();
-
-            // Format the date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy", Locale.getDefault());
-            String formattedDate = dateFormat.format(currentDate);
-
-            // Format the time
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
-            String formattedTime = timeFormat.format(currentDate);
-
-            // Combine date and time
-            String dateTimeString = formattedDate + " " + formattedTime;
-
-            // Print the result
-            System.out.println("Formatted Date: " + formattedDate);
-            System.out.println("Formatted Time: " + formattedTime);
-            System.out.println("Combined Date and Time: " + dateTimeString);
-        }
-    }
 }
