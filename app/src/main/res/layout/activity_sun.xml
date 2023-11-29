@@ -41,8 +41,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
+                android:layout_marginBottom="180dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sunTitleText" />
@@ -95,9 +95,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/sun_search_btn"
+                android:text="@string/sun_search_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/editCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="@string/sun_find_city"
+                android:inputType="text"
+                android:text=""
+                app:layout_constraintBottom_toTopOf="@+id/latInput"
+                app:layout_constraintEnd_toEndOf="@+id/lngInput"
+                app:layout_constraintStart_toStartOf="@+id/latInput" />
+
+            <Button
+                android:id="@+id/citySearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/sun_check"
+                app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
+                app:layout_constraintEnd_toEndOf="@+id/sunSearchButton"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/lngInput" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

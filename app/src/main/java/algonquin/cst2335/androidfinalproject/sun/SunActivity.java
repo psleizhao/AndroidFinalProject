@@ -56,6 +56,7 @@ public class SunActivity extends AppCompatActivity {
     int selectedRow; // to hold the "position", find which row this is"
 
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
+    protected String cityName; // to hold the city name input
 
     protected RequestQueue queue = null; // for volley
 
@@ -223,15 +224,20 @@ public class SunActivity extends AppCompatActivity {
                                 String solar_noonResult = results.getString("solar_noon");
                                 String golden_hourResult = results.getString("golden_hour");
                                 String timezoneResult = results.getString("timezone");
+                                String cityNameFromInput;
+
+                                if(cityName != null) {
+                                    cityNameFromInput = cityName;
+                                } else {
+                                    cityNameFromInput = getResources().getString(R.string.sun_no_name_location);
+                                }
 
 
-                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
+                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult, cityNameFromInput);
                                 sToPass = s; // pass the sun obj to the class level
 
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
-
-
 
                                 SunDetailsFragment sunFragment = new SunDetailsFragment(s);
 
