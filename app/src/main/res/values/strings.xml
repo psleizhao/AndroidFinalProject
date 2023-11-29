@@ -43,7 +43,40 @@
                                 Find a recipe from search bar</string>
 
     <!--The following strings belong to Music Activity-->
+    <string name="music_favItem">Favorite Music</string>
+    <string name="music_addItem">Save This Music</string>
+    <string name="music_deleteItem">Delete This Music</string>
+    <string name="music_backToMainItem">Back To Main</string>
+    <string name="music_aboutItem">About</string>
+    <string name="music_helpItem">Help</string>
+    <string name="music_sampleList">Music name goes here</string>
 
+    <string name="music_titleText">Favorite Music</string>
+    <string name="music_searchButton">Search</string>
+    <string name="music_hintText">Enter artist</string>
+    <string name="music_frgTitle">Music Name</string>
+    <string name="music_duration">Duration</string>
+    <string name="music_albumName">Album Name</string>
+
+    <string name="music_notFoundToast">Sorry,found nothing</string>
+    <string name="music_insertSucceedToast">Music saved successfully</string>
+    <string name="music_alreadyInToast">Music already in your list</string>
+    <string name="music_noSelectedToast">No music selected</string>
+    <string name="music_aboutToast">MusicRover created by Zhicheng He</string>
+    <string name="music_addTitle">Add your favorite song</string>
+    <string name="music_deleteAlert">Do you want to delete the music of</string>
+    <string name="music_yes">Yes</string>
+    <string name="music_no">No</string>
+    <string name="music_undo">Undo</string>>
+    <string name="music_deleteSnackBar">You deleted music #</string>
+    <string name="music_helpDetail">\uD83C\uDF73 Goto RecipeRover\n\n
+                                    \u2600 SunSeeker\n\n
+                                    \uD83D\uDCD5 Goto WordWiz\n\n
+                                    ❤️ Go To Saved Music\n\n
+                                    \uD83D\uDCE5 Save This Music\n\n
+                                    \uD83D\uDDD1 ️Delete This Music\n\n
+                                    Find a music from search bar</string>
+    <string name="music_helpTitle">How to use me: </string>
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
@@ -89,39 +122,6 @@
     <string name="sun_check">Check</string>
 
 
-    <string name="music_favItem">Favorite Music</string>
-    <string name="music_addItem">Save This Music</string>
-    <string name="music_deleteItem">Delete This Music</string>
-    <string name="music_backToMainItem">Back To Main</string>
-    <string name="music_aboutItem">About</string>
-    <string name="music_helpItem">Help</string>
-    <string name="music_sampleList">Music name goes here</string>
 
-    <string name="music_titleText">Favorite Music</string>
-    <string name="music_searchButton">Search</string>
-    <string name="music_hintText">Enter artist</string>
-    <string name="music_frgTitle">Music Name</string>
-    <string name="music_duration">Duration</string>
-    <string name="music_albumName">Album Name</string>
-
-    <string name="music_notFoundToast">Sorry,found nothing</string>
-    <string name="music_insertSucceedToast">Music saved successfully</string>
-    <string name="music_alreadyInToast">Music already in your list</string>
-    <string name="music_noSelectedToast">No music selected</string>
-    <string name="music_aboutToast">MusicRover created by Zhicheng He</string>
-    <string name="music_addTitle">Add your favorite song</string>
-    <string name="music_deleteAlert">Do you want to delete the music of</string>
-    <string name="music_yes">Yes</string>
-    <string name="music_no">No</string>
-    <string name="music_undo">Undo</string>>
-    <string name="music_deleteSnackBar">You deleted music #</string>
-    <string name="music_helpDetail">\uD83C\uDF73 Goto RecipeRover\n\n
-                                    \u2600 SunSeeker\n\n
-                                    \uD83D\uDCD5 Goto WordWiz\n\n
-                                    ❤️ Go To Saved Music\n\n
-                                    \uD83D\uDCE5 Save This Music\n\n
-                                    \uD83D\uDDD1 ️Delete This Music\n\n
-                                    Find a music from search bar</string>
-    <string name="music_helpTitle">How to use me: </string>
 
 </resources>
