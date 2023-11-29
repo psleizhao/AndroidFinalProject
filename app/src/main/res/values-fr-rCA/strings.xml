@@ -126,7 +126,7 @@
     <string name="dict_insertSucceedToast">Sauvegardée avec succès</string>
     <string name="dict_alreadyInToast">Déjà dans votre liste.</string>
     <string name="dict_noSelectedToast">Aucune sélectionnée</string>
-    <string name="dict_deleteAlert">Voulez vous supprimer le mot de </string>
+    <string name="dict_deleteAlert">Voulez vous supprimer le mot? </string>
     <string name="dict_yes">Oui</string>
     <string name="dict_no">Non</string>
     <string name="dict_undo">Annuler</string>
