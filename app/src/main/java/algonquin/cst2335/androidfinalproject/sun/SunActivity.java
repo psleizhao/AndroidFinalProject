@@ -637,7 +637,7 @@ public class SunActivity extends AppCompatActivity {
 
         if (!isChangingConfigurations()) {
             // Check the current state of the back stack and pop if needed
-            getSupportFragmentManager().popBackStack(RecipeDetailsFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            getSupportFragmentManager().popBackStack(SunDetailsFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
