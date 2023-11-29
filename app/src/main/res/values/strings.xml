@@ -45,34 +45,6 @@
     <!--The following strings belong to Music Activity-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
     <string name="sun_fav">My Saved List</string>
@@ -117,7 +89,6 @@
     <string name="sun_check">Check</string>
 
 
-
     <string name="music_favItem">Favorite Music</string>
     <string name="music_addItem">Save This Music</string>
     <string name="music_deleteItem">Delete This Music</string>
@@ -144,8 +115,13 @@
     <string name="music_no">No</string>
     <string name="music_undo">Undo</string>>
     <string name="music_deleteSnackBar">You deleted music #</string>
-    <string name="music_helpDetail">❤️ Go To Saved Music\n\n\uD83D\uDCE5 Save This Music
-                                \n\n\uD83D\uDDD1 ️Delete This Music\n\nFind a music from search bar</string>
+    <string name="music_helpDetail">\uD83C\uDF73 Goto RecipeRover\n\n
+                                    \u2600 SunSeeker\n\n
+                                    \uD83D\uDCD5 Goto WordWiz\n\n
+                                    ❤️ Go To Saved Music\n\n
+                                    \uD83D\uDCE5 Save This Music\n\n
+                                    \uD83D\uDDD1 ️Delete This Music\n\n
+                                    Find a music from search bar</string>
     <string name="music_helpTitle">How to use me: </string>
 
 </resources>

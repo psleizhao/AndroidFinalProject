@@ -127,8 +127,13 @@
     <string name="music_no">Non</string>
     <string name="music_undo">Annuler</string>
     <string name="music_deleteSnackBar">Vous avez supprimé la musique #</string>
-    <string name="music_helpDetail">❤️ Aller à la musique enregistrée\n\n\uD83D\uDCE5 Enregistrer cette musique
-                                \n\n\uD83D\uDDD1 Supprimer cette musique\n\nTrouver une musique par la recherche</string>
+    <string name="music_helpDetail">\uD83C\uDF73 RecipeRover\n\n
+                                    \u2600 SunSeeker\n\n
+                                    \uD83D\uDCD5 WordWiz\n\n
+                                    ❤️ Aller à la musique enregistrée\n\n
+                                    \uD83D\uDCE5 Enregistrer cette musique\n\n
+                                    \uD83D\uDDD1 Supprimer cette musique\n\n
+                                    Trouver une musique par la recherche</string>
     <string name="music_helpTitle">Comment m\'utiliser : </string>
 
 
