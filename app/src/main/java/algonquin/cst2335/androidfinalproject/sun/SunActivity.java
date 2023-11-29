@@ -48,28 +48,70 @@ import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
 import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
+/**
+ * The main activity class for the Sun app.
+ *
+ * This class represents the main screen of the Sun app, where users can view and interact with Sun records.
+ * It utilizes a ViewModel to manage data, a RecyclerView to display records, and a DAO for database operations.
+ *
+ * @author Yu Song
+ */
 public class SunActivity extends AppCompatActivity {
 
+    /**
+     * Data binding for the activity layout.
+     */
     ActivitySunBinding binding; // for binding
+    /**
+     * List of Sun records.
+     */
     ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
+    /**
+     * ViewModel for managing Sun-related data.
+     */
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
+    /**
+     * Adapter for the RecyclerView to display Sun records.
+     */
     private RecyclerView.Adapter sunAdapter; // to hold the object below
+    /**
+     * Data Access Object (DAO) for Sun records.
+     */
     SunDAO sDAO; // DAO
+    /**
+     * Index of the selected row in the RecyclerView.
+     */
     int selectedRow; // to hold the "position", find which row this is"
+    /**
+     * Sun object to pass to other classes or methods.
+     */
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
+    /**
+     * City name input.
+     */
     protected String cityName; // to hold the city name input
 //    protected String latClass; // to hold the latitude
 //    protected String lngClass; // to hold the longitude
 
+    /**
+     * RequestQueue for Volley library for handling HTTP requests.
+     */
     protected RequestQueue queue = null; // for volley
 
+    /**
+     * Called when the activity is first created. Initializes UI, sets up listeners,
+     * and fetches data from the API and local database.
+     *
+     * @param savedInstanceState The saved state of the activity, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySunBinding.inflate(getLayoutInflater());
-        queue = Volley.newRequestQueue(this);//HTTP Connections: Volley. A Volley object that will connect to a server
+        binding = ActivitySunBinding.inflate(getLayoutInflater()); // binding the layout variables
+        queue = Volley.newRequestQueue(this); //HTTP Connections: Volley. A Volley object that will connect to a server
         setContentView(binding.getRoot());
 
+        // SharedPreferences for saving the data from last launch
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
         binding.lngInput.setText(prefs.getString("longitude",""));
@@ -111,18 +153,16 @@ public class SunActivity extends AppCompatActivity {
             }
         };
 
-
         // Apply the InputFilter to the EditText
         binding.latInput.setFilters(new InputFilter[]{latitudeFilter});
         // Apply the InputFilter to the EditText
         binding.lngInput.setFilters(new InputFilter[]{longitudeFilter});
 
-
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
         getSupportActionBar().setTitle(getString(R.string.sun_toolbar_title));
 
-
+        // ViewModel for saving the screen when rotating
         sunModel = new ViewModelProvider(this).get(SunViewModel.class);
         suns = sunModel.suns.getValue(); //get the array list from ViewModelProvider, might be NULL
 
@@ -203,6 +243,9 @@ public class SunActivity extends AppCompatActivity {
 
                             binding.latInput.setText(String.valueOf(latitude));
                             binding.lngInput.setText(String.valueOf(longitude));
+
+                            //clear the previous text
+                            binding.editCity.setText("");
 
                         } catch (JSONException e) {
                             e.printStackTrace();

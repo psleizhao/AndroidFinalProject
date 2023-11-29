@@ -80,7 +80,8 @@
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
-    <string name="sun_fav">☀️ My Favourites 🌒</string>
+    <string name="sun_fav">My Favourites</string>
+    <string name="sun_title">☀️ SunSeeker 🌒</string>
     <string name="sun_lat_hint">Latitude: </string>
     <string name="sun_lng_hint">Longitude: </string>
     <string name="sun_lat_text">Latitude</string>
