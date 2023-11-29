@@ -227,7 +227,7 @@ public class MusicActivity extends AppCompatActivity {
                 File file = new File(getFilesDir(), obj.getImgUrl());
                 Bitmap theImage = BitmapFactory.decodeFile(file.getAbsolutePath());
                 holder.musicName.setText(obj.getSongTitle());
-                holder.musicIcon.setImageBitmap(theImage);
+//                holder.musicIcon.setImageBitmap(theImage);
 
             }
 
