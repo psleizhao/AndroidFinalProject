@@ -174,14 +174,26 @@ public class SunActivity extends AppCompatActivity {
 
                 FragmentManager fMgr = getSupportFragmentManager();
                 //create a Sun fragment
-                SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
 
+                SunDetailsFragment sunFragment = (SunDetailsFragment)fMgr.findFragmentByTag(SunDetailsFragment.TAG);
 
+                if(sunFragment == null){
+                    sunFragment = new SunDetailsFragment(selectedSun);
+                    FragmentTransaction transaction = fMgr.beginTransaction();
+                    transaction.addToBackStack("Add to back stack"); // adds to the history
+                    transaction.replace(R.id.sunFragmentLocation, sunFragment,SunDetailsFragment.TAG);//The add() function needs the id of the FrameLayout where it will load the fragment
+                    transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+//
+                }
 
-                FragmentTransaction transaction = fMgr.beginTransaction();
-                transaction.addToBackStack("Add to back stack"); // adds to the history
-                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
-                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+//                     SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
+//
+//
+//
+//                FragmentTransaction transaction = fMgr.beginTransaction();
+//                transaction.addToBackStack("Add to back stack"); // adds to the history
+//                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+//                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
             }
         });
 
@@ -339,13 +351,26 @@ public class SunActivity extends AppCompatActivity {
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-                                SunDetailsFragment sunFragment = new SunDetailsFragment(s);
-
                                 FragmentManager fMgr = getSupportFragmentManager();
-                                FragmentTransaction transaction = fMgr.beginTransaction();
-                                transaction.addToBackStack("Add to back stack"); // adds to the history
-                                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
-                                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+                                //create a Sun fragment
+
+                                SunDetailsFragment sunFragment = (SunDetailsFragment)fMgr.findFragmentByTag(SunDetailsFragment.TAG);
+
+                                if(sunFragment == null){
+                                    sunFragment = new SunDetailsFragment(s);
+                                    FragmentTransaction transaction = fMgr.beginTransaction();
+                                    transaction.addToBackStack("Add to back stack"); // adds to the history
+                                    transaction.replace(R.id.sunFragmentLocation, sunFragment, SunDetailsFragment.TAG);//The add() function needs the id of the FrameLayout where it will load the fragment
+                                    transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+//
+                                }
+//                                SunDetailsFragment sunFragment = new SunDetailsFragment(s);
+//
+//                                FragmentManager fMgr = getSupportFragmentManager();
+//                                FragmentTransaction transaction = fMgr.beginTransaction();
+//                                transaction.addToBackStack("Add to back stack"); // adds to the history
+//                                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+//                                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
 
                                 //clear the previous text
                                 binding.latInput.setText("");

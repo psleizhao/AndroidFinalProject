@@ -30,7 +30,7 @@ public class SunDetailsFragment extends Fragment {
     /** Represents the Sun record to be displayed in the fragment.*/
     Sun selected;
     /** Represents the TAG that will be used in the Log.*/
-    public static final String TAG = "RecipeDetailsFragment";
+    public static final String TAG = "SunDetailsFragment";
 
     /** no-argument constructor to prevent app crash */
     public SunDetailsFragment(){}
