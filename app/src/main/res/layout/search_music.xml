@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Music Name goes here."
+        android:text="@string/music_sampleList"
         android:textColor="#9052FF"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/musicIcon"

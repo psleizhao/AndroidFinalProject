@@ -132,7 +132,7 @@ public class MusicActivity extends AppCompatActivity {
                         try {
                             JSONArray resultsArray = response.getJSONArray("data");
                             if (resultsArray.length() == 0) {
-                                Toast.makeText(this, "Sorry, found nothing", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, R.string.music_notFoundToast, Toast.LENGTH_SHORT).show();
                             } else {
                                 songs.clear();
 
@@ -161,7 +161,7 @@ public class MusicActivity extends AppCompatActivity {
                                                     Music music = new Music(id, songTitle, duration, albumName, imageUrl, albumId, fileName);
                                                     songs.add(music);
                                                     musicAdapter.notifyDataSetChanged();
-                                                    binding.musicTitleText.setText("Add your favorite song");
+                                                    binding.musicTitleText.setText(R.string.music_addTitle);
                                                     File file = new File(getFilesDir(), fileName);
                                                     Log.d("Music App", "File path: " + file.getAbsolutePath());
                                                     if (file.exists()) {
@@ -295,21 +295,16 @@ public class MusicActivity extends AppCompatActivity {
                                 mDAO.insertMusic(toSave);
                                 runOnUiThread(() -> {
                                     Log.d("Music", "Music saved successfully");
-                                    Toast.makeText(MusicActivity.this, "Music saved successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MusicActivity.this, R.string.music_insertSucceedToast, Toast.LENGTH_SHORT).show();
                                 });
                             } catch (Exception e) {
                                 Log.d("Music", "catch exception");
-                                runOnUiThread(() -> Toast.makeText(MusicActivity.this, "Music already in your list", Toast.LENGTH_SHORT).show());
+                                runOnUiThread(() -> Toast.makeText(MusicActivity.this, R.string.music_alreadyInToast, Toast.LENGTH_SHORT).show());
                             }
                         });
-////                                    musicAdapter.notifyDataSetChanged();
-////                                    getSupportFragmentManager().popBackStack(); // go back to message list
-//                                })
-//                                .setNegativeButton("No", (dialog, cl) -> {
-//                                })
-//                                .create().show();
+
                     } else {
-                        Toast.makeText(this, "No music selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.music_noSelectedToast, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -322,9 +317,9 @@ public class MusicActivity extends AppCompatActivity {
                         Music toDelete = songs.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-                        builder.setMessage("Do you want to delete the music of " + toDelete.getSongTitle())
+                        builder.setMessage(getString(R.string.music_deleteAlert) + " " + toDelete.getSongTitle())
                                 .setTitle("Question: ")
-                                .setPositiveButton("Yes", (dialog, cl) -> {
+                                .setPositiveButton(R.string.music_yes, (dialog, cl) -> {
                                     Executor thread = Executors.newSingleThreadExecutor();
                                     thread.execute(() -> {
                                         mDAO.deleteMusic(toDelete);
@@ -334,8 +329,8 @@ public class MusicActivity extends AppCompatActivity {
                                     musicAdapter.notifyDataSetChanged();
                                     getSupportFragmentManager().popBackStack(); // go back to message list
 
-                                    Snackbar.make(binding.musicRecycleView, "You deleted music #" + (position + 1), Snackbar.LENGTH_LONG)
-                                            .setAction("Undo", click -> {
+                                    Snackbar.make(binding.musicRecycleView, getString(R.string.music_deleteSnackBar) + (position + 1), Snackbar.LENGTH_LONG)
+                                            .setAction(R.string.music_undo, click -> {
                                                 Executor thread1 = Executors.newSingleThreadExecutor();
                                                 thread1.execute(() -> {
                                                     mDAO.insertMusic(toDelete);
@@ -353,11 +348,11 @@ public class MusicActivity extends AppCompatActivity {
                                             })
                                             .show();
                                 })
-                                .setNegativeButton("No", (dialog, cl) -> {
+                                .setNegativeButton(R.string.music_no, (dialog, cl) -> {
                                 })
                                 .create().show();
                     } else {
-                        Toast.makeText(this, "No Music selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.music_noSelectedToast, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -368,18 +363,17 @@ public class MusicActivity extends AppCompatActivity {
                 break;
 
             case R.id.helpItem:
-//                Toast.makeText(this, "❤️Go To Saved Music\n\uD83D\uDCE5Save This Music\n\uD83D\uDDD1️Delete This Music", Toast.LENGTH_LONG).show();
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-                builder.setMessage("❤️ Go To Saved Music\n\n\uD83D\uDCE5 Save This Music"
-                                + "\n\n\uD83D\uDDD1 ️Delete This Music\n\nFind a music from search bar")
-                        .setTitle("How to use me: ")
+                builder.setMessage(R.string.music_helpDetail)
+                        .setTitle(R.string.music_helpTitle)
                         .setPositiveButton("OK", (dialog, cl) -> {
                         }).create().show();
 
                 break;
 
             case R.id.aboutMusic:
-                Toast.makeText(this, "MusicRover created by Zhicheng He", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.music_aboutToast, Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.musicGotoSunItem: // Go to SunSeeker
