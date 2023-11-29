@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -140,6 +141,8 @@ public class RecipeActivity extends AppCompatActivity {
         rDAO = db.recipeDAO();
 
         if (recipes == null) {
+            binding.recipeTitleText.setText("Nothing here yet\nFind something you love!");
+            binding.recipeTitleText.setGravity(Gravity.CENTER);
             recipeModel.recipes.postValue(recipes = new ArrayList<Recipe>());
 
             // Load data from database
@@ -147,8 +150,13 @@ public class RecipeActivity extends AppCompatActivity {
             thread.execute(() ->
             {
                 recipes.addAll(rDAO.getAllRecipes()); //Once you get the data from database
+                if (recipes.size() > 0) {
+                    runOnUiThread(() -> binding.recipeTitleText.setText("My favorite"));
+//                    ;
+                }
                 runOnUiThread(() -> binding.recipeRecycleView.setAdapter(recipeAdapter)); //You can then load the RecyclerView
             });
+
         }
 
         // Set onClickListener
@@ -437,6 +445,10 @@ public class RecipeActivity extends AppCompatActivity {
                                     Executor thread = Executors.newSingleThreadExecutor();
                                     thread.execute(() -> {
                                         rDAO.deleteRecipe(toDelete);
+                                        if (recipes.size() == 0) {
+                                            runOnUiThread(() -> binding.recipeTitleText.setText("Nothing here yet\nFind something you love!"));
+//                    ;
+                                        }
                                     });
 
                                     recipes.remove(position);
@@ -450,6 +462,10 @@ public class RecipeActivity extends AppCompatActivity {
                                                     rDAO.insertRecipe(toDelete);
                                                 });
                                                 recipes.add(position, toDelete);
+                                                if (recipes.size() > 0) {
+                                                    runOnUiThread(() -> binding.recipeTitleText.setText("My Favorites"));
+//                    ;
+                                                }
                                                 recipeAdapter.notifyDataSetChanged();
 
                                                 // after undo, go back to the fragment
