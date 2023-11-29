@@ -25,6 +25,7 @@ import androidx.room.Room;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
@@ -120,16 +121,19 @@ public class DictActivity extends AppCompatActivity {
             }
 
             Log.d("Dict", "Request URL: " + url);
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                     (response) -> {
+                Log.d("joling", "in reponse");
                         try {
-                            JSONArray resultsArray = response.getJSONArray("results");
-                            if (resultsArray.length() == 0) {
-                                Toast.makeText(this, R.string.recipe_notFoundToast, Toast.LENGTH_SHORT).show();
-                            } else {
+
+//                            JSONArray resultsArray = response.getJSONArray(0);
+//                            if (response.length() == 0) {
+//                                Toast.makeText(this, R.string.recipe_notFoundToast, Toast.LENGTH_SHORT).show();
+//                            } else {
+                                Log.d("joling", "get in request");
                                 dicts.clear();
-                                for (int i = 0; i < resultsArray.length(); i++) {
-                                    JSONObject result = resultsArray.getJSONObject(i);
+                                for (int i = 0; i < response.length(); i++) {
+                                    JSONObject result = response.getJSONObject(i);
                                     long id = result.getInt("id");
                                     String title = result.getString("title");
                                     String summary = "summary";
@@ -139,13 +143,13 @@ public class DictActivity extends AppCompatActivity {
                                     dicts.add(dict);
                                     }
                                     binding.dictTitleText.setText(R.string.dict_frgTitle);
-                                }
+//                                }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     },
-                    (error) -> {
+                    (error) -> {Log.d("joling", error.toString());
                     });
             queue.add(request);
 
@@ -346,7 +350,7 @@ public class DictActivity extends AppCompatActivity {
 
             case R.id.helpItem:
                 AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
-                builder.setMessage(R.string.recipe_helpAlert)
+                builder.setMessage(R.string.dict_helpAlert)
                         .setTitle(R.string.recipe_helpTitle)
                         .setPositiveButton(R.string.recipe_ok, (dialog, cl) -> {
                         }).create().show();
