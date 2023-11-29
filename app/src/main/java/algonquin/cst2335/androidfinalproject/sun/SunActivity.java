@@ -102,8 +102,8 @@ public class SunActivity extends AppCompatActivity {
                 String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
 
                 if (!pattern.matcher(input).matches()) {
-                    Log.d("Longitude input invalid", "Longitude input invalid");
                     showInvalidInputWarning(getString(R.string.valid_input_lng));
+                    Log.d("Longitude input invalid", "Longitude input invalid");
                     return "";
                 }
 
@@ -182,13 +182,14 @@ public class SunActivity extends AppCompatActivity {
                             Log.e("City API response: ", "City API response don't have coord");
                             e.printStackTrace();
                             runOnUiThread(() ->
-                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show());
+                                Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show());
                         }
 
                         try {
                             JSONObject coord = response.getJSONObject("coord"); // Get the "coord" object
                             if (coord.length() == 0) {
-                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
                             } else {
                                 Log.d("City API response ok", "City API response ok, has coord");
                             }
@@ -217,7 +218,6 @@ public class SunActivity extends AppCompatActivity {
             //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
-            binding.editCity.setText("");
         });
 
         binding.sunSearchButton.setOnClickListener( cli ->{
@@ -235,20 +235,7 @@ public class SunActivity extends AppCompatActivity {
             editor.putString("longitude", sunLongitude);
             editor.apply();
 
-            /*
-            * This part can be used to expand the function: enter city name, get sun data
-            *
-            * cityName = binding.editCity.getText().toString();
-            * String cityNameEncode = "0";
-            * try {
-            *     cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
-            * } catch (UnsupportedEncodingException e) {
-            *     throw new RuntimeException(e);
-            * }
-            *
-            * */
-
-            // Prepare api url
+            // Prepare Sunrise & Sunset api url
             // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
             String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude;
@@ -268,7 +255,8 @@ public class SunActivity extends AppCompatActivity {
                             Log.e("API response: ", "response don't have results");
                             e.printStackTrace();
                             runOnUiThread(() ->
-                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show()
+//                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
                             );
                         }
 
@@ -277,11 +265,13 @@ public class SunActivity extends AppCompatActivity {
                             String status = response.getString("status"); // get the JSONArray associated with "status"
 
                             if (results.length() == 0) {
-                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
                                 Log.e("Sun API Status not OK", "The Sun API status is not OK");
-                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
@@ -296,7 +286,7 @@ public class SunActivity extends AppCompatActivity {
                                 if(cityName != null) {
                                     cityNameFromInput = cityName;
                                 } else {
-                                    cityNameFromInput = "Unnamed Location";
+                                    cityNameFromInput = getResources().getString(R.string.sun_no_name_location);
                                 }
 
                                 Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult, cityNameFromInput);
@@ -401,11 +391,12 @@ public class SunActivity extends AppCompatActivity {
                         JSONObject results = response.getJSONObject("results");
                         String status = response.getString("status"); // get the JSONArray associated with "status"
                         if (results.length() == 0) {
-                              Toast.makeText(SunActivity.this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
-
+//                              Toast.makeText(SunActivity.this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SunActivity.this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
                         } else if (!"OK".equals(status)) {
                             Log.e("Sun API Status not OK", "The Sun API status is not OK");
-                            Toast.makeText(SunActivity.this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SunActivity.this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
                         } else {
                             Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
 
