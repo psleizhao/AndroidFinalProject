@@ -40,7 +40,7 @@
 
     <item
         android:id="@+id/sunBackToMainItem"
-        android:title="Back to main page"
+        android:title="@string/sun_to_main"
         app:showAsAction="never" />
 
     <item

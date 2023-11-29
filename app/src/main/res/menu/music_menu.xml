@@ -3,33 +3,49 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/musicGotoSunItem"
+        android:icon="@drawable/sun_icon"
+        android:title="SunSeeker"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/musicGotoRecipeItem"
+        android:icon="@drawable/recipe_icon"
+        android:title="RecipeRover"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/musicGotoDictItem"
+        android:icon="@drawable/dict_icon"
+        android:title="WordWiz"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/favoriteMusic"
         android:icon="@drawable/favorite"
-        android:title="Go To My Favorites"
+        android:title="@string/music_favItem"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/addItem"
         android:icon="@drawable/add"
-        android:title="Save This Music"
+        android:title="@string/music_addItem"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/deleteItem"
         android:icon="@drawable/delete"
-        android:title="Delete This Music"
+        android:title="@string/music_deleteItem"
         app:showAsAction="always" />
     <item
         android:id="@+id/backItem"
-        android:title="Back to main page"
+        android:title="@string/music_backToMainItem"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/helpItem"
         android:icon="@drawable/help"
-        android:title="Help"
+        android:title="@string/music_helpItem"
         app:showAsAction="never" />
     <item
         android:id="@+id/aboutMusic"
-        android:title="About"
+        android:title="@string/music_aboutItem"
         app:showAsAction="never" />
 </menu>

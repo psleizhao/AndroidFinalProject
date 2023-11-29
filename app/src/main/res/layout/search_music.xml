@@ -11,16 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Music Name goes here."
+        android:text="@string/music_sampleList"
         android:textColor="#9052FF"
-        android:textSize="30dp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/musicIcon"
         app:layout_constraintStart_toEndOf="@+id/musicIcon" />
 
     <ImageView
         android:id="@+id/musicIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/music_icon" />

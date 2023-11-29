@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -30,7 +29,9 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -50,29 +51,55 @@ import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.ActivityMusicBinding;
 import algonquin.cst2335.androidfinalproject.databinding.SearchMusicBinding;
-import algonquin.cst2335.androidfinalproject.music.Music;
-import algonquin.cst2335.androidfinalproject.music.MusicDatabase;
-import algonquin.cst2335.androidfinalproject.music.MusicDetailsFragment;
-import algonquin.cst2335.androidfinalproject.music.Music;
-import algonquin.cst2335.androidfinalproject.music.MusicActivity;
+import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
+import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
+import algonquin.cst2335.androidfinalproject.sun.SunActivity;
 
-
+/**
+ * The main activity for the music application, handling the display and interaction with music items.
+ * This activity manages music search, list display, and interaction with the music database.
+ */
 public class MusicActivity extends AppCompatActivity {
 
+    /**
+     * Binding instance for ActivityMusic layout.
+     */
     ActivityMusicBinding binding;
 
-    ArrayList<Music> music1 = null;
+    /**
+     * ArrayList to hold music items.
+     */
+    ArrayList<Music> songs = null;
+
+    /**
+     * ViewModel instance for handling music data.
+     */
     MusicViewModel musicModel;
 
+    /**
+     * Adapter for the RecyclerView to display music items.
+     */
     private RecyclerView.Adapter musicAdapter;
 
+    /**
+     * Data Access Object for music database operations.
+     */
     MusicDAO mDAO;
+
+    /**
+     * Queue for network requests.
+     */
     protected RequestQueue queue = null;
 
+    /**
+     * Called when the activity is starting. This is where most initialization should go.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        queue = Volley.newRequestQueue(this); // Set the queue of API request by Volley
         binding = ActivityMusicBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -81,7 +108,7 @@ public class MusicActivity extends AppCompatActivity {
         setSupportActionBar(binding.musicToolbar);
 
         musicModel = new ViewModelProvider(this).get(MusicViewModel.class);
-        music1 = musicModel.musics.getValue();
+        songs = musicModel.musics.getValue();
 
         musicModel.selectedMusic.observe(this, (selectedMusic) -> {
 
@@ -99,13 +126,13 @@ public class MusicActivity extends AppCompatActivity {
         MusicDatabase db = Room.databaseBuilder(getApplicationContext(), MusicDatabase.class, "musicdb").build();
         mDAO = db.musicDAO();
 
-        if (music1 == null) {
-            musicModel.musics.postValue(music1 = new ArrayList<Music>());
+        if (songs == null) {
+            musicModel.musics.postValue(songs = new ArrayList<Music>());
 
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() ->
             {
-                music1.addAll(mDAO.getAllMusics()); //Once you get the data from database
+                songs.addAll(mDAO.getAllMusics()); //Once you get the data from database
 
                 runOnUiThread(() -> binding.musicRecycleView.setAdapter(musicAdapter)); //You can then load the RecyclerView
             });
@@ -114,7 +141,7 @@ public class MusicActivity extends AppCompatActivity {
         binding.musicSearchButton.setOnClickListener(clk -> {
 
             String musicTextInput = binding.musicTextInput.getText().toString();
-//            binding.musicTitleText.setText("Try One?");
+
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("musicName", musicTextInput);
             editor.apply();
@@ -131,66 +158,98 @@ public class MusicActivity extends AppCompatActivity {
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                     (response) -> {
                         try {
-                            JSONArray resultsArray = response.getJSONArray("results");
+                            JSONArray resultsArray = response.getJSONArray("data");
                             if (resultsArray.length() == 0) {
-                                Toast.makeText(this, "Sorry, found nothing", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, R.string.music_notFoundToast, Toast.LENGTH_SHORT).show();
                             } else {
-                                music1.clear();
-                                for (int i = 0; i < resultsArray.length(); i++) {
-                                    JSONObject result = resultsArray.getJSONObject(i);
-                                    long id = result.getInt("id");
-                                    String title = result.getString("title");
-                                    String imageUrl = result.getString("image");
-                                    String imgType = result.getString("imageType");
-                                    String summary = "summary";
-                                    String srcUrl = "url";
+                                songs.clear();
 
-                                    String fileName = id + "-312x231.jpg";
+                                JSONObject position0 = resultsArray.getJSONObject(0);
 
-                                    Music music = new Music(title, fileName, summary, srcUrl, id);
-                                    music1.add(music);
-
-                                    File file = new File(getFilesDir(), fileName);
-                                    Log.d("Music App", "File path: " + file.getAbsolutePath());
-                                    if (file.exists()) {
-                                        Log.d("Music App", "File path: " + file.getAbsolutePath());
-                                        musicAdapter.notifyDataSetChanged();
-                                    } else {
-                                        Log.d("Music App", "got in else " + imageUrl);
-                                        ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
-                                            // Do something with loaded bitmap...
-                                            FileOutputStream fOut = null;
+                                String trackList = position0.getString("tracklist");
+                                Log.d("music", "second url");
+                                JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, trackList, null,
+                                        (response1) -> {
                                             try {
-                                                fOut = openFileOutput(id + "-312x231.jpg", Context.MODE_PRIVATE);
-                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                                                fOut.flush();
-                                                fOut.close();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }musicAdapter.notifyDataSetChanged();
-                                        }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
+                                                Log.d("music", "in response1");
+                                                JSONArray tracksArray = response1.getJSONArray("data");
 
-                                        });
+                                                for (int i = 0; i < tracksArray.length(); i++) {
+                                                    Log.d("music", "for loop");
+                                                    JSONObject track = tracksArray.getJSONObject(i);
+                                                    long id = track.getLong("id");
+                                                    String songTitle = track.getString("title");
+                                                    int duration = track.getInt("duration");
 
-                                        queue.add(imgReq);
-                                    }
+                                                    JSONObject album = track.getJSONObject("album");
+                                                    String albumName = album.getString("title");
+                                                    String imageUrl = album.getString("cover_big");
+                                                    int albumId = album.getInt("id");
+                                                    String fileName = albumId + ".jpg";
+                                                    Music music = new Music(id, songTitle, duration, albumName, imageUrl, albumId, fileName);
+                                                    songs.add(music);
+                                                    musicAdapter.notifyDataSetChanged();
 
-                                    binding.musicTitleText.setText("Ready to Listen?");
-                                }
+                                                    binding.musicTitleText.setText(R.string.music_addTitle);
+                                                    File file = new File(getFilesDir(), fileName);
+                                                    Log.d("Music App", "File path: " + file.getAbsolutePath());
+                                                    if (file.exists()) {
+                                                        Log.d("Music App", "File path: " + file.getAbsolutePath());
+                                                  //      musicAdapter.notifyDataSetChanged();
+                                                    } else {
+                                                        Log.d("Music App", "got in else " + imageUrl);
+                                                        ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
+                                                            Log.d("Music App", "got in imgReq ");
+                                                            // Do something with loaded bitmap...
+                                                            FileOutputStream fOut = null;
+                                                            try {
+                                                                fOut = openFileOutput(albumId + ".jpg", Context.MODE_PRIVATE);
+                                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                                                                fOut.flush();
+                                                                fOut.close();
+                                                            } catch (IOException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                    //        musicAdapter.notifyDataSetChanged();
+                                                        }, 1024, 1024, ImageView.ScaleType.CENTER, null,
+                                                                (error) -> {
+                                                                    Log.d("music", error.toString());
+                                                                });
+                                                        queue.add(imgReq);
+                                                    }
+
+                                                }
+                                            } catch (JSONException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }, error -> {
+                                    Log.d("music", "second api" + error.toString());
+                                });
+                                queue.add(request1);
                             }
+
                         } catch (JSONException e) {
+                            Log.d("music", "try first api");
                             e.printStackTrace();
                         }
                     },
                     (error) -> {
+                        Log.d("music", "request error");
                     });
             queue.add(request);
 
-//            binding.musicTextInput.setText("");
+
         });
 
         binding.musicRecycleView.setAdapter(musicAdapter = new RecyclerView.Adapter<MyRowHolder>() {
 
+            /**
+             * Called when RecyclerView needs a new {@link RecyclerView.ViewHolder} of the given type to represent an item.
+             *
+             * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position.
+             * @param viewType The view type of the new View.
+             * @return A new ViewHolder that holds a View of the given view type.
+             */
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -198,109 +257,64 @@ public class MusicActivity extends AppCompatActivity {
                 return new MyRowHolder(binding.getRoot());
             }
 
+            /**
+             * Called by RecyclerView to display the data at the specified position.
+             *
+             * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+             * @param position The position of the item within the adapter's data set.
+             */
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
-                Music obj = null;
+                Music obj = songs.get(position);
                 File file = new File(getFilesDir(), obj.getImgUrl());
                 Bitmap theImage = BitmapFactory.decodeFile(file.getAbsolutePath());
-                holder.musicName.setText(obj.getMusicName());
-                holder.musicIcon.setImageBitmap(theImage);
+                holder.musicName.setText(obj.getSongTitle());
+//                holder.musicIcon.setImageBitmap(theImage);
 
             }
 
+            /**
+             * Returns the total number of items in the data set held by the adapter.
+             *
+             * @return The total number of items in this adapter.
+             */
             @Override
             public int getItemCount() {
-                return music1.size();
+                return songs.size();
             }
         });
 
         binding.musicRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
+    /**
+     * ViewHolder class for managing individual row views in the RecyclerView.
+     */
+    public class MyRowHolder extends RecyclerView.ViewHolder {
 
-   public class MyRowHolder extends RecyclerView.ViewHolder {
+        /**
+         * TextView for displaying the name of the music.
+         */
         public TextView musicName;
+
+        /**
+         * ImageView for displaying the icon associated with the music.
+         */
         public ImageView musicIcon;
 
+        /**
+         * Constructor for ViewHolder, initializes the view elements and click listener.
+         *
+         * @param itemView The view corresponding to each row in the RecyclerView.
+         */
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(
                     clk -> {
 
                         int position = getAbsoluteAdapterPosition();
-                        Music toDelete = music1.get(position);
 
-                        Music selected = null;
-                        String url = "https://api.deezer.com/search/artist/?q="
-                                + selected.getId();
-
-                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-                            String summary = null;
-                            String srcUrl = null;
-                            try {
-                                summary = response.getString("summary");
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                            selected.setSummary(summary);
-                            try {
-                                srcUrl = response.getString("sourceUrl");
-                                selected.setSrcUrl(srcUrl);
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                            selected.setSrcUrl(srcUrl);
-
-                            Executor thread1 = Executors.newSingleThreadExecutor();
-                            thread1.execute(() -> {
-                                mDAO.updateMusic(selected);
-                            });
-
-                            String imageUrl = null;
-                            try {
-                                imageUrl = response.getString("image");
-                            } catch (JSONException e) {
-//                                throw new RuntimeException(e);
-                                runOnUiThread(() ->
-                                        Toast.makeText(MusicActivity.this, "This music is not available for now", Toast.LENGTH_SHORT).show()
-                                );
-
-                            }
-
-                            String fileName = selected.getId() + "-556x370.jpg";
-
-                            File file = new File(getFilesDir(), fileName);
-
-                            if (file.exists()) {
-                                Log.d("Music App", "File path: " + file.getAbsolutePath());
-                                musicModel.selectedMusic.postValue(selected);
-                            } else {
-                                Log.d("Music App", "got in else " + imageUrl);
-                                ImageRequest imgReq = new ImageRequest(imageUrl, bitmap -> {
-                                    // Do something with loaded bitmap...
-                                    FileOutputStream fOut = null;
-                                    try {
-                                        fOut = openFileOutput(fileName, Context.MODE_PRIVATE);
-
-                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                                        fOut.flush();
-                                        fOut.close();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-
-                                    }
-                                    musicModel.selectedMusic.postValue(selected);
-                                }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
-
-                                });
-
-                                queue.add(imgReq);
-
-                            }
-//                            musicModel.selectedMusic.postValue(selected);
-
-                        }, error -> {
-                        });
-                        queue.add(request);
+                        Music selected = songs.get(position);
+                        musicModel.selectedMusic.postValue(selected);
                     });
 
 
@@ -309,6 +323,13 @@ public class MusicActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which items are placed.
+     * @return You must return true for the menu to be displayed; if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -316,25 +337,29 @@ public class MusicActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.favoriteItem:
+            case R.id.favoriteMusic:
                 Intent nextPage = new Intent(MusicActivity.this, MusicActivity.class);
                 startActivity(nextPage);
                 break;
 
             case R.id.addItem:
                 if (musicModel.selectedMusic != null) {
-                    int position = music1.indexOf(musicModel.selectedMusic.getValue());
+                    int position = songs.indexOf(musicModel.selectedMusic.getValue());
                     if (position != -1) {
-                        Music toSave = music1.get(position);
+                        Music toSave = songs.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-//                        builder.setMessage("Do you want to save the music of " + toSave.getMusicName())
-//                                .setTitle("Question: ")
-//                                .setPositiveButton("Yes", (dialog, cl) -> {
+
                         Executor thread = Executors.newSingleThreadExecutor();
                         thread.execute(() -> {
                             try {
@@ -342,21 +367,16 @@ public class MusicActivity extends AppCompatActivity {
                                 mDAO.insertMusic(toSave);
                                 runOnUiThread(() -> {
                                     Log.d("Music", "Music saved successfully");
-                                    Toast.makeText(MusicActivity.this, "Music saved successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MusicActivity.this, R.string.music_insertSucceedToast, Toast.LENGTH_SHORT).show();
                                 });
                             } catch (Exception e) {
                                 Log.d("Music", "catch exception");
-                                runOnUiThread(() -> Toast.makeText(MusicActivity.this, "Music already in your list", Toast.LENGTH_SHORT).show());
+                                runOnUiThread(() -> Toast.makeText(MusicActivity.this, R.string.music_alreadyInToast, Toast.LENGTH_SHORT).show());
                             }
                         });
-////                                    musicAdapter.notifyDataSetChanged();
-////                                    getSupportFragmentManager().popBackStack(); // go back to message list
-//                                })
-//                                .setNegativeButton("No", (dialog, cl) -> {
-//                                })
-//                                .create().show();
+
                     } else {
-                        Toast.makeText(this, "No music selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.music_noSelectedToast, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -364,47 +384,41 @@ public class MusicActivity extends AppCompatActivity {
             case R.id.deleteItem:
 
                 if (musicModel.selectedMusic != null) {
-                    int position = music1.indexOf(musicModel.selectedMusic.getValue());
+                    int position = songs.indexOf(musicModel.selectedMusic.getValue());
                     if (position != -1) {
-                        Music toDelete = music1.get(position);
+                        Music toDelete = songs.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-                        builder.setMessage("Do you want to delete the music of " + toDelete.getMusicName())
+                        builder.setMessage(getString(R.string.music_deleteAlert) + " " + toDelete.getSongTitle())
                                 .setTitle("Question: ")
-                                .setPositiveButton("Yes", (dialog, cl) -> {
+                                .setPositiveButton(R.string.music_yes, (dialog, cl) -> {
                                     Executor thread = Executors.newSingleThreadExecutor();
                                     thread.execute(() -> {
                                         mDAO.deleteMusic(toDelete);
                                     });
 
-                                    music1.remove(position);
+                                    songs.remove(position);
                                     musicAdapter.notifyDataSetChanged();
                                     getSupportFragmentManager().popBackStack(); // go back to message list
 
-                                    Snackbar.make(binding.musicRecycleView, "You deleted music #" + (position + 1), Snackbar.LENGTH_LONG)
-                                            .setAction("Undo", click -> {
+                                    Snackbar.make(binding.musicRecycleView, getString(R.string.music_deleteSnackBar) + (position + 1), Snackbar.LENGTH_LONG)
+                                            .setAction(R.string.music_undo, click -> {
                                                 Executor thread1 = Executors.newSingleThreadExecutor();
                                                 thread1.execute(() -> {
                                                     mDAO.insertMusic(toDelete);
                                                 });
-                                                music1.add(position, toDelete);
+                                                songs.add(position, toDelete);
                                                 musicAdapter.notifyDataSetChanged();
 
-                                                // after undo, go back to the fragment
-//                                                MusicDetailsFragment newMessage = new MusicDetailsFragment(music1.get(position));
-//                                                FragmentManager fMgr = getSupportFragmentManager();
-//                                                FragmentTransaction transaction = fMgr.beginTransaction();
-//                                                transaction.addToBackStack("any string here");
-//                                                transaction.replace(R.id.searchFragmentLocation, newMessage); //first is the FrameLayout id
-//                                                transaction.commit();//loads it
+
                                             })
                                             .show();
                                 })
-                                .setNegativeButton("No", (dialog, cl) -> {
+                                .setNegativeButton(R.string.music_no, (dialog, cl) -> {
                                 })
                                 .create().show();
                     } else {
-                        Toast.makeText(this, "No Music selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.music_noSelectedToast, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -415,18 +429,32 @@ public class MusicActivity extends AppCompatActivity {
                 break;
 
             case R.id.helpItem:
-//                Toast.makeText(this, "❤️Go To Saved Music\n\uD83D\uDCE5Save This Music\n\uD83D\uDDD1️Delete This Music", Toast.LENGTH_LONG).show();
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MusicActivity.this);
-                builder.setMessage("❤️ Go To Saved Music\n\n\uD83D\uDCE5 Save This Music"
-                                + "\n\n\uD83D\uDDD1 ️Delete This Music\n\nFind a music from search bar")
-                        .setTitle("How to use me: ")
+                builder.setMessage(R.string.music_helpDetail)
+                        .setTitle(R.string.music_helpTitle)
                         .setPositiveButton("OK", (dialog, cl) -> {
                         }).create().show();
 
                 break;
 
             case R.id.aboutMusic:
-                Toast.makeText(this, "MusicRover created by Zhicheng He", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.music_aboutToast, Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.musicGotoSunItem: // Go to SunSeeker
+                Intent nextPage2 = new Intent(MusicActivity.this, SunActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.musicGotoRecipeItem: // Go to DeezerDiscover
+                Intent nextPage3 = new Intent(MusicActivity.this, RecipeActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.musicGotoDictItem: // Go to WordWiz
+                Intent nextPage4 = new Intent(MusicActivity.this, DictActivity.class);
+                startActivity(nextPage4);
                 break;
 
             default:
