@@ -54,12 +54,12 @@ public class SunActivity extends AppCompatActivity {
     ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
     private RecyclerView.Adapter sunAdapter; // to hold the object below
-    SunDAO sDAO;
+    SunDAO sDAO; // DAO
     int selectedRow; // to hold the "position", find which row this is"
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
     protected String cityName; // to hold the city name input
-    protected String latClass; // to hold the latitude
-    protected String lngClass; // to hold the longitude
+//    protected String latClass; // to hold the latitude
+//    protected String lngClass; // to hold the longitude
 
     protected RequestQueue queue = null; // for volley
 
@@ -189,7 +189,6 @@ public class SunActivity extends AppCompatActivity {
                             JSONObject coord = response.getJSONObject("coord"); // Get the "coord" object
                             if (coord.length() == 0) {
                                 Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
                             } else {
                                 Log.d("City API response ok", "City API response ok, has coord");
                             }
@@ -199,11 +198,11 @@ public class SunActivity extends AppCompatActivity {
                             double longitude = coord.getDouble("lon");
 
                             // Pass the values to the class variable
-                            latClass = String.valueOf(latitude);
-                            lngClass = String.valueOf(longitude);
+//                            latClass = String.valueOf(latitude);
+//                            lngClass = String.valueOf(longitude);
 
-                            binding.latInput.setText(latClass);
-                            binding.lngInput.setText(lngClass);
+                            binding.latInput.setText(String.valueOf(latitude));
+                            binding.lngInput.setText(String.valueOf(longitude));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -256,7 +255,6 @@ public class SunActivity extends AppCompatActivity {
                             e.printStackTrace();
                             runOnUiThread(() ->
                                     Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show()
-//                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
                             );
                         }
 
@@ -266,12 +264,10 @@ public class SunActivity extends AppCompatActivity {
 
                             if (results.length() == 0) {
                                 Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
                                 Log.e("Sun API Status not OK", "The Sun API status is not OK");
                                 Toast.makeText(this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
@@ -328,8 +324,6 @@ public class SunActivity extends AppCompatActivity {
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
-
                 SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
                 return new MyRowHolder(binding2.getRoot());
             }
@@ -348,7 +342,6 @@ public class SunActivity extends AppCompatActivity {
 //                holder.golden_hourView.setText(obj.getGolder_hour());
 //                holder.timezoneView.setText(obj.getTimezone());
             }
-
 
             @Override
             public int getItemCount() {
@@ -455,8 +448,8 @@ public class SunActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch( item.getItemId() ){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.favoriteSun:
                 Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
 
@@ -465,24 +458,24 @@ public class SunActivity extends AppCompatActivity {
 
                 break;
 
-             case R.id.saveSun:
+            case R.id.saveSun:
 
-                        Executor threadS = Executors.newSingleThreadExecutor();
-                        threadS.execute(()->{
-                            try {
-                                Log.d("Sun Save", "try insert existing record");
-                                sDAO.insertSun(sToPass);
-                                runOnUiThread(()->{
-                                    Log.d("Sun Save", "Sun saved successfully");
-                                    // tell the recycle view that there is new data SetChanged()
-                                    sunAdapter.notifyDataSetChanged();//redraw the screen
-                                    Toast.makeText(this, getResources().getString(R.string.sun_save_success), Toast.LENGTH_SHORT).show();
-                                });
-                            } catch (Exception e) {
-                                Log.d("Sun Save", "Exception, sun already in Fav");
-                                runOnUiThread(() -> Toast.makeText(SunActivity.this, getString(R.string.sun_save_dupe_record_warning), Toast.LENGTH_SHORT).show());
-                            }
+                Executor threadS = Executors.newSingleThreadExecutor();
+                threadS.execute(() -> {
+                    try {
+                        Log.d("Sun Save", "try insert existing record");
+                        sDAO.insertSun(sToPass);
+                        runOnUiThread(() -> {
+                            Log.d("Sun Save", "Sun saved successfully");
+                            // tell the recycle view that there is new data SetChanged()
+                            sunAdapter.notifyDataSetChanged();//redraw the screen
+                            Toast.makeText(this, getResources().getString(R.string.sun_save_success), Toast.LENGTH_SHORT).show();
                         });
+                    } catch (Exception e) {
+                        Log.d("Sun Save", "Exception, sun already in Fav");
+                        runOnUiThread(() -> Toast.makeText(SunActivity.this, getString(R.string.sun_save_dupe_record_warning), Toast.LENGTH_SHORT).show());
+                    }
+                });
 
                 break;
 
@@ -492,14 +485,11 @@ public class SunActivity extends AppCompatActivity {
                 //asking if the user wants to delete this message
 
                 int position = suns.indexOf(sunModel.selectedSun.getValue());
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     // temporarily stores the sun location before it is removed from the ArrayList
                     Sun toDelete = suns.get(position);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
-
-//                    builder.setMessage("Do you want to delete this record: " + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
-//                    builder.setTitle("Question: ");
 
                     builder.setMessage(getString(R.string.sun_del_warning_text) + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
                     builder.setTitle(getString(R.string.sun_del_warning_title));
@@ -564,12 +554,13 @@ public class SunActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
                 builder.setMessage(getResources().getString(R.string.sun_help2))
                         .setTitle(getResources().getString(R.string.sun_help1))
-                        .setPositiveButton("OK", (dialog, cl) -> {})
+                        .setPositiveButton("OK", (dialog, cl) -> {
+                        })
                         .create().show();
                 break;
 
             case R.id.aboutSun:
-                Toast.makeText(this,getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
                 break;
 
             default:

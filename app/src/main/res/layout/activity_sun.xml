@@ -98,7 +98,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="sans-serif-medium"
-                android:hint="@string/sun_search_btn"
+                android:text="@string/sun_search_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:hint="@string/sun_check"
+                android:text="@string/sun_check"
                 app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
                 app:layout_constraintEnd_toEndOf="@+id/sunSearchButton"
                 app:layout_constraintStart_toStartOf="@+id/sunSearchButton" />
