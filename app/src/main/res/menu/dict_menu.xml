@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/recipeGotoSunItem"
+        android:id="@+id/dictGotoSunItem"
         android:icon="@drawable/sun_icon"
         android:title="SunSeeker"
         app:showAsAction="always" />
     <item
-        android:id="@+id/recipeGotoMusicItem"
+        android:id="@+id/dictGotoMusicItem"
         android:icon="@drawable/music_icon"
         android:title="DeezerDiscover"
         app:showAsAction="always" />
     <item
-        android:id="@+id/dictGotoDictItem"
-        android:icon="@drawable/dict_icon"
-        android:title="WordWiz"
+        android:id="@+id/dictGotoRecipeItem"
+        android:icon="@drawable/recipe_icon"
+        android:title="RecipeRover"
         app:showAsAction="always" />
     <item
         android:id="@+id/favoriteItem"

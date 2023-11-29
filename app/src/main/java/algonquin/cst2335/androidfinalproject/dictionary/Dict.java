@@ -21,7 +21,7 @@ public class Dict {
     @ColumnInfo(name="isSentButton")
     protected boolean isSaveButton;
 
-    public Dict(){
+    public Dict(long id, String title, String summary, String srcUrl){
 
     }
 
