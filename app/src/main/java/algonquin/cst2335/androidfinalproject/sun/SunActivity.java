@@ -48,7 +48,6 @@ import algonquin.cst2335.androidfinalproject.databinding.SunRecordBinding;
 import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
 import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
-import algonquin.cst2335.androidfinalproject.recipe.RecipeDetailsFragment;
 
 /**
  * The main activity class for the Sun app.
@@ -353,9 +352,8 @@ public class SunActivity extends AppCompatActivity {
 
                                 FragmentManager fMgr = getSupportFragmentManager();
                                 //create a Sun fragment
-
                                 SunDetailsFragment sunFragment = (SunDetailsFragment)fMgr.findFragmentByTag(SunDetailsFragment.TAG);
-
+                                // create a new fragment to display the selected sun details
                                 if(sunFragment == null){
                                     sunFragment = new SunDetailsFragment(s);
                                     FragmentTransaction transaction = fMgr.beginTransaction();
