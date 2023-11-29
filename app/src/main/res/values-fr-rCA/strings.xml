@@ -130,8 +130,8 @@
     <string name="dict_yes">Oui</string>
     <string name="dict_no">Non</string>
     <string name="dict_undo">Annuler</string>
-    <string name="dict_deletedSnackbar">Vous avez supprimé le mot #</string>
-    <string name="dict_aboutToast">DictRover créé par Yuling Guo</string>
+    <string name="dict_deletedSnackbar">Vous avez supprimé le mot </string>
+    <string name="dict_aboutToast">Dictionaire créé par Yuling Guo</string>
     <string name="dict_helpTitle">Comment m\'utiliser: </string>
     <string name="dict_ok">OK</string>
     <string name="dict_helpAlert">\u2600 SunSeeker\n\n

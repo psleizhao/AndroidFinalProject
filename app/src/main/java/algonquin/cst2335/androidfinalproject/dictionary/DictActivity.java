@@ -261,7 +261,7 @@ public class DictActivity extends AppCompatActivity {
                         Dict toSave = dicts.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
-//                        builder.setMessage("Do you want to save this word " + toSave.getRecipeName())
+//                        builder.setMessage("Do you want to save this word " + toSave.getDictName())
 //                                .setTitle("Question: ")
 //                                .setPositiveButton("Yes", (dialog, cl) -> {
                         Executor thread = Executors.newSingleThreadExecutor();
@@ -298,7 +298,7 @@ public class DictActivity extends AppCompatActivity {
                         Dict toDelete = dicts.get(position);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(DictActivity.this);
-                        builder.setMessage(R.string.dict_deleteAlert + toDelete.getDictName() + "?")
+                        builder.setMessage(R.string.dict_deleteAlert + "?")
                                 .setTitle("Question: ")
                                 .setPositiveButton(R.string.recipe_yes, (dialog, cl) -> {
                                     Executor thread = Executors.newSingleThreadExecutor();
@@ -310,7 +310,7 @@ public class DictActivity extends AppCompatActivity {
                                     dictAdapter.notifyDataSetChanged();
                                     getSupportFragmentManager().popBackStack(); // go back to message list
 
-                                    Snackbar.make(binding.dictRecycleView,R.string.dict_deletedSnackbar + (position + 1), Snackbar.LENGTH_LONG)
+                                    Snackbar.make(binding.dictRecycleView,R.string.dict_deletedSnackbar, Snackbar.LENGTH_LONG)
                                             .setAction(R.string.recipe_undo, click -> {
                                                 Executor thread1 = Executors.newSingleThreadExecutor();
                                                 thread1.execute(() -> {

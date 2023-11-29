@@ -144,8 +144,8 @@
     <string name="dict_yes">Yes</string>
     <string name="dict_no">No</string>
     <string name="dict_undo">Undo</string>
-    <string name="dict_deletedSnackbar">You deleted word </string>
-    <string name="dict_aboutToast">DictRover created by Yuling Guo</string>
+    <string name="dict_deletedSnackbar">You deleted the word </string>
+    <string name="dict_aboutToast">Dictionary created by Yuling Guo</string>
     <string name="dict_helpTitle">How to use me: </string>
     <string name="dict_ok">OK</string>
     <string name="dict_helpAlert">\u2600 SunSeeker\n\n
