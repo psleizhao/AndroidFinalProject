@@ -46,7 +46,24 @@ import algonquin.cst2335.androidfinalproject.databinding.SearchDictBinding;
 import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 import algonquin.cst2335.androidfinalproject.sun.SunActivity;
-
+/**
+ * The {@code DictActivity} class represents the main activity for the dictionary feature
+ * in the Android final project. It includes functionality for searching words, displaying
+ * their definitions, saving and deleting entries, and navigating to other features of the
+ * application. This class extends {@link AppCompatActivity}.
+ *
+ * <p>Usage example:</p>
+ * <pre>
+ * {@code
+ * Intent intent = new Intent(context, DictActivity.class);
+ * startActivity(intent);
+ * }
+ * </pre>
+ *
+ * @author Yuling Guo
+ * @version 1.0
+ * @since 2023-11-29
+ */
 public class DictActivity extends AppCompatActivity {
     private ActivityDictBinding binding;
 
@@ -64,7 +81,7 @@ public class DictActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         SharedPreferences prefs = getSharedPreferences("MyData,", Context.MODE_PRIVATE);
-        binding.dictTextInput.setText(prefs.getString("DictName", ""));
+        binding.dictTextInput.setText(prefs.getString("dictName", ""));
 
         setSupportActionBar(binding.dictToolbar);
         dictModel = new ViewModelProvider(this).get(DictViewModel.class);
@@ -121,13 +138,16 @@ public class DictActivity extends AppCompatActivity {
                                     JSONArray definitions = aMeaning.getJSONArray("definitions");
                                     for (int k = 0; k < definitions.length(); k++) {
                                         String def = definitions.getJSONObject(k).getString("definition");
-                                        Dict dict = new Dict(i, word, def, "url");
+                                        Dict dict = new Dict(word, def);
                                         dicts.add(dict);
                                     }
                                 }
                             }
 
-                            binding.dictTitleText.setText(R.string.dict_frgTitle);
+
+                            binding.dictTitleText.setText(dictTextInput);
+
+
                             dictAdapter.notifyDataSetChanged();
 
                         } catch (JSONException e) {
@@ -154,7 +174,7 @@ public class DictActivity extends AppCompatActivity {
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
                 Dict obj = dicts.get(position);
-                holder.dictName.setText(obj.getDictName());
+                holder.dictName.setText(obj.getDictName() + " definition " + (position+1));
             }
 
             @Override
@@ -177,38 +197,41 @@ public class DictActivity extends AppCompatActivity {
                         int position = getAbsoluteAdapterPosition();
                         Dict selected = dicts.get(position);
 
-                        String url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-                                + selected.getId();
-
-                        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                                (response) -> {
-                                    try {
-                                        JSONArray resultsArray = response.getJSONArray(0);
-                                        if (resultsArray.length() == 0) {
-                                            Toast.makeText(itemView.getContext(), R.string.dict_notFoundToast, Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            dicts.clear();
-                                            for (int i = 0; i < resultsArray.length(); i++) {
-                                                JSONObject result = resultsArray.getJSONObject(i);
-                                                long id = result.getInt("id");
-                                                String title = result.getString("title");
-                                                String summary = "summary";
-                                                String srcUrl = "url";
-
-                                                Dict dict = new Dict(id, title, summary, srcUrl);
-                                                dicts.add(dict);
-                                            }
-                                            binding.dictTitleText.setText(R.string.dict_frgTitle);
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                },
-                                (error) -> {
-                                    Log.d("joling", error.toString());
-                                });
-
-                        queue.add(request);
+                        dictModel.selectedDicts.postValue(selected);
+//
+//                        String url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+//                                + selected.getId();
+//
+//                        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+//                                (response) -> {
+//                                    try {
+//                                        JSONArray resultsArray = response.getJSONArray(0);
+//                                        if (resultsArray.length() == 0) {
+//                                            Toast.makeText(itemView.getContext(), R.string.dict_notFoundToast, Toast.LENGTH_SHORT).show();
+//                                        } else {
+//                                            dicts.clear();
+//                                            for (int i = 0; i < resultsArray.length(); i++) {
+//                                                JSONObject result = resultsArray.getJSONObject(i);
+//                                                long id = result.getInt("id");
+//                                                String title = result.getString("title");
+//                                                String summary = "summary";
+//                                                String srcUrl = "url";
+//
+//                                                Dict dict = new Dict( title, summary);
+//                                                dicts.add(dict);
+//                                            }
+//                                            binding.dictTitleText.setText(R.string.dict_frgTitle);
+//                                            dictAdapter.notifyDataSetChanged();
+//                                        }
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                },
+//                                (error) -> {
+//                                    Log.d("joling", error.toString());
+//                                });
+//
+//                        queue.add(request);
                     });
 
             dictName = itemView.findViewById(R.id.dictResult);

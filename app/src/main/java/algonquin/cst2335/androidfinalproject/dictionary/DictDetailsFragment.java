@@ -17,7 +17,25 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import algonquin.cst2335.androidfinalproject.R;
 import algonquin.cst2335.androidfinalproject.databinding.DictDetailsLayoutBinding;
-
+/**
+ * The {@code DictDetailsFragment} class represents a fragment for displaying details
+ * of a selected dictionary entry in the Android final project. It extends
+ * {@link Fragment} and is responsible for rendering the selected dictionary entry's
+ * name and summary in a user interface.
+ *
+ * <p>Usage example:</p>
+ * <pre>
+ * {@code
+ * Dict selectedDict = // Obtain a selected dictionary entry.
+ * DictDetailsFragment detailsFragment = new DictDetailsFragment(selectedDict);
+ * // Use a FragmentManager to add this fragment to the UI.
+ * }
+ * </pre>
+ *
+ * @author Yuling Guo
+ * @version 1.0
+ * @since 2023-11-29
+ */
 
 public class DictDetailsFragment extends Fragment {
     Dict selected;
