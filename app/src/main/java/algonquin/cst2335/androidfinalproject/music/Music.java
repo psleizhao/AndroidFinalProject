@@ -61,8 +61,6 @@ public class Music {
 
     }
 
-    // Getter and setter methods with JavaDoc comments
-
     /**
      * Gets the song title.
      *

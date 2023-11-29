@@ -37,15 +37,27 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
+                android:id="@+id/recipe_activityTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RecipeRover"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:textColor="@color/recipeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
                 android:id="@+id/recipeTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_titleText"
-                android:textSize="30dp"
+                android:textSize="25dp"
+                android:textColor="@color/recipeTitle"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/recipe_activityTitleText" />
 
             <EditText
                 android:id="@+id/recipeTextInput"
@@ -53,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/recipe_hintText"
                 android:inputType="text"
+                android:textColor="@color/recipeTitle"
                 android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/recipeSearchButton"

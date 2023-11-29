@@ -18,7 +18,7 @@ public class Recipe {
     @ColumnInfo(name="imgUrl")
     protected String imgUrl;
 
-    /** Summary or description of the recipe. */
+    /** Summary of the recipe. */
     @ColumnInfo(name="summary")
     protected String summary;
 
