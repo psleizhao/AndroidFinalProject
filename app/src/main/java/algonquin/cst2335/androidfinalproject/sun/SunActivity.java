@@ -406,6 +406,7 @@ public class SunActivity extends AppCompatActivity {
 
                 holder.sunLatitudeView.setText(obj.getSunLatitude());
                 holder.sunLongitudeView.setText(obj.getSunLongitude());
+                holder.cityNameView.setText(obj.getCityName().toUpperCase());
 
 //                holder.sunriseView.setText(obj.getSunrise());
 //                holder.sunsetView.setText(obj.getSunset());
@@ -468,6 +469,8 @@ public class SunActivity extends AppCompatActivity {
          * TextView to display timezone information.
          */
         public TextView timezoneView;
+
+        public TextView cityNameView;
 
         /**
          * Constructor for MyRowHolder.
@@ -544,7 +547,7 @@ public class SunActivity extends AppCompatActivity {
             solar_noonView= theRootConstraintLayout.findViewById(R.id.sun_noon_detail);
             golden_hourView= theRootConstraintLayout.findViewById(R.id.sun_golden_detail);
             timezoneView= theRootConstraintLayout.findViewById(R.id.sun_timezone_detail);
-
+            cityNameView = theRootConstraintLayout.findViewById(R.id.sun_city);
         }
     }
 
