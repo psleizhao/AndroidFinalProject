@@ -15,7 +15,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/my_statusbar"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,19 +45,28 @@
                 app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sunTitleText" />
+                app:layout_constraintTop_toBottomOf="@+id/sunFavText" />
 
             <TextView
                 android:id="@+id/sunTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/sun_fav"
+                android:fontFamily="sans-serif"
+                android:text="@string/sun_title"
                 android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sunFavText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sun_fav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sunTitleText" />
 
             <EditText
                 android:id="@+id/latInput"
@@ -98,7 +107,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="sans-serif-medium"
-                android:hint="@string/sun_search_btn"
+                android:text="@string/sun_search_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -108,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:hint="@string/sun_check"
+                android:text="@string/sun_check"
                 app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
                 app:layout_constraintEnd_toEndOf="@+id/sunSearchButton"
                 app:layout_constraintStart_toStartOf="@+id/sunSearchButton" />
@@ -125,6 +134,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/latInput"
                 app:layout_constraintEnd_toEndOf="@+id/lngInput"
                 app:layout_constraintStart_toStartOf="@+id/latInput" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
