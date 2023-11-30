@@ -100,8 +100,9 @@
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">How to use SunSeeker:</string>
     <string name="sun_help2"><![CDATA[
-        Enter a city name, CHECK Latitude & Longitude\n\n
-        Enter both Latitude and Longitude, LOOKUP for details\n\n
+        Enter a city name, CHECK Latitude & Longitude (optional)\n\n
+        Enter both Latitude and Longitude, LOOKUP for sunrise sunset details\n\n
+        Click on any record in "My Favourites" to refresh and view details\n\n
         \u2764 My Saved Records\n\n
         \uD83D\uDCE5 Save this Record\n\n
         \uD83D\uDDD1 ️Delete this Record\n\n

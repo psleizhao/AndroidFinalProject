@@ -424,17 +424,56 @@ public class SunActivity extends AppCompatActivity {
         binding.sunRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    // This class represents one row
+    /**
+     * ViewHolder class for managing the individual rows in the RecyclerView.
+     *
+     * This class represents a single row in the RecyclerView, displaying information about a Sun record.
+     * It handles click events on the row, triggering actions like updating data from an API and notifying the adapter.
+     *
+     * @author Yu Song
+     */
     public class MyRowHolder extends RecyclerView.ViewHolder {
 
-        public TextView sunLatitudeView; // maybe not needed?
-        public TextView sunLongitudeView; // maybe not needed?
+        /**
+         * TextView to display latitude information
+         */
+        public TextView sunLatitudeView;
+
+        /**
+         * TextView to display longitude information.
+         */
+        public TextView sunLongitudeView;
+
+        /**
+         * TextView to display sunrise time information.
+         */
         public TextView sunriseView;
+
+        /**
+         * TextView to display sunset time information.
+         */
         public TextView sunsetView;
+
+        /**
+         * TextView to display solar noon time information.
+         */
         public TextView solar_noonView;
+
+        /**
+         * TextView to display golden hour time information.
+         */
         public TextView golden_hourView;
+
+        /**
+         * TextView to display timezone information.
+         */
         public TextView timezoneView;
 
+        /**
+         * Constructor for MyRowHolder.
+         *
+         * @param theRootConstraintLayout The root layout of the row.
+         */
         public MyRowHolder(@NonNull View theRootConstraintLayout){
             super(theRootConstraintLayout);
 
@@ -509,7 +548,12 @@ public class SunActivity extends AppCompatActivity {
         }
     }
 
-    //load a Menu layout file,
+    /**
+     * Initializes the options menu in the toolbar.
+     *
+     * @param menu The menu to be inflated.
+     * @return True if the menu is created successfully.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -518,6 +562,12 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handles item selection in the options menu.
+     *
+     * @param item The selected menu item.
+     * @return True if the item selection is handled successfully.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
