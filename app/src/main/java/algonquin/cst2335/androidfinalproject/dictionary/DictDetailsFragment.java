@@ -38,12 +38,28 @@ import algonquin.cst2335.androidfinalproject.databinding.DictDetailsLayoutBindin
  */
 
 public class DictDetailsFragment extends Fragment {
+    /**
+     * The selected dictionary entry to display details for.
+     */
     Dict selected;
 
+    /**
+     * Constructor for creating a {@code DictDetailsFragment} instance with a selected dictionary entry.
+     *
+     * @param d The selected dictionary entry.
+     */
     public DictDetailsFragment(Dict d) {
         selected = d;
     }
 
+    /**
+     * Inflates the view for the fragment and sets up the user interface with selected dictionary entry details.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return The View for the fragment's UI, or null.
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,10 +67,11 @@ public class DictDetailsFragment extends Fragment {
 
         DictDetailsLayoutBinding binding = DictDetailsLayoutBinding.inflate(getLayoutInflater());
 
+        // Set the dictionary name in the UI.
         binding.dictNameText.setText(selected.dictName);
 
+        // Convert HTML formatted summary to Spanned and set it in the UI.
         Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
-
         binding.summaryTitle.setText(spannedText);
 
         return binding.getRoot();

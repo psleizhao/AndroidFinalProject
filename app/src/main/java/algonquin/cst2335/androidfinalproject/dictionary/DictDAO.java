@@ -29,13 +29,36 @@ import algonquin.cst2335.androidfinalproject.dictionary.Dict;
  */
 @Dao
 public interface DictDAO {
+    /**
+     * Inserts a dictionary entry into the Room database.
+     *
+     * @param d The dictionary entry to be inserted.
+     * @return The unique identifier assigned to the inserted dictionary entry.
+     */
     @Insert
     long insertDict(Dict d);
+
+    /**
+     * Retrieves all dictionary entries from the Room database.
+     *
+     * @return A list of all dictionary entries in the database.
+     */
     @Query("Select * from Dict")
     List<Dict> getAllDicts();
+
+    /**
+     * Deletes a dictionary entry from the Room database.
+     *
+     * @param d The dictionary entry to be deleted.
+     */
     @Delete
     void deleteDict(Dict d);
 
+    /**
+     * Updates a dictionary entry in the Room database.
+     *
+     * @param d The dictionary entry to be updated.
+     */
     @Update
     void updateDict(Dict d);
 }

@@ -168,6 +168,13 @@
                                 \u2764 Mots Sauvegardée\n\n
                                 \uD83D\uDCE5 Sauvegarder le mot\n\n
                                 \uD83D\uDDD1 ️Supprimer le mot\n\n
-                                Trouver un mot par la recherche</string>
+                                Instructions:\n
+1. Entrez un terme de recherche dans le champ EditText fourni.\n
+2. Cliquez sur le bouton Rechercher pour récupérer les définitions.\n
+3. Cliquez sur un résultat de recherche pour afficher des informations détaillées dans un fragment séparé.\n
+4. Cliquez sur l'icône Enregistrer pour ajouter un terme à la liste des termes enregistrés.\n
+5. Accédez aux termes enregistrés en cliquant sur le bouton Enregistré.\n
+6. Pour supprimer un terme, sélectionnez-le et choisissez l'icône Supprimer dans le menu.\n
+7. Pour plus d'aide, vous pouvez contacter l'assistance.</string>
 
 </resources>

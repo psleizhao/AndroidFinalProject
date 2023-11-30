@@ -21,5 +21,10 @@ import androidx.room.RoomDatabase;
  */
 @Database(entities = {Dict.class}, version = 1)
 public abstract class DictDatabase extends RoomDatabase {
+    /**
+     * Retrieves the Data Access Object (DAO) for interacting with the Room database.
+     *
+     * @return The {@link DictDAO} instance.
+     */
     public abstract DictDAO DictDAO();
 }
