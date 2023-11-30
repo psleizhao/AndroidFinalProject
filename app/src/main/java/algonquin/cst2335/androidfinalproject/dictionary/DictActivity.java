@@ -73,6 +73,11 @@ public class DictActivity extends AppCompatActivity {
     private DictDAO dDAO;
     protected RequestQueue queue = null;
 
+    /**
+     * Initializes the activity, sets up the UI, and retrieves saved preferences.
+     *
+     * @param savedInstanceState A Bundle containing the activity's previously saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,10 +191,20 @@ public class DictActivity extends AppCompatActivity {
         binding.dictRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * Custom ViewHolder for the RecyclerView in the {@link DictActivity}.
+     *
+     * <p>Represents a single item view in the RecyclerView and holds references to its UI components.</p>
+     */
     class MyRowHolder extends RecyclerView.ViewHolder {
         public TextView dictName;
         public ImageView dictIcon;
 
+        /**
+         * Constructs a new MyRowHolder instance with the specified itemView.
+         *
+         * @param itemView The view representing a single item in the RecyclerView.
+         */
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(
@@ -238,13 +253,26 @@ public class DictActivity extends AppCompatActivity {
             dictIcon = itemView.findViewById(R.id.dictIcon);
         }
     }
-
+    /**
+     * Initializes the options menu for the activity.
+     *
+     * <p>Called to create the options menu for the activity. Inflates the specified menu resource.</p>
+     *
+     * @param menu The options menu in which items are placed.
+     * @return {@code true} for the menu to be displayed; {@code false} for it to be hidden.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.dict_menu, menu);
         return true;
     }
+    /**
+     * Handles options item selection in the activity's menu.
+     *
+     * @param item The selected menu item.
+     * @return True if the item is handled successfully, false otherwise.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

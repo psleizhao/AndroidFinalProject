@@ -24,7 +24,13 @@ import java.util.ArrayList;
  * @since 2023-11-29
  */
 public class DictViewModel extends ViewModel {
+    /**
+     * LiveData object holding the list of dictionaries.
+     */
     public MutableLiveData<ArrayList<Dict>> Dicts = new MutableLiveData<>();
-    public MutableLiveData<Dict> selectedDicts = new MutableLiveData< >();
 
+    /**
+     * LiveData object holding the selected dictionary entry.
+     */
+    public MutableLiveData<Dict> selectedDicts = new MutableLiveData<>();
 }
