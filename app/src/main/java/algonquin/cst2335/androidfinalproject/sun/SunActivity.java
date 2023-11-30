@@ -571,7 +571,7 @@ public class SunActivity extends AppCompatActivity {
                 queue.add(request);
 
                 //starts the loading
-//                sunModel.selectedSun.postValue(selected);
+//                sunModel.selectedSun.postValue(selected); // this one will create an extra fragment
 
                 selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
