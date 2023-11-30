@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -140,6 +141,8 @@ public class RecipeActivity extends AppCompatActivity {
         rDAO = db.recipeDAO();
 
         if (recipes == null) {
+            binding.recipeTitleText.setText(R.string.recipe_emptyTitle);
+            binding.recipeTitleText.setGravity(Gravity.CENTER);
             recipeModel.recipes.postValue(recipes = new ArrayList<Recipe>());
 
             // Load data from database
@@ -147,8 +150,12 @@ public class RecipeActivity extends AppCompatActivity {
             thread.execute(() ->
             {
                 recipes.addAll(rDAO.getAllRecipes()); //Once you get the data from database
+                if (recipes.size() > 0) {
+                    runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_titleText));
+                }
                 runOnUiThread(() -> binding.recipeRecycleView.setAdapter(recipeAdapter)); //You can then load the RecyclerView
             });
+
         }
 
         // Set onClickListener
@@ -166,7 +173,8 @@ public class RecipeActivity extends AppCompatActivity {
             try {
                 url = "https://api.spoonacular.com/recipes/complexSearch?query="
                         + URLEncoder.encode(recipeTextInput, "UTF-8")       // encode recipe name
-                        + "&apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
+                        + "&apiKey=aee190b735d046eea12abceaf17ac29c";
+                Log.d("recipe", url);
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
@@ -233,6 +241,7 @@ public class RecipeActivity extends AppCompatActivity {
                         }
                     },
                     (error) -> {
+                Log.d("recipe", error.toString());
                     });
             queue.add(request); // Add request to queue
 
@@ -296,7 +305,7 @@ public class RecipeActivity extends AppCompatActivity {
                 // Create url
                 String url = "https://api.spoonacular.com/recipes/"
                         + selected.getId()
-                        + "/information?apiKey=b9c6c4f327f846fbb4dd19b2be4fc887";
+                        + "/information?apiKey=aee190b735d046eea12abceaf17ac29c";
 
                 // Request
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -437,6 +446,10 @@ public class RecipeActivity extends AppCompatActivity {
                                     Executor thread = Executors.newSingleThreadExecutor();
                                     thread.execute(() -> {
                                         rDAO.deleteRecipe(toDelete);
+                                        if (recipes.size() == 0) {
+                                            runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_emptyTitle));
+//                    ;
+                                        }
                                     });
 
                                     recipes.remove(position);
@@ -450,6 +463,10 @@ public class RecipeActivity extends AppCompatActivity {
                                                     rDAO.insertRecipe(toDelete);
                                                 });
                                                 recipes.add(position, toDelete);
+                                                if (recipes.size() > 0) {
+                                                    runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_titleText));
+//                    ;
+                                                }
                                                 recipeAdapter.notifyDataSetChanged();
 
                                                 // after undo, go back to the fragment

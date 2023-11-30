@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/recipe_frgTitle"
+        android:textColor="@color/recipeTitle"
+        android:layout_gravity="center"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +50,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/recipe_summaryTitle"
         android:textSize="30dp"
+        android:textColor="@color/recipeTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipeImageView" />
@@ -59,6 +62,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/recipe_summaryDetail"
         android:textSize="20dp"
+        android:textColor="@color/recipeTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/summaryTitle" />
