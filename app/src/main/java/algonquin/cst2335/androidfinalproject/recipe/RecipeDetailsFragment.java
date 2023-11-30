@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class RecipeDetailsFragment extends Fragment {
             binding.recipeImageView.setImageBitmap(img);
         }
         binding.recipeNameText.setText(selected.recipeName);
+        binding.recipeNameText.setGravity(Gravity.CENTER);
         // Convert HTML-formatted summary to Spanned text and set it
         Spanned spannedText = Html.fromHtml(selected.summary, Html.FROM_HTML_MODE_LEGACY);
         binding.summary.setText(spannedText);

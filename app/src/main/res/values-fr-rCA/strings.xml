@@ -35,13 +35,14 @@
     <string name="recipe_aboutToast">RecipeRover créé par Lei Zhao</string>
     <string name="recipe_helpTitle">Comment m\'utiliser: </string>
     <string name="recipe_ok">OK</string>
-    <string name="recipe_helpAlert">\u2600 SunSeeker\n\n
-                                \uD83C\uDFB5 DeezerDiscover\n\n
-                                \uD83D\uDCD5 WordWiz\n\n
-                                \u2764 Recettes Sauvegardée\n\n
-                                \uD83D\uDCE5 Sauvegarder la recette\n\n
-                                \uD83D\uDDD1 ️Supprimer la recette\n\n
-                                Trouver une recette par la recherche</string>
+    <string name="recipe_helpAlert">Cliquez \u2600 pour accéder à SunSeeker
+                                    Cliquez \uD83C\uDFB5 pour accéder à DeezerDiscover
+                                    Cliquez \uD83D\uDCD5 pour accéder à WordWiz
+                                    Cliquez \u2764 pour accéder aux recettes sauvegardées
+                                    Cliquez \uD83D\uDCE5 pour sauvegarder une recette
+                                    Cliquez \uD83D\uDDD1 pour supprimer une recette
+                                    Recherchez vos recettes préférées en enterang les noms dans la recherche</string>
+    <string name="recipe_emptyTitle">Trouvez vos recettes préférées ici!</string>
 
     <!--The following strings belong to Music Activity-->
     <string name="music_favItem">Musique Préférée</string>
