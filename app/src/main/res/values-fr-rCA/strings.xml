@@ -144,8 +144,8 @@
     <string name="dict_favItem">revoir</string>
     <string name="dict_deleteItem">supprimer</string>
     <string name="dict_addItem">amasser</string>
-    <string name="dict_backToMainItem">Retour a Main</string>
-    <string name="dict_helpItem">Aid</string>
+    <string name="dict_backToMainItem">Retour à Main</string>
+    <string name="dict_helpItem">Aide</string>
     <string name="dict_aboutItem">Environ</string>
 
     <string name="dict_notFoundToast">Désolé, rien trouvé</string>
@@ -172,9 +172,9 @@
 1. Entrez un terme de recherche dans le champ EditText fourni.\n
 2. Cliquez sur le bouton Rechercher pour récupérer les définitions.\n
 3. Cliquez sur un résultat de recherche pour afficher des informations détaillées dans un fragment séparé.\n
-4. Cliquez sur l'icône Enregistrer pour ajouter un terme à la liste des termes enregistrés.\n
+4. Cliquez sur l\'icône Enregistrer pour ajouter un terme à la liste des termes enregistrés.\n
 5. Accédez aux termes enregistrés en cliquant sur le bouton Enregistré.\n
-6. Pour supprimer un terme, sélectionnez-le et choisissez l'icône Supprimer dans le menu.\n
-7. Pour plus d'aide, vous pouvez contacter l'assistance.</string>
+6. Pour supprimer un terme, sélectionnez-le et choisissez l\'icône Supprimer dans le menu.\n
+7. Pour plus d\'aide, vous pouvez contacter l\'assistance.</string>
 
 </resources>
