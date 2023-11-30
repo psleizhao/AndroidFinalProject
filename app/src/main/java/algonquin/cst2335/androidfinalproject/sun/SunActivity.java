@@ -1,6 +1,18 @@
 package algonquin.cst2335.androidfinalproject.sun;
 
-import static java.security.AccessController.getContext;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -12,18 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -33,9 +33,12 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
 
 import algonquin.cst2335.androidfinalproject.MainActivity;
 import algonquin.cst2335.androidfinalproject.R;
@@ -47,13 +50,16 @@ import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
 public class SunActivity extends AppCompatActivity {
 
-    ActivitySunBinding binding;
+    ActivitySunBinding binding; // for binding
     ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
     private RecyclerView.Adapter sunAdapter; // to hold the object below
     SunDAO sDAO;
     int selectedRow; // to hold the "position", find which row this is"
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
+    protected String cityName; // to hold the city name input
+    protected String latClass; // to hold the latitude
+    protected String lngClass; // to hold the longitude
 
     protected RequestQueue queue = null; // for volley
 
@@ -67,6 +73,50 @@ public class SunActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
         binding.lngInput.setText(prefs.getString("longitude",""));
+        binding.editCity.setText(prefs.getString("cityName",""));
+
+        // Set up InputFilter for latitude input validation. Range within the range of -90 to +90, up to 6 decimal places
+        InputFilter latitudeFilter = new InputFilter() {
+            final Pattern pattern = Pattern.compile("^(-?\\d{0,2}(\\.\\d{0,6})?|\\d{0,1}(\\.\\d{0,6})?|90(\\.0{0,6})?)$");
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+
+                if (!pattern.matcher(input).matches()) {
+                    showInvalidInputWarning(getString(R.string.valid_input_lat));
+                    Log.d("Latitude input invalid", "Latitude input invalid");
+                    return "";
+                }
+
+                return null;
+            }
+        };
+
+        // Set up InputFilter for longitude input validation, Range within the range of -180 to +180, up to 6 decimal places
+        InputFilter longitudeFilter = new InputFilter() {
+            final Pattern pattern = Pattern.compile("^(-?\\d{0,3}(\\.\\d{0,6})?|\\d{0,2}(\\.\\d{0,6})?|180(\\.0{0,6})?)$");
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+
+                if (!pattern.matcher(input).matches()) {
+                    showInvalidInputWarning(getString(R.string.valid_input_lng));
+                    Log.d("Longitude input invalid", "Longitude input invalid");
+                    return "";
+                }
+
+                return null;
+            }
+        };
+
+
+        // Apply the InputFilter to the EditText
+        binding.latInput.setFilters(new InputFilter[]{latitudeFilter});
+        // Apply the InputFilter to the EditText
+        binding.lngInput.setFilters(new InputFilter[]{longitudeFilter});
+
 
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
@@ -106,35 +156,86 @@ public class SunActivity extends AppCompatActivity {
             });
         }
 
+        binding.citySearchButton.setOnClickListener(cli->{
+            cityName = binding.editCity.getText().toString();
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("cityName", cityName);
+            editor.apply();
+
+            String cityNameEncode = "0";
+            try {
+                cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+
+            String urlCity = "https://api.openweathermap.org/data/2.5/weather?q=" + cityNameEncode + "&appid=" + "f5e255b0ecc652c392230100b5230cdb" + "&units=metric";
+            //this goes in the button click handler:
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlCity, null,
+                    (response) -> {
+                        try {
+                            if (response.has("coord")) {
+                                Log.d("City API response", "City API response has coord");
+                            }
+                        } catch (Exception e) {
+                            Log.e("City API response: ", "City API response don't have coord");
+                            e.printStackTrace();
+                            runOnUiThread(() ->
+                                Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show());
+                        }
+
+                        try {
+                            JSONObject coord = response.getJSONObject("coord"); // Get the "coord" object
+                            if (coord.length() == 0) {
+                                Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.d("City API response ok", "City API response ok, has coord");
+                            }
+
+                            // Extract "lat" and "lon" values
+                            double latitude = coord.getDouble("lat");
+                            double longitude = coord.getDouble("lon");
+
+                            // Pass the values to the class variable
+                            latClass = String.valueOf(latitude);
+                            lngClass = String.valueOf(longitude);
+
+                            binding.latInput.setText(latClass);
+                            binding.lngInput.setText(lngClass);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            throw new RuntimeException(e);
+                        }
+                        Log.d("City Response", "Received " + response.toString()); //this gets called if the server responded
+                    },
+                    (error) -> {/*this gets called if there was an error or no response*/}
+            );
+            queue.add(request);
+
+            //clear the previous text
+            binding.latInput.setText("");
+            binding.lngInput.setText("");
+        });
+
         binding.sunSearchButton.setOnClickListener( cli ->{
 
-            String sunLatitude = binding.latInput.getText().toString(); //todo: add a number filter, latitude range -90 to +90; consider illegal and null input
-            String sunLongitude = binding.lngInput.getText().toString(); //todo: add a number filter, longitude range -180 to +180; consider illegal and null input
+            String sunLatitude = binding.latInput.getText().toString();
+            String sunLongitude = binding.lngInput.getText().toString();
             String sunrise = "sunrise";
             String sunset = "sunset";
             String solar_noon = "noon";
             String golden_hour = "golden hour";
-            String timezone = "-300";
+            String timezone = "Qingdao";
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("latitude", sunLatitude);
             editor.putString("longitude", sunLongitude);
             editor.apply();
 
-            /*
-            * This part can be used to expand the function: enter city name, get sun data
-            *
-            * cityName = binding.editCity.getText().toString();
-            * String cityNameEncode = "0";
-            * try {
-            *     cityNameEncode = URLEncoder.encode(cityName, "UTF-8");
-            * } catch (UnsupportedEncodingException e) {
-            *     throw new RuntimeException(e);
-            * }
-            *
-            * */
-
-            // Prepare api url
+            // Prepare Sunrise & Sunset api url
             // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
             String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude;
@@ -154,7 +255,8 @@ public class SunActivity extends AppCompatActivity {
                             Log.e("API response: ", "response don't have results");
                             e.printStackTrace();
                             runOnUiThread(() ->
-                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show()
+//                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
                             );
                         }
 
@@ -163,11 +265,13 @@ public class SunActivity extends AppCompatActivity {
                             String status = response.getString("status"); // get the JSONArray associated with "status"
 
                             if (results.length() == 0) {
-                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
                                 Log.e("Sun API Status not OK", "The Sun API status is not OK");
-                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
@@ -178,15 +282,19 @@ public class SunActivity extends AppCompatActivity {
                                 String solar_noonResult = results.getString("solar_noon");
                                 String golden_hourResult = results.getString("golden_hour");
                                 String timezoneResult = results.getString("timezone");
+                                String cityNameFromInput;
+                                if(cityName != null) {
+                                    cityNameFromInput = cityName;
+                                } else {
+                                    cityNameFromInput = getResources().getString(R.string.sun_no_name_location);
+                                }
 
-
-                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult);
+                                Sun s = new Sun(sunLatitude, sunLongitude, sunriseResult, sunsetResult, solar_noonResult, golden_hourResult, timezoneResult, cityNameFromInput);
                                 sToPass = s; // pass the sun obj to the class level
 
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-                                // Create a Fragment
                                 SunDetailsFragment sunFragment = new SunDetailsFragment(s);
 
                                 FragmentManager fMgr = getSupportFragmentManager();
@@ -198,6 +306,7 @@ public class SunActivity extends AppCompatActivity {
                                 //clear the previous text
                                 binding.latInput.setText("");
                                 binding.lngInput.setText("");
+                                binding.editCity.setText("");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -211,7 +320,7 @@ public class SunActivity extends AppCompatActivity {
             //clear the previous text
             binding.latInput.setText("");
             binding.lngInput.setText("");
-
+            binding.editCity.setText("");
         });
 
         // Will draw the recycle view
@@ -219,7 +328,9 @@ public class SunActivity extends AppCompatActivity {
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-               SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
+//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
+
+                SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
                 return new MyRowHolder(binding2.getRoot());
             }
 
@@ -237,6 +348,7 @@ public class SunActivity extends AppCompatActivity {
 //                holder.golden_hourView.setText(obj.getGolder_hour());
 //                holder.timezoneView.setText(obj.getTimezone());
             }
+
 
             @Override
             public int getItemCount() {
@@ -268,7 +380,7 @@ public class SunActivity extends AppCompatActivity {
                 Sun selected = suns.get(position);
 
                 // Prepare api url
-                // Expand: can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
+                // can add try and catch (UnsupportedEncodingException e) here if need encode - URLEncoder.encode(varTextInput, "UTF-8")
 //            String url = "https://api.sunrisesunset.io/json?lat=" + sunLatitude + "&lng=" + sunLongitude + "&timezone=UTC&date=today"; // if using UTC
                 String url = "https://api.sunrisesunset.io/json?lat=" + selected.getSunLatitude() + "&lng=" + selected.getSunLongitude();
                 Log.d("Sunrise Sunset", "Request URL: " + url);
@@ -279,11 +391,12 @@ public class SunActivity extends AppCompatActivity {
                         JSONObject results = response.getJSONObject("results");
                         String status = response.getString("status"); // get the JSONArray associated with "status"
                         if (results.length() == 0) {
-                              Toast.makeText(SunActivity.this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
-
+//                              Toast.makeText(SunActivity.this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SunActivity.this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
                         } else if (!"OK".equals(status)) {
                             Log.e("Sun API Status not OK", "The Sun API status is not OK");
-                            Toast.makeText(SunActivity.this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SunActivity.this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
                         } else {
                             Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
 
@@ -299,8 +412,15 @@ public class SunActivity extends AppCompatActivity {
                             selected.setSolar_noon(solar_noonResult);
                             selected.setGolder_hour(golden_hourResult);
 
-                            sunAdapter.notifyDataSetChanged();
-                        }
+                            Executor threadUpdate = Executors.newSingleThreadExecutor();
+                            threadUpdate.execute(()->{
+                                sDAO.updateSun(selected); //Update selected sun
+                            });
+
+                            // TODO: potentially the line creates an extra Fragment; but if not using it, updated data will now show.
+                            sunModel.selectedSun.postValue(selected);
+
+                        }sunAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -308,7 +428,7 @@ public class SunActivity extends AppCompatActivity {
                 queue.add(request);
 
                 //starts the loading
-                sunModel.selectedSun.postValue(selected);
+//                sunModel.selectedSun.postValue(selected);
 
                 selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
@@ -339,7 +459,10 @@ public class SunActivity extends AppCompatActivity {
         switch( item.getItemId() ){
             case R.id.favoriteSun:
                 Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
+
                 startActivity(nextPage);
+                //clear the previous text
+
                 break;
 
              case R.id.saveSun:
@@ -455,45 +578,13 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
-    //Todo: write a function to check the input range: -90 to +90, 6 decimal places
-//    public static void setupDecimalInput(final EditText editText) {
-//        // Set an InputFilter to limit the decimal places
-//        InputFilter decimalFilter = (source, start, end, dest, dstart, dend) -> {
-//            String text = dest.toString();
-//            if (text.contains(".") && text.substring(text.indexOf(".")).length() > 6) {
-//                return "";
-//            }
-//            return null;
-//        };
-//
-//        // Set a TextWatcher to check the range
-//        editText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-//                // No action needed
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-//                // No action needed
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                try {
-//                    // Parse the input to a double
-//                    double input = Double.parseDouble(editable.toString());
-//
-//                    // Check the range
-//                    if (input < -90 || input > 90) {
-//                        // If out of range, set the text to the limit
-//                        editText.setText(String.valueOf(Math.max(-90, Math.min(90, input))));
-//                        editText.setSelection(editText.getText().length()); // Move cursor to the end
-//                    }
-//                } catch (NumberFormatException ignored) {
-//                    // Ignore if the input cannot be parsed to a double
-//                }
-//            }
-//        });
+    // Method to show an AlertDialog for invalid input
+    protected void showInvalidInputWarning(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.invalid_input_title));
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
 
 }

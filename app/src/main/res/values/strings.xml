@@ -42,38 +42,46 @@
                                 \uD83D\uDDD1 ️Delete Recipe\n\n
                                 Find a recipe from search bar</string>
 
+    <!--The following strings belong to Music Activity-->
+    <string name="music_favItem">Favorite Music</string>
+    <string name="music_addItem">Save This Music</string>
+    <string name="music_deleteItem">Delete This Music</string>
+    <string name="music_backToMainItem">Back To Main</string>
+    <string name="music_aboutItem">About</string>
+    <string name="music_helpItem">Help</string>
+    <string name="music_sampleList">Music name goes here</string>
 
+    <string name="music_activityTitle">DeezerDiscover</string>
+    <string name="music_titleText">Favorite Music</string>
+    <string name="music_searchButton">Search</string>
+    <string name="music_hintText">Enter artist</string>
+    <string name="music_frgTitle">Music Name</string>
+    <string name="music_duration">Duration</string>
+    <string name="music_albumName">Album Name</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="music_notFoundToast">Sorry,found nothing</string>
+    <string name="music_insertSucceedToast">Music saved successfully</string>
+    <string name="music_alreadyInToast">Music already in your list</string>
+    <string name="music_noSelectedToast">No music selected</string>
+    <string name="music_aboutToast">DeezerDiscover created by Zhicheng He</string>
+    <string name="music_addTitle">Add your favorite song</string>
+    <string name="music_deleteAlert">Do you want to delete the music of</string>
+    <string name="music_yes">Yes</string>
+    <string name="music_no">No</string>
+    <string name="music_undo">Undo</string>>
+    <string name="music_deleteSnackBar">You deleted music #</string>
+    <string name="music_helpDetail">\uD83C\uDF73  RecipeRover\n\n
+                                    \u2600 SunSeeker\n\n
+                                    \uD83D\uDCD5  WordWiz\n\n
+                                    ❤️ Go To Saved Music\n\n
+                                    \uD83D\uDCE5 Save This Music\n\n
+                                    \uD83D\uDDD1 ️Delete This Music\n\n
+                                    Find a music from search bar</string>
+    <string name="music_helpTitle">How to use me: </string>
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Sunrise &amp; Sunset</string>
-    <string name="sun_fav">My Saved List</string>
+    <string name="sun_fav">☀️ My Favourites 🌒</string>
     <string name="sun_lat_hint">Latitude: </string>
     <string name="sun_lng_hint">Longitude: </string>
     <string name="sun_lat_text">Latitude</string>
@@ -92,12 +100,14 @@
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">How to use SunSeeker:</string>
     <string name="sun_help2"><![CDATA[
-        \uD83C\uDF73 Goto RecipeRover\n\n
-        \uD83C\uDFB5 Goto DeezerDiscover\n\n
-        \uD83D\uDCD5 Goto WordWiz\n\n
+        Enter a city name, CHECK Latitude & Longitude\n\n
+        Enter both Latitude and Longitude, LOOKUP for details\n\n
         \u2764 My Saved Records\n\n
         \uD83D\uDCE5 Save this Record\n\n
-        \uD83D\uDDD1 ️Delete this Record\n
+        \uD83D\uDDD1 ️Delete this Record\n\n
+        \uD83C\uDF73 Goto RecipeRover\n\n
+        \uD83C\uDFB5 Goto DeezerDiscover\n\n
+        \uD83D\uDCD5 Goto WordWiz\n
     ]]></string>
     <string name="sun_save_no_record_warning">No sun record selected</string>
     <string name="sun_save_dupe_record_warning">Sun record already in your Favourite</string>
@@ -113,8 +123,11 @@
     <string name="sun_refresh">Refresh / Details</string>
     <string name="sun_find_city"><![CDATA[Find a city\'s Lat & Lng]]></string>
     <string name="sun_check">Check</string>
-
-
+    <string name="sun_no_name_location">XYZ Location</string>
+    <string name="sun_found_nothing">Found nothing, Array length = 0</string>
+    <string name="sun_sun_api_status_not_ok">Sunrise sunset API status not OK</string>
+    <string name="sun_sun_api_ok">Sun API Results and Status OK</string>
+    <string name="sun_sun_api_not_available">The Sun API is not available now</string>
 
     <!--   Dict Strings -->
     <string name="dict_titleText">Dictionary</string>

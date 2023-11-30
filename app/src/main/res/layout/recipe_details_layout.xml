@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.core.widget.NestedScrollView
+    android:id="@+id/fragment_container_view_tag"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/frameBG">
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="8dp"
@@ -23,17 +24,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/recipe_frgTitle"
+        android:textColor="@color/recipeTitle"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <ImageView
         android:id="@+id/recipeImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/summaryTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipeNameText"
@@ -43,8 +46,10 @@
         android:id="@+id/summaryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="@string/recipe_summaryTitle"
         android:textSize="30dp"
+        android:textColor="@color/recipeTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipeImageView" />
@@ -56,6 +61,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/recipe_summaryDetail"
         android:textSize="20dp"
+        android:textColor="@color/recipeTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/summaryTitle" />
