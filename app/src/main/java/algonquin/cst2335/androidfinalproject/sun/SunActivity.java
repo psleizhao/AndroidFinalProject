@@ -91,8 +91,6 @@ public class SunActivity extends AppCompatActivity {
      * City name input.
      */
     protected String cityName; // to hold the city name input
-//    protected String latClass; // to hold the latitude
-//    protected String lngClass; // to hold the longitude
 
     /**
      * RequestQueue for Volley library for handling HTTP requests.
@@ -122,6 +120,18 @@ public class SunActivity extends AppCompatActivity {
         InputFilter latitudeFilter = new InputFilter() {
             final Pattern pattern = Pattern.compile("^(-?\\d{0,2}(\\.\\d{0,6})?|\\d{0,1}(\\.\\d{0,6})?|90(\\.0{0,6})?)$");
 
+            /**
+             * This method is called to filter user input for longitude.
+             *
+             * @param source The new sequence being appended.
+             * @param start The start index of the source.
+             * @param end The end index of the source.
+             * @param dest The existing text where the new text is to be placed.
+             * @param dstart The start index of the destination.
+             * @param dend The end index of the destination.
+             * @return The CharSequence that will replace the specified range of dest from dstart to dend.
+             *         Return null to accept the input, or an empty string to reject the input.
+             */
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
@@ -136,10 +146,22 @@ public class SunActivity extends AppCompatActivity {
             }
         };
 
+
         // Set up InputFilter for longitude input validation, Range within the range of -180 to +180, up to 6 decimal places
         InputFilter longitudeFilter = new InputFilter() {
             final Pattern pattern = Pattern.compile("^(-?\\d{0,3}(\\.\\d{0,6})?|\\d{0,2}(\\.\\d{0,6})?|180(\\.0{0,6})?)$");
-
+            /**
+             * This method is called to filter user input for longitude.
+             *
+             * @param source The new sequence being appended.
+             * @param start The start index of the source.
+             * @param end The end index of the source.
+             * @param dest The existing text where the new text is to be placed.
+             * @param dstart The start index of the destination.
+             * @param dend The end index of the destination.
+             * @return The CharSequence that will replace the specified range of dest from dstart to dend.
+             *         Return null to accept the input, or an empty string to reject the input.
+             */
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
@@ -182,13 +204,9 @@ public class SunActivity extends AppCompatActivity {
                     transaction.addToBackStack("Add to back stack"); // adds to the history
                     transaction.replace(R.id.sunFragmentLocation, sunFragment,SunDetailsFragment.TAG);//The add() function needs the id of the FrameLayout where it will load the fragment
                     transaction.commit();// This line actually loads the fragment into the specified FrameLayout
-//
                 }
 
-//                     SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
-//
-//
-//
+//                SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
 //                FragmentTransaction transaction = fMgr.beginTransaction();
 //                transaction.addToBackStack("Add to back stack"); // adds to the history
 //                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
@@ -252,10 +270,6 @@ public class SunActivity extends AppCompatActivity {
                             // Extract "lat" and "lon" values
                             double latitude = coord.getDouble("lat");
                             double longitude = coord.getDouble("lon");
-
-                            // Pass the values to the class variable
-//                            latClass = String.valueOf(latitude);
-//                            lngClass = String.valueOf(longitude);
 
                             binding.latInput.setText(String.valueOf(latitude));
                             binding.lngInput.setText(String.valueOf(longitude));
@@ -392,6 +406,15 @@ public class SunActivity extends AppCompatActivity {
 
         // Will draw the recycle view
         binding.sunRecycleView.setAdapter(sunAdapter = new RecyclerView.Adapter<MyRowHolder>() {
+            /**
+             * Called when RecyclerView needs a new {@link MyRowHolder} of the given type to represent
+             * an item.
+             *
+             * @param parent   The ViewGroup into which the new View will be added after it is bound to
+             *                 an adapter position.
+             * @param viewType The view type of the new View.
+             * @return A new {@link MyRowHolder} that holds a View of the given view type.
+             */
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -399,11 +422,20 @@ public class SunActivity extends AppCompatActivity {
                 return new MyRowHolder(binding2.getRoot());
             }
 
+            /**
+             * Called by RecyclerView to display the data at the specified position. This method updates the
+             * contents of the {@link MyRowHolder} to reflect the item at the given position in the dataset.
+             *
+             * @param holder   The ViewHolder that should be updated to represent the contents of the item
+             *                 at the given position in the dataset.
+             * @param position The position of the item within the adapter's data set.
+             */
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
-                // where to overwrite default text:
+                // Retrieve the Sun object at the specified position
                 Sun obj = suns.get(position);
 
+                // Update the views in the ViewHolder with the corresponding data from the Sun object
                 holder.sunLatitudeView.setText(obj.getSunLatitude());
                 holder.sunLongitudeView.setText(obj.getSunLongitude());
                 holder.cityNameView.setText(obj.getCityName().toUpperCase());
@@ -415,6 +447,11 @@ public class SunActivity extends AppCompatActivity {
 //                holder.timezoneView.setText(obj.getTimezone());
             }
 
+            /**
+             * Gets the total number of items in the suns dataset.
+             *
+             * @return The total number of items in the dataset.
+             */
             @Override
             public int getItemCount() {
                 return suns.size();
@@ -534,7 +571,7 @@ public class SunActivity extends AppCompatActivity {
                 queue.add(request);
 
                 //starts the loading
-//                sunModel.selectedSun.postValue(selected);
+//                sunModel.selectedSun.postValue(selected); // this one will create an extra fragment
 
                 selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
@@ -693,6 +730,11 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Displays an AlertDialog to notify the user about invalid input.
+     *
+     * @param message The message to be displayed in the AlertDialog.
+     */
     // Method to show an AlertDialog for invalid input
     protected void showInvalidInputWarning(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
