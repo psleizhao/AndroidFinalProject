@@ -105,20 +105,20 @@
         Enter a city name, CHECK Latitude & Longitude (optional)\n\n
         Enter both Latitude and Longitude, LOOKUP for sunrise sunset details\n\n
         Click on any record in "My Favourites" to refresh and view details\n\n
-        \u2764 My Saved Records\n\n
-        \uD83D\uDCE5 Save this Record\n\n
-        \uD83D\uDDD1 ️Delete this Record\n\n
-        \uD83C\uDF73 Goto RecipeRover\n\n
-        \uD83C\uDFB5 Goto DeezerDiscover\n\n
-        \uD83D\uDCD5 Goto WordWiz\n
+        Click on \u2764 goto My Saved Records\n\n
+        Click on \uD83D\uDCE5 to save this Record\n\n
+        Click on \uD83D\uDDD1 ️to delete this Record\n\n
+        Click on \uD83C\uDF73 Goto RecipeRover\n\n
+        Click on \uD83C\uDFB5 Goto DeezerDiscover\n\n
+        Click on \uD83D\uDCD5 Goto WordWiz\n
     ]]></string>
     <string name="sun_save_no_record_warning">No sun record selected</string>
     <string name="sun_save_dupe_record_warning">Sun record already in your Favourite</string>
     <string name="sun_save_success">Sun saved successfully</string>
     <string name="sunrise_title">🌄 Sunrise</string>
     <string name="sunset_title">🌅 Sunset</string>
-    <string name="solar_noon_title">☀️ Solar Noon</string>
-    <string name="golden_hour_title">🌇 Golden Hour</string>
+    <string name="solar_noon_title">Solar Noon ☀️</string>
+    <string name="golden_hour_title">Golden Hour 🌇</string>
     <string name="timezone_title">🌍 Timezone</string>
     <string name="invalid_input_title">Invalid Input</string>
     <string name="valid_input_lat">Valid Latitude Range: -90 to +90</string>
