@@ -154,6 +154,13 @@
                                 \u2764 Saved Words\n\n
                                 \uD83D\uDCE5 Save Word\n\n
                                 \uD83D\uDDD1 ️Delete Word\n\n
-                                Find a word from search bar</string>
+                                Instructions:\n
+1. Enter a search term in the provided EditText.\n
+2. Click the Search button to retrieve definitions.\n
+3. Click on a search result to see detailed information in a separate fragment.\n
+4. Click the Save icon to add a term to the saved terms list.\n
+5. Access the saved terms by clicking the Saved button.\n
+6. To delete a term, select it and choose the Delete icon from the menu.\n
+7. For more help, you can contact support.</string>
 
 </resources>
