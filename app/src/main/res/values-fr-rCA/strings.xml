@@ -35,13 +35,14 @@
     <string name="recipe_aboutToast">RecipeRover créé par Lei Zhao</string>
     <string name="recipe_helpTitle">Comment m\'utiliser: </string>
     <string name="recipe_ok">OK</string>
-    <string name="recipe_helpAlert">\u2600 SunSeeker\n\n
-                                \uD83C\uDFB5 DeezerDiscover\n\n
-                                \uD83D\uDCD5 WordWiz\n\n
-                                \u2764 Recettes Sauvegardée\n\n
-                                \uD83D\uDCE5 Sauvegarder la recette\n\n
-                                \uD83D\uDDD1 ️Supprimer la recette\n\n
-                                Trouver une recette par la recherche</string>
+    <string name="recipe_helpAlert">Cliquez \u2600 pour accéder à SunSeeker
+                                    Cliquez \uD83C\uDFB5 pour accéder à DeezerDiscover
+                                    Cliquez \uD83D\uDCD5 pour accéder à WordWiz
+                                    Cliquez \u2764 pour accéder aux recettes sauvegardées
+                                    Cliquez \uD83D\uDCE5 pour sauvegarder une recette
+                                    Cliquez \uD83D\uDDD1 pour supprimer une recette
+                                    Recherchez vos recettes préférées en enterang les noms dans la recherche</string>
+    <string name="recipe_emptyTitle">Trouvez vos recettes préférées ici!</string>
 
     <!--The following strings belong to Music Activity-->
     <string name="music_favItem">Musique Préférée</string>
@@ -82,7 +83,8 @@
 
     <!--The following strings belong to Sun Activity-->
     <string name="sun_toolbar_title">Lever et coucher du soleil</string>
-    <string name="sun_fav">☀️ Mes Favoris 🌒</string>
+    <string name="sun_fav">Mes Favoris</string>
+    <string name="sun_title">SunSeeker</string>
     <string name="sun_lat_hint">Latitude : </string>
     <string name="sun_lng_hint">Longitude : </string>
     <string name="sun_lat_text">Latitude</string>
@@ -101,29 +103,30 @@
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
     <string name="sun_help2"><![CDATA[
-        Entrez un nom de ville, trouvez la latitude et la longitude
-        Entrez à la fois la latitude et la longitude, recherchez
-        \u2764 Mes enregistrements sauvegardés\n\n
-        \uD83D\uDCE5 Enregistrer cet enregistrement\n\n
-        \uD83D\uDDD1 ️Supprimer cet enregistrement\n\n
-        \uD83C\uDF73 Aller à RecipeRover\n\n
-        \uD83C\uDFB5 Aller à DeezerDiscover\n\n
-        \uD83D\uDCD5 Aller à WordWiz\n
+        Entrez un nom de ville, TROUVER la latitude et la longitude (facultatif)\n\n
+        Entrez à la fois la latitude et la longitude, CHERCHER les détails du lever et du coucher du soleil\n\n
+        Cliquez sur un enregistrement dans "Mes favoris" pour actualiser et afficher les détails\n\n
+        Cliquez sur \u2764 pour accéder à Mes enregistrements sauvegardés\n\n
+        Cliquez sur \uD83D\uDCE5 pour enregistrer cet enregistrement\n\n
+        Cliquez sur \uD83D\uDDD1 ️ pour supprimer cet enregistrement\n\n
+        Cliquez sur \uD83C\uDF73 pour accéder à RecipeRover\n\n
+        Cliquez sur \uD83C\uDFB5 pour accéder à DeezerDiscover\n\n
+        Cliquez sur \uD83D\uDCD5 pour accéder à WordWiz\n
     ]]></string>
     <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
     <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
     <string name="sun_save_success">Enregistrement de soleil sauvegardé avec succès</string>
     <string name="sunrise_title">🌄 Lever du soleil</string>
     <string name="sunset_title">🌅 Coucher du soleil</string>
-    <string name="solar_noon_title">☀️ Midi solaire</string>
-    <string name="golden_hour_title">🌇 Heure dorée</string>
+    <string name="solar_noon_title">️Midi solaire ☀</string>
+    <string name="golden_hour_title">Heure dorée 🌇</string>
     <string name="timezone_title">🌍 Fuseau horaire</string>
     <string name="invalid_input_title">Entrée invalide</string>
     <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
     <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
     <string name="sun_refresh"> Actualiser / Détails </string>
     <string name="sun_find_city"><![CDATA[Trouver la lat et la long d\'une ville]]></string>
-    <string name="sun_check">Trouver</string>  
+    <string name="sun_check">Trouver</string>
     <string name="sun_no_name_location">Empl. XYZ</string>
     <string name="sun_found_nothing">Aucun résultat trouvé, longueur du tableau = 0</string>
     <string name="sun_sun_api_status_not_ok">Échec du statut de l\'API Sunrise Sunset</string>

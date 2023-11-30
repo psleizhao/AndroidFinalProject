@@ -3,6 +3,7 @@ package algonquin.cst2335.androidfinalproject.sun;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -48,28 +49,68 @@ import algonquin.cst2335.androidfinalproject.dictionary.DictActivity;
 import algonquin.cst2335.androidfinalproject.music.MusicActivity;
 import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
 
+/**
+ * The main activity class for the Sun app.
+ *
+ * This class represents the main screen of the Sun app, where users can view and interact with Sun records.
+ * It utilizes a ViewModel to manage data, a RecyclerView to display records, and a DAO for database operations.
+ *
+ * @author Yu Song
+ */
 public class SunActivity extends AppCompatActivity {
 
+    /**
+     * Data binding for the activity layout.
+     */
     ActivitySunBinding binding; // for binding
+    /**
+     * List of Sun records.
+     */
     ArrayList<Sun> suns = null; // At the beginning, there are no messages; initialize in SunViewModel.java
+    /**
+     * ViewModel for managing Sun-related data.
+     */
     SunViewModel sunModel; // use a ViewModel to make sure data survive the rotation change
+    /**
+     * Adapter for the RecyclerView to display Sun records.
+     */
     private RecyclerView.Adapter sunAdapter; // to hold the object below
-    SunDAO sDAO;
+    /**
+     * Data Access Object (DAO) for Sun records.
+     */
+    SunDAO sDAO; // DAO
+    /**
+     * Index of the selected row in the RecyclerView.
+     */
     int selectedRow; // to hold the "position", find which row this is"
+    /**
+     * Sun object to pass to other classes or methods.
+     */
     Sun sToPass; // to hold the "sun" object to pass to other classes or methods
+    /**
+     * City name input.
+     */
     protected String cityName; // to hold the city name input
-    protected String latClass; // to hold the latitude
-    protected String lngClass; // to hold the longitude
 
+    /**
+     * RequestQueue for Volley library for handling HTTP requests.
+     */
     protected RequestQueue queue = null; // for volley
 
+    /**
+     * Called when the activity is first created. Initializes UI, sets up listeners,
+     * and fetches data from the API and local database.
+     *
+     * @param savedInstanceState The saved state of the activity, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySunBinding.inflate(getLayoutInflater());
-        queue = Volley.newRequestQueue(this);//HTTP Connections: Volley. A Volley object that will connect to a server
+        binding = ActivitySunBinding.inflate(getLayoutInflater()); // binding the layout variables
+        queue = Volley.newRequestQueue(this); //HTTP Connections: Volley. A Volley object that will connect to a server
         setContentView(binding.getRoot());
 
+        // SharedPreferences for saving the data from last launch
         SharedPreferences prefs = getSharedPreferences("sunSharedData", Context.MODE_PRIVATE);
         binding.latInput.setText(prefs.getString("latitude",""));
         binding.lngInput.setText(prefs.getString("longitude",""));
@@ -79,6 +120,18 @@ public class SunActivity extends AppCompatActivity {
         InputFilter latitudeFilter = new InputFilter() {
             final Pattern pattern = Pattern.compile("^(-?\\d{0,2}(\\.\\d{0,6})?|\\d{0,1}(\\.\\d{0,6})?|90(\\.0{0,6})?)$");
 
+            /**
+             * This method is called to filter user input for longitude.
+             *
+             * @param source The new sequence being appended.
+             * @param start The start index of the source.
+             * @param end The end index of the source.
+             * @param dest The existing text where the new text is to be placed.
+             * @param dstart The start index of the destination.
+             * @param dend The end index of the destination.
+             * @return The CharSequence that will replace the specified range of dest from dstart to dend.
+             *         Return null to accept the input, or an empty string to reject the input.
+             */
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
@@ -93,10 +146,22 @@ public class SunActivity extends AppCompatActivity {
             }
         };
 
+
         // Set up InputFilter for longitude input validation, Range within the range of -180 to +180, up to 6 decimal places
         InputFilter longitudeFilter = new InputFilter() {
             final Pattern pattern = Pattern.compile("^(-?\\d{0,3}(\\.\\d{0,6})?|\\d{0,2}(\\.\\d{0,6})?|180(\\.0{0,6})?)$");
-
+            /**
+             * This method is called to filter user input for longitude.
+             *
+             * @param source The new sequence being appended.
+             * @param start The start index of the source.
+             * @param end The end index of the source.
+             * @param dest The existing text where the new text is to be placed.
+             * @param dstart The start index of the destination.
+             * @param dend The end index of the destination.
+             * @return The CharSequence that will replace the specified range of dest from dstart to dend.
+             *         Return null to accept the input, or an empty string to reject the input.
+             */
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
@@ -111,32 +176,41 @@ public class SunActivity extends AppCompatActivity {
             }
         };
 
-
         // Apply the InputFilter to the EditText
         binding.latInput.setFilters(new InputFilter[]{latitudeFilter});
         // Apply the InputFilter to the EditText
         binding.lngInput.setFilters(new InputFilter[]{longitudeFilter});
 
-
         // onCreateOptionMenu
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
         getSupportActionBar().setTitle(getString(R.string.sun_toolbar_title));
 
-
+        // ViewModel for saving the screen when rotating
         sunModel = new ViewModelProvider(this).get(SunViewModel.class);
         suns = sunModel.suns.getValue(); //get the array list from ViewModelProvider, might be NULL
 
         //listener to the MutableLiveData object
         sunModel.selectedSun.observe(this,(selectedSun) ->{
             if(selectedSun != null) {
-                //create a Sun fragment
-                SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
 
                 FragmentManager fMgr = getSupportFragmentManager();
-                FragmentTransaction transaction = fMgr.beginTransaction();
-                transaction.addToBackStack("Add to back stack"); // adds to the history
-                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
-                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+                //create a Sun fragment
+
+                SunDetailsFragment sunFragment = (SunDetailsFragment)fMgr.findFragmentByTag(SunDetailsFragment.TAG);
+
+                if(sunFragment == null){
+                    sunFragment = new SunDetailsFragment(selectedSun);
+                    FragmentTransaction transaction = fMgr.beginTransaction();
+                    transaction.addToBackStack("Add to back stack"); // adds to the history
+                    transaction.replace(R.id.sunFragmentLocation, sunFragment,SunDetailsFragment.TAG);//The add() function needs the id of the FrameLayout where it will load the fragment
+                    transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+                }
+
+//                SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
+//                FragmentTransaction transaction = fMgr.beginTransaction();
+//                transaction.addToBackStack("Add to back stack"); // adds to the history
+//                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+//                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
             }
         });
 
@@ -189,7 +263,6 @@ public class SunActivity extends AppCompatActivity {
                             JSONObject coord = response.getJSONObject("coord"); // Get the "coord" object
                             if (coord.length() == 0) {
                                 Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(this, "Found nothing, obj length = 0", Toast.LENGTH_SHORT).show();
                             } else {
                                 Log.d("City API response ok", "City API response ok, has coord");
                             }
@@ -198,12 +271,12 @@ public class SunActivity extends AppCompatActivity {
                             double latitude = coord.getDouble("lat");
                             double longitude = coord.getDouble("lon");
 
-                            // Pass the values to the class variable
-                            latClass = String.valueOf(latitude);
-                            lngClass = String.valueOf(longitude);
+                            binding.latInput.setText(String.valueOf(latitude));
+                            binding.lngInput.setText(String.valueOf(longitude));
 
-                            binding.latInput.setText(latClass);
-                            binding.lngInput.setText(lngClass);
+                            //clear the previous text for editCity;
+                            // TODO: ask prof if this clearing is needed
+                            binding.editCity.setText("");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -256,7 +329,6 @@ public class SunActivity extends AppCompatActivity {
                             e.printStackTrace();
                             runOnUiThread(() ->
                                     Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show()
-//                                    Toast.makeText(SunActivity.this, "The Sun API is not available now", Toast.LENGTH_SHORT).show()
                             );
                         }
 
@@ -266,12 +338,10 @@ public class SunActivity extends AppCompatActivity {
 
                             if (results.length() == 0) {
                                 Toast.makeText(this, getString(R.string.sun_found_nothing), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(this, "Found nothing, Array length = 0", Toast.LENGTH_SHORT).show();
                             } else if (!"OK".equals(status)) {
                                 // Status is not OK
                                 Log.e("Sun API Status not OK", "The Sun API status is not OK");
                                 Toast.makeText(this, getString(R.string.sun_sun_api_status_not_ok), Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(this, "Sunrise sunset API status not OK", Toast.LENGTH_SHORT).show();
                             } else {
                                 // When sunArray and sunStatus both ok:
                                 Log.d("Sun API ResultsStatusOK", "Sun API Results and Status OK");
@@ -295,13 +365,25 @@ public class SunActivity extends AppCompatActivity {
                                 // tell the recycle view that there is new data SetChanged()
                                 sunAdapter.notifyDataSetChanged();//redraw the screen
 
-                                SunDetailsFragment sunFragment = new SunDetailsFragment(s);
-
                                 FragmentManager fMgr = getSupportFragmentManager();
-                                FragmentTransaction transaction = fMgr.beginTransaction();
-                                transaction.addToBackStack("Add to back stack"); // adds to the history
-                                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
-                                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+                                //create a Sun fragment
+                                SunDetailsFragment sunFragment = (SunDetailsFragment)fMgr.findFragmentByTag(SunDetailsFragment.TAG);
+                                // create a new fragment to display the selected sun details
+                                if(sunFragment == null){
+                                    sunFragment = new SunDetailsFragment(s);
+                                    FragmentTransaction transaction = fMgr.beginTransaction();
+                                    transaction.addToBackStack("Add to back stack"); // adds to the history
+                                    transaction.replace(R.id.sunFragmentLocation, sunFragment, SunDetailsFragment.TAG);//The add() function needs the id of the FrameLayout where it will load the fragment
+                                    transaction.commit();// This line actually loads the fragment into the specified FrameLayout
+//
+                                }
+//                                SunDetailsFragment sunFragment = new SunDetailsFragment(s);
+//
+//                                FragmentManager fMgr = getSupportFragmentManager();
+//                                FragmentTransaction transaction = fMgr.beginTransaction();
+//                                transaction.addToBackStack("Add to back stack"); // adds to the history
+//                                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
+//                                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
 
                                 //clear the previous text
                                 binding.latInput.setText("");
@@ -325,22 +407,39 @@ public class SunActivity extends AppCompatActivity {
 
         // Will draw the recycle view
         binding.sunRecycleView.setAdapter(sunAdapter = new RecyclerView.Adapter<MyRowHolder>() {
+            /**
+             * Called when RecyclerView needs a new {@link MyRowHolder} of the given type to represent
+             * an item.
+             *
+             * @param parent   The ViewGroup into which the new View will be added after it is bound to
+             *                 an adapter position.
+             * @param viewType The view type of the new View.
+             * @return A new {@link MyRowHolder} that holds a View of the given view type.
+             */
             @NonNull
             @Override
             public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater(), parent, false);
-
                 SunRecordBinding binding2 = SunRecordBinding.inflate(getLayoutInflater(),parent,false);
                 return new MyRowHolder(binding2.getRoot());
             }
 
+            /**
+             * Called by RecyclerView to display the data at the specified position. This method updates the
+             * contents of the {@link MyRowHolder} to reflect the item at the given position in the dataset.
+             *
+             * @param holder   The ViewHolder that should be updated to represent the contents of the item
+             *                 at the given position in the dataset.
+             * @param position The position of the item within the adapter's data set.
+             */
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
-                // where to overwrite default text:
+                // Retrieve the Sun object at the specified position
                 Sun obj = suns.get(position);
 
+                // Update the views in the ViewHolder with the corresponding data from the Sun object
                 holder.sunLatitudeView.setText(obj.getSunLatitude());
                 holder.sunLongitudeView.setText(obj.getSunLongitude());
+                holder.cityNameView.setText(obj.getCityName().toUpperCase());
 
 //                holder.sunriseView.setText(obj.getSunrise());
 //                holder.sunsetView.setText(obj.getSunset());
@@ -349,7 +448,11 @@ public class SunActivity extends AppCompatActivity {
 //                holder.timezoneView.setText(obj.getTimezone());
             }
 
-
+            /**
+             * Gets the total number of items in the suns dataset.
+             *
+             * @return The total number of items in the dataset.
+             */
             @Override
             public int getItemCount() {
                 return suns.size();
@@ -360,17 +463,58 @@ public class SunActivity extends AppCompatActivity {
         binding.sunRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    // This class represents one row
+    /**
+     * ViewHolder class for managing the individual rows in the RecyclerView.
+     *
+     * This class represents a single row in the RecyclerView, displaying information about a Sun record.
+     * It handles click events on the row, triggering actions like updating data from an API and notifying the adapter.
+     *
+     * @author Yu Song
+     */
     public class MyRowHolder extends RecyclerView.ViewHolder {
 
-        public TextView sunLatitudeView; // maybe not needed?
-        public TextView sunLongitudeView; // maybe not needed?
+        /**
+         * TextView to display latitude information
+         */
+        public TextView sunLatitudeView;
+
+        /**
+         * TextView to display longitude information.
+         */
+        public TextView sunLongitudeView;
+
+        /**
+         * TextView to display sunrise time information.
+         */
         public TextView sunriseView;
+
+        /**
+         * TextView to display sunset time information.
+         */
         public TextView sunsetView;
+
+        /**
+         * TextView to display solar noon time information.
+         */
         public TextView solar_noonView;
+
+        /**
+         * TextView to display golden hour time information.
+         */
         public TextView golden_hourView;
+
+        /**
+         * TextView to display timezone information.
+         */
         public TextView timezoneView;
 
+        public TextView cityNameView;
+
+        /**
+         * Constructor for MyRowHolder.
+         *
+         * @param theRootConstraintLayout The root layout of the row.
+         */
         public MyRowHolder(@NonNull View theRootConstraintLayout){
             super(theRootConstraintLayout);
 
@@ -428,7 +572,7 @@ public class SunActivity extends AppCompatActivity {
                 queue.add(request);
 
                 //starts the loading
-//                sunModel.selectedSun.postValue(selected);
+//                sunModel.selectedSun.postValue(selected); // this one will create an extra fragment
 
                 selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
@@ -441,11 +585,16 @@ public class SunActivity extends AppCompatActivity {
             solar_noonView= theRootConstraintLayout.findViewById(R.id.sun_noon_detail);
             golden_hourView= theRootConstraintLayout.findViewById(R.id.sun_golden_detail);
             timezoneView= theRootConstraintLayout.findViewById(R.id.sun_timezone_detail);
-
+            cityNameView = theRootConstraintLayout.findViewById(R.id.sun_city);
         }
     }
 
-    //load a Menu layout file,
+    /**
+     * Initializes the options menu in the toolbar.
+     *
+     * @param menu The menu to be inflated.
+     * @return True if the menu is created successfully.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -454,9 +603,15 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handles item selection in the options menu.
+     *
+     * @param item The selected menu item.
+     * @return True if the item selection is handled successfully.
+     */
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch( item.getItemId() ){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.favoriteSun:
                 Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
 
@@ -465,24 +620,24 @@ public class SunActivity extends AppCompatActivity {
 
                 break;
 
-             case R.id.saveSun:
+            case R.id.saveSun:
 
-                        Executor threadS = Executors.newSingleThreadExecutor();
-                        threadS.execute(()->{
-                            try {
-                                Log.d("Sun Save", "try insert existing record");
-                                sDAO.insertSun(sToPass);
-                                runOnUiThread(()->{
-                                    Log.d("Sun Save", "Sun saved successfully");
-                                    // tell the recycle view that there is new data SetChanged()
-                                    sunAdapter.notifyDataSetChanged();//redraw the screen
-                                    Toast.makeText(this, getResources().getString(R.string.sun_save_success), Toast.LENGTH_SHORT).show();
-                                });
-                            } catch (Exception e) {
-                                Log.d("Sun Save", "Exception, sun already in Fav");
-                                runOnUiThread(() -> Toast.makeText(SunActivity.this, getString(R.string.sun_save_dupe_record_warning), Toast.LENGTH_SHORT).show());
-                            }
+                Executor threadS = Executors.newSingleThreadExecutor();
+                threadS.execute(() -> {
+                    try {
+                        Log.d("Sun Save", "try insert existing record");
+                        sDAO.insertSun(sToPass);
+                        runOnUiThread(() -> {
+                            Log.d("Sun Save", "Sun saved successfully");
+                            // tell the recycle view that there is new data SetChanged()
+                            sunAdapter.notifyDataSetChanged();//redraw the screen
+                            Toast.makeText(this, getResources().getString(R.string.sun_save_success), Toast.LENGTH_SHORT).show();
                         });
+                    } catch (Exception e) {
+                        Log.d("Sun Save", "Exception, sun already in Fav");
+                        runOnUiThread(() -> Toast.makeText(SunActivity.this, getString(R.string.sun_save_dupe_record_warning), Toast.LENGTH_SHORT).show());
+                    }
+                });
 
                 break;
 
@@ -492,14 +647,11 @@ public class SunActivity extends AppCompatActivity {
                 //asking if the user wants to delete this message
 
                 int position = suns.indexOf(sunModel.selectedSun.getValue());
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     // temporarily stores the sun location before it is removed from the ArrayList
                     Sun toDelete = suns.get(position);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
-
-//                    builder.setMessage("Do you want to delete this record: " + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
-//                    builder.setTitle("Question: ");
 
                     builder.setMessage(getString(R.string.sun_del_warning_text) + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
                     builder.setTitle(getString(R.string.sun_del_warning_title));
@@ -564,12 +716,13 @@ public class SunActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
                 builder.setMessage(getResources().getString(R.string.sun_help2))
                         .setTitle(getResources().getString(R.string.sun_help1))
-                        .setPositiveButton("OK", (dialog, cl) -> {})
+                        .setPositiveButton("OK", (dialog, cl) -> {
+                        })
                         .create().show();
                 break;
 
             case R.id.aboutSun:
-                Toast.makeText(this,getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.sun_about_detail), Toast.LENGTH_LONG).show();
                 break;
 
             default:
@@ -578,6 +731,11 @@ public class SunActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Displays an AlertDialog to notify the user about invalid input.
+     *
+     * @param message The message to be displayed in the AlertDialog.
+     */
     // Method to show an AlertDialog for invalid input
     protected void showInvalidInputWarning(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -585,6 +743,21 @@ public class SunActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.setPositiveButton("OK", null);
         builder.show();
+    }
+
+    /**
+     * Called by the system when the device configuration changes while the activity is running.
+     *
+     * @param newConfig The new device configuration.
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (!isChangingConfigurations()) {
+            // Check the current state of the back stack and pop if needed
+            getSupportFragmentManager().popBackStack(SunDetailsFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
 }

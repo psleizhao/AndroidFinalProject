@@ -25,6 +25,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/recipe_frgTitle"
         android:textColor="@color/recipeTitle"
+        android:layout_gravity="center"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
