@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/recipeResult"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/recipe_sampleList"
@@ -16,7 +16,8 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/recipeIcon"
         app:layout_constraintStart_toEndOf="@+id/recipeIcon"
-        app:layout_constraintTop_toTopOf="@+id/recipeIcon" />
+        app:layout_constraintTop_toTopOf="@+id/recipeIcon"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/recipeIcon"
