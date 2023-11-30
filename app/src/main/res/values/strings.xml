@@ -52,6 +52,7 @@
     <string name="music_helpItem">Help</string>
     <string name="music_sampleList">Music name goes here</string>
 
+    <string name="music_activityTitle">DeezerDiscover</string>
     <string name="music_titleText">Favorite Music</string>
     <string name="music_searchButton">Search</string>
     <string name="music_hintText">Enter artist</string>
@@ -63,7 +64,7 @@
     <string name="music_insertSucceedToast">Music saved successfully</string>
     <string name="music_alreadyInToast">Music already in your list</string>
     <string name="music_noSelectedToast">No music selected</string>
-    <string name="music_aboutToast">MusicRover created by Zhicheng He</string>
+    <string name="music_aboutToast">DeezerDiscover created by Zhicheng He</string>
     <string name="music_addTitle">Add your favorite song</string>
     <string name="music_deleteAlert">Do you want to delete the music of</string>
     <string name="music_yes">Yes</string>
@@ -129,7 +130,44 @@
     <string name="sun_sun_api_ok">Sun API Results and Status OK</string>
     <string name="sun_sun_api_not_available">The Sun API is not available now</string>
 
+    <!--   Dict Strings -->
+    <string name="dict_titleText">Dictionary</string>
+    <string name="dict_hintText">Type here</string>
+    <string name="dict_searchTitle">Search</string>
+
+    <string name="dict_frgTitle">Word</string>
+    <string name="dict_summaryDetail">Definition</string>
 
 
+    <string name="dict_sampleList">Word goes here</string>
+
+    <string name="dict_favItem">Review</string>
+    <string name="dict_deleteItem">Delete</string>
+    <string name="dict_addItem">Save</string>
+    <string name="dict_backToMainItem">Return to Main</string>
+    <string name="dict_helpItem">Help</string>
+    <string name="dict_aboutItem">About</string>
+
+    <string name="dict_notFoundToast">Sorry, nothing found</string>
+    <string name="dict_notAvailableToast">This word is not available for now</string>
+    <string name="dict_noBrowserToast">No app to handle URL</string>
+    <string name="dict_insertSucceedToast">Word saved successfully</string>
+    <string name="dict_alreadyInToast">Word already in your list</string>
+    <string name="dict_noSelectedToast">No word selected</string>
+    <string name="dict_deleteAlert">Do you want to delete this word?</string>
+    <string name="dict_yes">Yes</string>
+    <string name="dict_no">No</string>
+    <string name="dict_undo">Undo</string>
+    <string name="dict_deletedSnackbar">You deleted the word </string>
+    <string name="dict_aboutToast">Dictionary created by Yuling Guo</string>
+    <string name="dict_helpTitle">How to use me: </string>
+    <string name="dict_ok">OK</string>
+    <string name="dict_helpAlert">\u2600 SunSeeker\n\n
+                                \uD83C\uDFB5 DeezerDiscover\n\n
+                                \uD83D\uDCD5 RecipeRover\n\n
+                                \u2764 Saved Words\n\n
+                                \uD83D\uDCE5 Save Word\n\n
+                                \uD83D\uDDD1 ️Delete Word\n\n
+                                Find a word from search bar</string>
 
 </resources>

@@ -418,7 +418,7 @@ public class SunActivity extends AppCompatActivity {
                             });
 
                             // TODO: potentially the line creates an extra Fragment; but if not using it, updated data will now show.
-//                            sunModel.selectedSun.postValue(selected);
+                            sunModel.selectedSun.postValue(selected);
 
                         }sunAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
@@ -428,7 +428,7 @@ public class SunActivity extends AppCompatActivity {
                 queue.add(request);
 
                 //starts the loading
-                sunModel.selectedSun.postValue(selected);
+//                sunModel.selectedSun.postValue(selected);
 
                 selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
