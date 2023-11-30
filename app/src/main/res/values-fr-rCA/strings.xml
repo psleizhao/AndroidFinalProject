@@ -89,7 +89,7 @@
     <string name="sun_lng_hint">Longitude : </string>
     <string name="sun_lat_text">Latitude</string>
     <string name="sun_lng_text">Longitude</string>
-    <string name="sun_search_btn">CHERCHER</string>
+    <string name="sun_search_btn">Chercher</string>
     <string name="sun_del_warning_text">Voulez-vous supprimer cet enregistrement : </string>
     <string name="sun_del_warning_title">Question : </string>
     <string name="sun_del_text">Voulez-vous supprimer cet enregistrement : </string>
@@ -126,7 +126,7 @@
     <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
     <string name="sun_refresh"> Actualiser / Détails </string>
     <string name="sun_find_city"><![CDATA[Trouver la lat et la long d\'une ville]]></string>
-    <string name="sun_check">TROUVER</string>
+    <string name="sun_check">Trouver</string>
     <string name="sun_no_name_location">Empl. XYZ</string>
     <string name="sun_found_nothing">Aucun résultat trouvé, longueur du tableau = 0</string>
     <string name="sun_sun_api_status_not_ok">Échec du statut de l\'API Sunrise Sunset</string>
