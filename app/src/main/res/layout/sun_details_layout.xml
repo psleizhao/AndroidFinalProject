@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/my_secondary">
+    android:background="@color/sun_sky_light">
 
     <TextView
         android:id="@+id/sun_date_detail_title"

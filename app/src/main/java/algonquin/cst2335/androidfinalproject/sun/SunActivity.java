@@ -274,9 +274,11 @@ public class SunActivity extends AppCompatActivity {
                             binding.latInput.setText(String.valueOf(latitude));
                             binding.lngInput.setText(String.valueOf(longitude));
 
+
+                            binding.sunSearchButton.performClick();
                             //clear the previous text for editCity;
                             // TODO: ask prof if this clearing is needed
-                            binding.editCity.setText("");
+//                            binding.editCity.setText("");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
