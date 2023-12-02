@@ -131,47 +131,51 @@
     <string name="sun_sun_api_not_available">L\'API Sun n\'est pas disponible actuellement</string>
 
     <!--   Dict Strings -->
+
+
+    <!--   Dict Strings -->
     <string name="dict_titleText">Dictionaire</string>
-    <string name="dict_hintText">Tapez ici</string>
+    <string name="dict_hintText">Entrez votre mot ici</string>
     <string name="dict_searchTitle">Rechercher</string>
-    <string name="dict_summaryDetail">Definition</string>
-    <string name="dict_frgTitle">Nom de mot</string>
-    <string name="dict_sampleList">Mots son ici</string>
-  
-    <string name="dict_favItem">revoir</string>
-    <string name="dict_deleteItem">supprimer</string>
-    <string name="dict_addItem">amasser</string>
-    <string name="dict_backToMainItem">Retour à Main</string>
+    <string name="dict_summaryDetail">Définitions</string>
+    <string name="dict_frgTitle">Mot</string>
+    <string name="dict_sampleList">Liste de définitions</string>
+
+    <string name="dict_favItem">Définitions de mots enregistrées</string>
+    <string name="dict_deleteItem">Supprimer de la base de données</string>
+    <string name="dict_addItem">Enregistrer dans la base de données</string>
+    <string name="dict_backToMainItem">Aller à la page principale</string>
     <string name="dict_helpItem">Aide</string>
     <string name="dict_aboutItem">Environ</string>
 
-    <string name="dict_notFoundToast">Désolé, rien trouvé</string>
-    <string name="dict_notAvailableToast">Cette recette n\'est pas disponible pour le moment</string>
+    <string name="dict_notFoundToast">Désolé, rien trouvé.</string>
+    <string name="dict_notAvailableToast">Ce mot n\'est pas disponible.</string>
     <string name="dict_noBrowserToast">Aucune application pour gérer l\'URL.</string>
-    <string name="dict_insertSucceedToast">Sauvegardée avec succès</string>
-    <string name="dict_alreadyInToast">Déjà dans votre liste.</string>
-    <string name="dict_noSelectedToast">Aucune sélectionnée</string>
+    <string name="dict_insertSucceedToast">Mot enregistré.</string>
+    <string name="dict_alreadyInToast">Le mot a déjà été enregistré.</string>
+    <string name="dict_noSelectedToast">Aucun mot n\'a été sélectionné.</string>
     <string name="dict_deleteAlert">Voulez vous supprimer le mot? </string>
     <string name="dict_yes">Oui</string>
     <string name="dict_no">Non</string>
     <string name="dict_undo">Annuler</string>
-    <string name="dict_deletedSnackbar">Vous avez supprimé le mot </string>
-    <string name="dict_aboutToast">Dictionaire créé par Yuling Guo</string>
-    <string name="dict_helpTitle">Comment m\'utiliser: </string>
+    <string name="dict_deletedSnackbar">Vous avez supprimé le mot.</string>
+    <string name="dict_aboutToast">Dictionnaire créé par Yuling Guo</string>
+    <string name="dict_helpTitle"> Instruction: </string>
     <string name="dict_ok">OK</string>
-    <string name="dict_helpAlert">\u2600 SunSeeker\n\n
+    <string name="dict_helpAlert">Instruction:\n
+                                   1. Dans le champ ModifierTexte, saisissez un terme de recherche.\n
+                                   2. Pour récupérer les définitions, cliquez sur le bouton Rechercher.\n
+                                   3. Cliquez sur l\'un des résultats de la recherche pour afficher les informations détaillées dans un fragment séparé.\n
+                                   4. Pour ajouter un terme à la liste des termes enregistrés, cliquez sur l\'icône Enregistrer.\n
+                                   5. Cliquez sur le bouton Enregistré pour accéder aux termes enregistrés.\n
+                                   6. Pour supprimer un terme, sélectionnez-le et choisissez l\'icône Supprimer dans la liste déroulante.\n
+                                   7. Contactez l\'assistance pour obtenir de l\'aide supplémentaire.\n
+                                \u2600 SunSeeker\n\n
                                 \uD83C\uDFB5 DeezerDiscover\n\n
                                 \uD83D\uDCD5 RecipeRover\n\n
                                 \u2764 Mots Sauvegardée\n\n
                                 \uD83D\uDCE5 Sauvegarder le mot\n\n
                                 \uD83D\uDDD1 ️Supprimer le mot\n\n
                                 Instructions:\n
-1. Entrez un terme de recherche dans le champ EditText fourni.\n
-2. Cliquez sur le bouton Rechercher pour récupérer les définitions.\n
-3. Cliquez sur un résultat de recherche pour afficher des informations détaillées dans un fragment séparé.\n
-4. Cliquez sur l\'icône Enregistrer pour ajouter un terme à la liste des termes enregistrés.\n
-5. Accédez aux termes enregistrés en cliquant sur le bouton Enregistré.\n
-6. Pour supprimer un terme, sélectionnez-le et choisissez l\'icône Supprimer dans le menu.\n
-7. Pour plus d\'aide, vous pouvez contacter l\'assistance.</string>
-
+</string>
 </resources>
