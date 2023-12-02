@@ -18,19 +18,44 @@ import java.util.TimeZone;
 
 import algonquin.cst2335.androidfinalproject.databinding.SunDetailsLayoutBinding;
 
+/**
+ * Fragment class to display detailed information about a Sun record.
+ *
+ * This class includes views to show various details such as sunrise, solar noon, golden hour,
+ * sunset, timezone, latitude, longitude, city name, current date, and current time.
+ *
+ * @author Yu Song
+ */
 public class SunDetailsFragment extends Fragment {
+    /** Represents the Sun record to be displayed in the fragment.*/
     Sun selected;
+    /** Represents the TAG that will be used in the Log.*/
+    public static final String TAG = "SunDetailsFragment";
 
-    // no-argument constructor to prevent app crash
+    /** no-argument constructor to prevent app crash */
     public SunDetailsFragment(){}
-    //constructor for your class which takes a Sun object that it will use as a data source for the TextViews:
+
+    /**
+     * Constructor for the class, which takes a Sun object as a data source for the TextViews.
+     *
+     * @param toDisplay The Sun object to be displayed in the fragment.
+     */
     public SunDetailsFragment(Sun toDisplay){
         selected = toDisplay;
     }
 
+    /**
+     * Called to create the content view for this Fragment.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return The root view of the fragment.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        setRetainInstance(true); // to prevent fragment crash when rotate the phone
         //inflate an XML layout for this Fragment
         SunDetailsLayoutBinding binding = SunDetailsLayoutBinding.inflate(getLayoutInflater());
 
@@ -59,8 +84,6 @@ public class SunDetailsFragment extends Fragment {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
         String formattedTime = timeFormat.format(currentDate);
 
-        // Combine date and time
-        String dateTimeString = formattedDate + " " + formattedTime;
         //set the text views:
         binding.sunDateDetailTitle.setText(formattedDate);
         binding.sunTimeDetailTitle.setText(formattedTime);
@@ -68,27 +91,4 @@ public class SunDetailsFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public class DateTimeGenerator {
-
-        public void main(String[] args) {
-            // Get the current date and time
-            Date currentDate = Calendar.getInstance().getTime();
-
-            // Format the date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMM-yyyy", Locale.getDefault());
-            String formattedDate = dateFormat.format(currentDate);
-
-            // Format the time
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
-            String formattedTime = timeFormat.format(currentDate);
-
-            // Combine date and time
-            String dateTimeString = formattedDate + " " + formattedTime;
-
-            // Print the result
-            System.out.println("Formatted Date: " + formattedDate);
-            System.out.println("Formatted Time: " + formattedTime);
-            System.out.println("Combined Date and Time: " + dateTimeString);
-        }
-    }
 }
