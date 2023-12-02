@@ -21,5 +21,12 @@
     <color name="recipeTitle">#F454C7</color>
     <color name="sun_sky">#E9482A</color>
 
+    <color name="sun_deep_purple">#6955A8</color>
+    <color name="sun_med_purple">#A664BB</color>
+    <color name="sun_mid_pink">#F38795</color>
+    <color name="sun_light_pink">#E9B0BE</color>
+    <color name="sun_light_yellow">#F9E6DB</color>
+    <color name="sun_bg_pink">#FCCAD7</color>
+
 
 </resources>
