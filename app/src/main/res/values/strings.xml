@@ -134,49 +134,50 @@
 
     <!--   Dict Strings -->
     <string name="dict_titleText">Dictionary</string>
-    <string name="dict_hintText">Type here</string>
+    <string name="dict_hintText">Enter your word here</string>
     <string name="dict_searchTitle">Search</string>
 
     <string name="dict_frgTitle">Word</string>
-    <string name="dict_summaryDetail">Definition</string>
+    <string name="dict_summaryDetail">Definitions</string>
 
 
-    <string name="dict_sampleList">Word goes here</string>
+    <string name="dict_sampleList">Definition List</string>
 
-    <string name="dict_favItem">Review</string>
-    <string name="dict_deleteItem">Delete</string>
-    <string name="dict_addItem">Save</string>
-    <string name="dict_backToMainItem">Return to Main</string>
+    <string name="dict_favItem">Saved words definitions</string>
+    <string name="dict_deleteItem">Remove from database</string>
+    <string name="dict_addItem">Save to database</string>
+    <string name="dict_backToMainItem">Go to main page</string>
     <string name="dict_helpItem">Help</string>
     <string name="dict_aboutItem">About</string>
 
-    <string name="dict_notFoundToast">Sorry, nothing found</string>
-    <string name="dict_notAvailableToast">This word is not available for now</string>
-    <string name="dict_noBrowserToast">No app to handle URL</string>
-    <string name="dict_insertSucceedToast">Word saved successfully</string>
-    <string name="dict_alreadyInToast">Word already in your list</string>
-    <string name="dict_noSelectedToast">No word selected</string>
+    <string name="dict_notFoundToast">Sorry, nothing found.</string>
+    <string name="dict_notAvailableToast">This word is not available.</string>
+    <string name="dict_noBrowserToast">No app to handle URL.</string>
+    <string name="dict_insertSucceedToast">Word saved.</string>
+    <string name="dict_alreadyInToast">Word has already been saved.</string>
+    <string name="dict_noSelectedToast">No word was selected.</string>
     <string name="dict_deleteAlert">Do you want to delete this word?</string>
     <string name="dict_yes">Yes</string>
     <string name="dict_no">No</string>
     <string name="dict_undo">Undo</string>
-    <string name="dict_deletedSnackbar">You deleted the word </string>
+    <string name="dict_deletedSnackbar">You deleted the word. </string>
     <string name="dict_aboutToast">Dictionary created by Yuling Guo</string>
-    <string name="dict_helpTitle">How to use me: </string>
+    <string name="dict_helpTitle">Instruction: </string>
     <string name="dict_ok">OK</string>
-    <string name="dict_helpAlert">\u2600 SunSeeker\n\n
+    <string name="dict_helpAlert">Instructions:\n
+                                  1. In the EditText field, enter a search term.\n
+                                  2. To retrieve definitions, click the Search button.\n
+                                  3. Click on one of the search results to view the detailed information in a separate fragment.\n
+                                  4. To add a term to the list of saved terms, click the Save icon.\n
+                                  5. Click the Saved button to access the saved terms.\n
+                                  6. To remove a term, select it and choose the Remove icon from the drop-down list.\n
+                                  7. Contact support for more help.\n
+                                \u2600 SunSeeker\n\n
                                 \uD83C\uDFB5 DeezerDiscover\n\n
                                 \uD83D\uDCD5 RecipeRover\n\n
                                 \u2764 Saved Words\n\n
                                 \uD83D\uDCE5 Save Word\n\n
                                 \uD83D\uDDD1 ️Delete Word\n\n
-                                Instructions:\n
-1. Enter a search term in the provided EditText.\n
-2. Click the Search button to retrieve definitions.\n
-3. Click on a search result to see detailed information in a separate fragment.\n
-4. Click the Save icon to add a term to the saved terms list.\n
-5. Access the saved terms by clicking the Saved button.\n
-6. To delete a term, select it and choose the Delete icon from the menu.\n
-7. For more help, you can contact support.</string>
+</string>
 
 </resources>

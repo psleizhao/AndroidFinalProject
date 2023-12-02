@@ -1,24 +1,14 @@
-
 package algonquin.cst2335.androidfinalproject.dictionary;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 /**
  * The {@code Dict} class represents a dictionary entry with information such as
  * dictionary name, summary, source URL, unique identifier, and a flag indicating
  * whether it is associated with a save button. This class is annotated with
  * {@link Entity} to be used with Room database.
- *
- * <p>Usage example:</p>
- * <pre>
- * {@code
- * Dict dictionaryEntry = new Dict("Word", "Definition");
- * dictionaryEntry.setSrcUrl("https://example.com");
- * dictionaryEntry.setSaveButton(true);
- * // ... (use other setter methods as needed)
- * }
- * </pre>
  *
  * @author Yuling Guo
  * @version 1.0
@@ -54,7 +44,7 @@ public class Dict {
     /**
      * A flag indicating whether the dictionary entry is associated with a save button.
      */
-    @ColumnInfo(name="isSentButton")
+    @ColumnInfo(name="isSaveButton")
     protected boolean isSaveButton;
 
     /**
