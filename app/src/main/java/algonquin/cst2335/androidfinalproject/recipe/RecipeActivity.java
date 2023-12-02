@@ -151,7 +151,12 @@ public class RecipeActivity extends AppCompatActivity {
             {
                 recipes.addAll(rDAO.getAllRecipes()); //Once you get the data from database
                 if (recipes.size() > 0) {
-                    runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_titleText));
+                    runOnUiThread(() -> {
+                        binding.recipeTitleText.setText(R.string.recipe_titleText);
+//                        binding.recipeBG.setVisibility(View.INVISIBLE);
+                        binding.recipeBG.setAlpha(0.05f);
+                });
+
                 }
                 runOnUiThread(() -> binding.recipeRecycleView.setAdapter(recipeAdapter)); //You can then load the RecyclerView
             });
@@ -160,6 +165,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         // Set onClickListener
         binding.recipeSearchButton.setOnClickListener(clk -> {
+
 
             // Get input
             String recipeTextInput = binding.recipeTextInput.getText().toString();
@@ -226,14 +232,14 @@ public class RecipeActivity extends AppCompatActivity {
                                         }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
 
                                         });
-
                                         queue.add(imgReq); // Add image request to queue
                                     }
-
                                     // Change the page title to search result's title after images loaded
                                     // to prevent the asynchronous of the text and the images
                                     binding.recipeTitleText.setText(R.string.recipe_searchTitle);
                                     recipeModel.recipeTitleText.postValue(getString(R.string.recipe_searchTitle));
+//                                    binding.recipeBG.setVisibility(View.INVISIBLE);
+                                    binding.recipeBG.setAlpha(0.05f);
                                 }
                             }
                         } catch (JSONException e) {
@@ -244,6 +250,8 @@ public class RecipeActivity extends AppCompatActivity {
                 Log.d("recipe", error.toString());
                     });
             queue.add(request); // Add request to queue
+
+
 
             // Clear search bar
             binding.recipeTextInput.setText("");
@@ -447,7 +455,11 @@ public class RecipeActivity extends AppCompatActivity {
                                     thread.execute(() -> {
                                         rDAO.deleteRecipe(toDelete);
                                         if (recipes.size() == 0) {
-                                            runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_emptyTitle));
+                                            runOnUiThread(() -> {
+                                                binding.recipeTitleText.setText(R.string.recipe_emptyTitle);
+//                                                binding.recipeBG.setVisibility(View.VISIBLE);
+                                                binding.recipeBG.setAlpha(1f);
+                                            });
 //                    ;
                                         }
                                     });
@@ -464,7 +476,10 @@ public class RecipeActivity extends AppCompatActivity {
                                                 });
                                                 recipes.add(position, toDelete);
                                                 if (recipes.size() > 0) {
-                                                    runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_titleText));
+                                                    runOnUiThread(() -> {
+                                                        binding.recipeTitleText.setText(R.string.recipe_titleText);
+                                                        binding.recipeBG.setVisibility(View.INVISIBLE);
+                                                    });
 //                    ;
                                                 }
                                                 recipeAdapter.notifyDataSetChanged();
