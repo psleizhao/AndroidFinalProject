@@ -79,6 +79,36 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="gravity">
+
+                    <Switch
+                        android:id="@+id/switch1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/sun_switch_left"
+                        android:textColor="@color/my_primary"
+                        app:layout_constraintBottom_toBottomOf="@+id/sun_switch_byLatLng"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/sun_switch_byLatLng" />
+
+                    <TextView
+                        android:id="@+id/sun_switch_byLatLng"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@color/sun_text_gray"
+                        android:text="@string/sun_switch_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/switch1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cityConst"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,11 +120,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="4dp"
-                        android:ems="10"
+                        android:layout_marginEnd="2dp"
                         android:fontFamily="sans-serif-light"
                         android:hint="@string/sun_find_city"
                         android:inputType="text"
+                        android:textAlignment="gravity"
+                        app:layout_constraintBottom_toBottomOf="@+id/citySearchButton"
                         app:layout_constraintEnd_toStartOf="@+id/citySearchButton"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/citySearchButton" />
@@ -119,7 +150,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="550dp">
+                    android:visibility="gone">
 
                     <EditText
                         android:id="@+id/latInput"
@@ -158,7 +189,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/sun_search_btn"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -166,7 +197,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,12 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -223,6 +225,20 @@ public class SunActivity extends AppCompatActivity {
                 runOnUiThread(() -> binding.sunRecycleView.setAdapter(sunAdapter)); //Load the RecyclerView
             });
         }
+
+        binding.switch1.setOnCheckedChangeListener((sw, isChecked) ->{
+            if (isChecked) {
+                binding.latLngConst.setVisibility(View.VISIBLE);
+                binding.cityConst.setVisibility(View.GONE);
+                binding.switch1.setTextColor(ContextCompat.getColor(this,R.color.sun_text_gray));
+                binding.sunSwitchByLatLng.setTextColor(ContextCompat.getColor(this,R.color.my_primary));
+            } else {
+                binding.latLngConst.setVisibility(View.GONE);
+                binding.cityConst.setVisibility(View.VISIBLE);
+                binding.switch1.setTextColor(ContextCompat.getColor(this,R.color.my_primary));
+                binding.sunSwitchByLatLng.setTextColor(ContextCompat.getColor(this,R.color.sun_text_gray));
+            }
+        });
 
         binding.citySearchButton.setOnClickListener(cli->{
             cityName = binding.editCity.getText().toString();
