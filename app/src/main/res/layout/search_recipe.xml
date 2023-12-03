@@ -25,5 +25,5 @@
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@drawable/recipe_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
