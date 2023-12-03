@@ -180,4 +180,5 @@
                                 \uD83D\uDCE5 Sauvegarder le mot\n\n
                                 \uD83D\uDDD1 ️Supprimer le mot\n\n
 </string>
+    <string name="sun_no_input">Veuillez saisir une latitude et une longitude valides</string>
 </resources>

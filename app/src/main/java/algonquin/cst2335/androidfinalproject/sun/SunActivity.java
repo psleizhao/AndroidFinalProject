@@ -265,14 +265,12 @@ public class SunActivity extends AppCompatActivity {
                             double latitude = coord.getDouble("lat");
                             double longitude = coord.getDouble("lon");
 
+                            // bind the lat and lng to the input views
                             binding.latInput.setText(String.valueOf(latitude));
                             binding.lngInput.setText(String.valueOf(longitude));
 
-
+                            // force click the 2nd button automatically
                             binding.sunSearchButton.performClick();
-                            //clear the previous text for editCity;
-                            // TODO: ask prof if this clearing is needed
-//                            binding.editCity.setText("");
 
                         } catch (JSONException e) {
                             e.printStackTrace();

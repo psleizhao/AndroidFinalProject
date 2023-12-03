@@ -131,6 +131,7 @@
     <string name="sun_sun_api_status_not_ok">Sunrise sunset API status not OK</string>
     <string name="sun_sun_api_ok">Sun API Results and Status OK</string>
     <string name="sun_sun_api_not_available">The Sun API is not available now</string>
+    <string name="sun_no_input">Please enter valid latitude and longitude</string>
 
     <!--   Dict Strings -->
     <string name="dict_titleText">Dictionary</string>
