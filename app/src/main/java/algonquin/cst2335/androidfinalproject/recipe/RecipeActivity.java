@@ -110,18 +110,18 @@ public class RecipeActivity extends AppCompatActivity {
         // call onCreateOptionsMenu() to initialize the toolbar
         setSupportActionBar(binding.recipeToolbar); // only one line required to initialize the toolbar
 
-        // ViewModel for saving the screen when rotating
+        // ViewModel for saving the screen when screen config changes
         recipeModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipes = recipeModel.recipes.getValue();
 
         // Selected recipe observer to initialize the fragment when select a recipe
         recipeModel.selectedrecipe.observe(this, (selectedRecipe) -> {
-
             if (selectedRecipe != null) {
                 FragmentManager fMgr = getSupportFragmentManager();
+                // Find fragment if exists
                 RecipeDetailsFragment newRecipe = (RecipeDetailsFragment) fMgr.findFragmentByTag(RecipeDetailsFragment.TAG);
                 // create a new fragment to display the selected recipe details
-                if (newRecipe == null) { // Save the fragment from rotation
+                if (newRecipe == null) { // No existing frament, create a new one
                     newRecipe = new RecipeDetailsFragment(selectedRecipe);
                     FragmentTransaction transaction = fMgr.beginTransaction();
                     transaction.addToBackStack("any string here");       // remvoe the back stack fragment
@@ -141,7 +141,7 @@ public class RecipeActivity extends AppCompatActivity {
         rDAO = db.recipeDAO();
 
         if (recipes == null) {
-            binding.recipeTitleText.setText(R.string.recipe_emptyTitle);
+            binding.recipeTitleText.setText(R.string.recipe_emptyTitle); // First launch
             binding.recipeTitleText.setGravity(Gravity.CENTER);
             recipeModel.recipes.postValue(recipes = new ArrayList<Recipe>());
 
@@ -150,16 +150,23 @@ public class RecipeActivity extends AppCompatActivity {
             thread.execute(() ->
             {
                 recipes.addAll(rDAO.getAllRecipes()); //Once you get the data from database
-                if (recipes.size() > 0) {
-                    runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_titleText));
+                if (recipes.size() > 0) { // Load recipes from db
+                    runOnUiThread(() -> {
+                        binding.recipeTitleText.setText(R.string.recipe_titleText);
+//                        binding.recipeBG.setVisibility(View.INVISIBLE);
+//                        binding.recipeBG.setImageResource(R.drawable.cooking2);
+                        binding.recipeBG.setAlpha(0.05f);
+                });
+
                 }
-                runOnUiThread(() -> binding.recipeRecycleView.setAdapter(recipeAdapter)); //You can then load the RecyclerView
+                runOnUiThread(() -> binding.recipeRecycleView.setAdapter(recipeAdapter)); //Load the RecyclerView
             });
 
         }
 
         // Set onClickListener
         binding.recipeSearchButton.setOnClickListener(clk -> {
+
 
             // Get input
             String recipeTextInput = binding.recipeTextInput.getText().toString();
@@ -226,14 +233,14 @@ public class RecipeActivity extends AppCompatActivity {
                                         }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
 
                                         });
-
                                         queue.add(imgReq); // Add image request to queue
                                     }
-
                                     // Change the page title to search result's title after images loaded
                                     // to prevent the asynchronous of the text and the images
                                     binding.recipeTitleText.setText(R.string.recipe_searchTitle);
                                     recipeModel.recipeTitleText.postValue(getString(R.string.recipe_searchTitle));
+//                                    binding.recipeBG.setVisibility(View.INVISIBLE);
+                                    binding.recipeBG.setAlpha(0.05f);
                                 }
                             }
                         } catch (JSONException e) {
@@ -264,8 +271,8 @@ public class RecipeActivity extends AppCompatActivity {
                 Recipe obj = recipes.get(position);
                 File file = new File(getFilesDir(), obj.getImgUrl());
                 Bitmap theImage = BitmapFactory.decodeFile(file.getAbsolutePath());
-                holder.recipeName.setText(obj.getRecipeName());
-                holder.recipeIcon.setImageBitmap(theImage);
+                holder.recipeName.setText(obj.getRecipeName()); // Recipe name to display
+                holder.recipeIcon.setImageBitmap(theImage); // Recipe Icon to display
             }
 
             @Override
@@ -335,6 +342,7 @@ public class RecipeActivity extends AppCompatActivity {
                         imageUrl = response.getString("image"); // Get larger image url
                     } catch (JSONException e) {
 //                                throw new RuntimeException(e);
+                        // Instead of throw an exception and crash the app, toast to indicate the row is unselectable
                         runOnUiThread(() ->
                                 Toast.makeText(RecipeActivity.this, R.string.recipe_notAvailableToast, Toast.LENGTH_SHORT).show()
                         );
@@ -361,9 +369,8 @@ public class RecipeActivity extends AppCompatActivity {
                                 fOut.close();
                             } catch (IOException e) {
                                 e.printStackTrace();
-
                             }
-                            recipeModel.selectedrecipe.postValue(selected); // Post value to view model
+                            recipeModel.selectedrecipe.postValue(selected); // Post value to view model and trigger observing fragment generator.
                         }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
 
                         });
@@ -402,6 +409,21 @@ public class RecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.recipeGotoSunItem: // Go to SunSeeker
+                Intent nextPage2 = new Intent(RecipeActivity.this, SunActivity.class);
+                startActivity(nextPage2);
+                break;
+
+            case R.id.recipeGotoMusicItem: // Go to DeezerDiscover
+                Intent nextPage3 = new Intent(RecipeActivity.this, MusicActivity.class);
+                startActivity(nextPage3);
+                break;
+
+            case R.id.recipeGotoDictItem: // Go to WordWiz
+                Intent nextPage4 = new Intent(RecipeActivity.this, DictActivity.class);
+                startActivity(nextPage4);
+                break;
+
             case R.id.favoriteItem: // Go to saved recipes
                 Intent nextPage = new Intent(RecipeActivity.this, RecipeActivity.class);
                 startActivity(nextPage);
@@ -447,7 +469,12 @@ public class RecipeActivity extends AppCompatActivity {
                                     thread.execute(() -> {
                                         rDAO.deleteRecipe(toDelete);
                                         if (recipes.size() == 0) {
-                                            runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_emptyTitle));
+                                            runOnUiThread(() -> {
+                                                binding.recipeTitleText.setText(R.string.recipe_emptyTitle);
+//                                                binding.recipeBG.setVisibility(View.VISIBLE);
+                                                binding.recipeBG.setAlpha(0.3f);
+//                                                binding.recipeBG.setImageResource(R.drawable.cooking1);
+                                            });
 //                    ;
                                         }
                                     });
@@ -464,18 +491,15 @@ public class RecipeActivity extends AppCompatActivity {
                                                 });
                                                 recipes.add(position, toDelete);
                                                 if (recipes.size() > 0) {
-                                                    runOnUiThread(() -> binding.recipeTitleText.setText(R.string.recipe_titleText));
+                                                    runOnUiThread(() -> {
+                                                        binding.recipeTitleText.setText(R.string.recipe_titleText);
+//                                                        binding.recipeBG.setVisibility(View.INVISIBLE);
+                                                        binding.recipeBG.setAlpha(0.05f);
+//                                                        binding.recipeBG.setImageResource(R.drawable.cooking2);
+                                                    });
 //                    ;
                                                 }
                                                 recipeAdapter.notifyDataSetChanged();
-
-                                                // after undo, go back to the fragment
-//                                                RecipeDetailsFragment newMessage = new RecipeDetailsFragment(recipes.get(position));
-//                                                FragmentManager fMgr = getSupportFragmentManager();
-//                                                FragmentTransaction transaction = fMgr.beginTransaction();
-//                                                transaction.addToBackStack("any string here");
-//                                                transaction.replace(R.id.searchFragmentLocation, newMessage); //first is the FrameLayout id
-//                                                transaction.commit();//loads it
                                             })
                                             .show();
                                 })
@@ -491,21 +515,6 @@ public class RecipeActivity extends AppCompatActivity {
             case R.id.recipeBackToMainItem: // Go back to lading page
                 Intent nextPage1 = new Intent(RecipeActivity.this, MainActivity.class);
                 startActivity(nextPage1);
-                break;
-
-            case R.id.recipeGotoSunItem: // Go to SunSeeker
-                Intent nextPage2 = new Intent(RecipeActivity.this, SunActivity.class);
-                startActivity(nextPage2);
-                break;
-
-            case R.id.recipeGotoMusicItem: // Go to DeezerDiscover
-                Intent nextPage3 = new Intent(RecipeActivity.this, MusicActivity.class);
-                startActivity(nextPage3);
-                break;
-
-            case R.id.recipeGotoDictItem: // Go to WordWiz
-                Intent nextPage4 = new Intent(RecipeActivity.this, DictActivity.class);
-                startActivity(nextPage4);
                 break;
 
             case R.id.helpItem: // Help infos

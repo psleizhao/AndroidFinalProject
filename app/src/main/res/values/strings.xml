@@ -32,15 +32,15 @@
     <string name="recipe_undo">Undo</string>
     <string name="recipe_deletedSnackbar">You deleted recipe #</string>
     <string name="recipe_aboutToast">RecipeRover created by Lei Zhao</string>
-    <string name="recipe_helpTitle">How to use me: </string>
+    <string name="recipe_helpTitle">Use Information</string>
     <string name="recipe_ok">OK</string>
     <string name="recipe_helpAlert">Click on \u2600 go to SunSeeker\n\n
-                                    Click on \uD83C\uDFB5 go to DeezerDiscover\n\n
-                                    Click on \uD83D\uDCD5 go to WordWiz\n\n
-                                    Click on \u2764 go to saved recipes\n\n
-                                    Click on \uD83D\uDCE5 save a recipe\n\n
-                                    Click on \uD83D\uDDD1 ️delete a recipe\n\n
-                                    Search your interested recipes by typing a name in the search bar</string>
+        Click on \uD83C\uDFB5 go to DeezerDiscover\n\n
+        Click on \uD83D\uDCD5 go to WordWiz\n\n
+        Click on \u2764 go to saved recipes\n\n
+        Click on \uD83D\uDCE5 save a recipe\n\n
+        Click on \uD83D\uDDD1 ️delete a recipe\n\n
+        Find your interested recipes by typing a name in the search bar</string>
     <string name="recipe_emptyTitle">Find your favorite recipes here!</string>
 
     <!--The following strings belong to Music Activity-->
