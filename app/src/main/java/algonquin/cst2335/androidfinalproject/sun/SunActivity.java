@@ -185,7 +185,7 @@ public class SunActivity extends AppCompatActivity {
         setSupportActionBar(binding.sunToolbar);// initialize the toolbar
         getSupportActionBar().setTitle(getString(R.string.sun_toolbar_title));
 
-        // ViewModel for saving the screen when rotating
+        // ViewModel for saving the screen when screen config changes
         sunModel = new ViewModelProvider(this).get(SunViewModel.class);
         suns = sunModel.suns.getValue(); //get the array list from ViewModelProvider, might be NULL
 
@@ -194,11 +194,10 @@ public class SunActivity extends AppCompatActivity {
             if(selectedSun != null) {
 
                 FragmentManager fMgr = getSupportFragmentManager();
-                //create a Sun fragment
-
+                // Find fragment if exists
                 SunDetailsFragment sunFragment = (SunDetailsFragment)fMgr.findFragmentByTag(SunDetailsFragment.TAG);
 
-                if(sunFragment == null){
+                if(sunFragment == null){ //if no existing fragment, create a new one
                     sunFragment = new SunDetailsFragment(selectedSun);
                     FragmentTransaction transaction = fMgr.beginTransaction();
                     transaction.addToBackStack("Add to back stack"); // adds to the history
@@ -206,11 +205,6 @@ public class SunActivity extends AppCompatActivity {
                     transaction.commit();// This line actually loads the fragment into the specified FrameLayout
                 }
 
-//                SunDetailsFragment sunFragment = new SunDetailsFragment(selectedSun);
-//                FragmentTransaction transaction = fMgr.beginTransaction();
-//                transaction.addToBackStack("Add to back stack"); // adds to the history
-//                transaction.replace(R.id.sunFragmentLocation, sunFragment);//The add() function needs the id of the FrameLayout where it will load the fragment
-//                transaction.commit();// This line actually loads the fragment into the specified FrameLayout
             }
         });
 
@@ -219,14 +213,14 @@ public class SunActivity extends AppCompatActivity {
         //initialize the variable
         sDAO = db.sunDAO();
 
-        if (suns == null) {
+        if (suns == null) { // first launch
             sunModel.suns.postValue(suns = new ArrayList<Sun>());
 
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() ->
             {
                 suns.addAll(sDAO.getAllSuns()); //Once you get the data from database
-                runOnUiThread(() -> binding.sunRecycleView.setAdapter(sunAdapter)); //You can then load the RecyclerView
+                runOnUiThread(() -> binding.sunRecycleView.setAdapter(sunAdapter)); //Load the RecyclerView
             });
         }
 
@@ -563,8 +557,7 @@ public class SunActivity extends AppCompatActivity {
                                 sDAO.updateSun(selected); //Update selected sun
                             });
 
-                            // TODO: potentially the line creates an extra Fragment; but if not using it, updated data will now show.
-                            sunModel.selectedSun.postValue(selected);
+                            sunModel.selectedSun.postValue(selected); // Post value to view model and trigger observing fragment generator. will create an extra fragment
 
                         }sunAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
@@ -572,9 +565,6 @@ public class SunActivity extends AppCompatActivity {
                     }
                         }, error -> {                });
                 queue.add(request);
-
-                //starts the loading
-//                sunModel.selectedSun.postValue(selected); // this one will create an extra fragment
 
                 selectedRow = position; // pass position to the whole class scope variable to use in another class
             });
@@ -655,7 +645,7 @@ public class SunActivity extends AppCompatActivity {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SunActivity.this);
 
-                    builder.setMessage(getString(R.string.sun_del_warning_text) + toDelete.getSunLatitude() + ", " + toDelete.getSunLongitude());
+                    builder.setMessage(getString(R.string.sun_del_warning_text) + " " + getString(R.string.sun_lat_hint) + toDelete.getSunLatitude() + ", " + getString(R.string.sun_lng_hint) + toDelete.getSunLongitude());
                     builder.setTitle(getString(R.string.sun_del_warning_title));
 
                     builder.setNegativeButton(getString(R.string.sun_no), (btn, obj) -> { /* if no is clicked */ });
@@ -670,7 +660,7 @@ public class SunActivity extends AppCompatActivity {
                         sunAdapter.notifyDataSetChanged(); //redraw the list
                         getSupportFragmentManager().popBackStack(); // go back to message list
 
-                        Snackbar.make(binding.sunRecycleView, getString(R.string.sun_del_after) + position, Snackbar.LENGTH_LONG)
+                        Snackbar.make(binding.sunRecycleView, getString(R.string.sun_del_after) + (position + 1), Snackbar.LENGTH_LONG)
                                 .setAction(getString(R.string.sun_undo), click -> {
                                     Executor thread2 = Executors.newSingleThreadExecutor();
                                     thread2.execute(() -> {
