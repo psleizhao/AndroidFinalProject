@@ -9,7 +9,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/sunGotoMusicItem"
-        android:icon="@drawable/music_icon"
+        android:icon="@drawable/music_2"
         android:title="DeezerDiscover"
         app:showAsAction="always" />
     <item
