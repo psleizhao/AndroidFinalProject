@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sun.SunActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".sun.SunActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/sunToolbar"
@@ -27,25 +26,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sunToolbar"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/sunToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/sunRecycleView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="60dp"
-                app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sunFavText" />
 
             <TextView
                 android:id="@+id/sunTitleText"
@@ -63,80 +48,124 @@
                 android:id="@+id/sunFavText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
                 android:text="@string/sun_fav"
                 android:textColor="@color/my_primary"
+                android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sunTitleText" />
 
-            <EditText
-                android:id="@+id/latInput"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sunRecycleView"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/sun_lat_hint"
-                android:inputType="numberDecimal|numberSigned"
-                android:textAlignment="gravity"
-                app:layout_constraintBottom_toBottomOf="@+id/sunSearchButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/sunSearchButton"
-                app:layout_constraintWidth_default="spread"
-                app:layout_constraintWidth_percent="0.33" />
-
-            <EditText
-                android:id="@+id/lngInput"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/sun_lng_hint"
-                android:inputType="numberDecimal|numberSigned"
-                android:textAlignment="gravity"
-                app:layout_constraintBottom_toBottomOf="@+id/sunSearchButton"
-                app:layout_constraintEnd_toStartOf="@+id/sunSearchButton"
-                app:layout_constraintStart_toEndOf="@+id/latInput"
-                app:layout_constraintTop_toTopOf="@+id/sunSearchButton"
-                app:layout_constraintWidth_default="spread"
-                app:layout_constraintWidth_percent="0.33" />
-
-            <Button
-                android:id="@+id/sunSearchButton"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/sun_search_btn"
+                app:layout_constraintBottom_toTopOf="@+id/sunSearchLinear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sunFavText" />
+
+            <LinearLayout
+                android:id="@+id/sunSearchLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-            <Button
-                android:id="@+id/citySearchButton"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/sun_check"
-                app:layout_constraintBottom_toTopOf="@+id/sunSearchButton"
-                app:layout_constraintEnd_toEndOf="@+id/sunSearchButton"
-                app:layout_constraintStart_toStartOf="@+id/sunSearchButton" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cityConst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foregroundGravity="bottom"
+                    app:layout_constraintBottom_toTopOf="@+id/latLngConst">
 
-            <EditText
-                android:id="@+id/editCity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/sun_find_city"
-                android:inputType="text"
-                app:layout_constraintBottom_toTopOf="@+id/latInput"
-                app:layout_constraintEnd_toEndOf="@+id/lngInput"
-                app:layout_constraintStart_toStartOf="@+id/latInput" />
+                    <EditText
+                        android:id="@+id/editCity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="4dp"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="@string/sun_find_city"
+                        android:inputType="text"
+                        app:layout_constraintEnd_toStartOf="@+id/citySearchButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/citySearchButton" />
 
+                    <Button
+                        android:id="@+id/citySearchButton"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/sun_check"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/latLngConst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="550dp">
+
+                    <EditText
+                        android:id="@+id/latInput"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="@string/sun_lat_hint"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:textAlignment="gravity"
+                        app:layout_constraintBottom_toBottomOf="@+id/sunSearchButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/sunSearchButton"
+                        app:layout_constraintWidth_default="spread"
+                        app:layout_constraintWidth_percent="0.33" />
+
+                    <EditText
+                        android:id="@+id/lngInput"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="@string/sun_lng_hint"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:textAlignment="gravity"
+                        app:layout_constraintBottom_toBottomOf="@+id/sunSearchButton"
+                        app:layout_constraintEnd_toStartOf="@+id/sunSearchButton"
+                        app:layout_constraintStart_toEndOf="@+id/latInput"
+                        app:layout_constraintTop_toTopOf="@+id/sunSearchButton"
+                        app:layout_constraintWidth_default="spread"
+                        app:layout_constraintWidth_percent="0.33" />
+
+                    <Button
+                        android:id="@+id/sunSearchButton"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/sun_search_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
 
 
 
