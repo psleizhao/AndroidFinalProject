@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -102,6 +103,7 @@ public class RecipeActivity extends AppCompatActivity {
         // binding the layout variables
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.recipeSearchButton.setBackgroundColor(ContextCompat.getColor(this, R.color.recipe_btn));
 
         // SharedPreferences for saving the data from last launch
         SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);

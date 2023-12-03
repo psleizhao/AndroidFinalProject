@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import java.io.File;
@@ -58,6 +59,8 @@ public class RecipeDetailsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         setRetainInstance(true);
         RecipeDetailsLayoutBinding binding = RecipeDetailsLayoutBinding.inflate(getLayoutInflater());
+        binding.sourceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.recipe_btn));
+
         File file = new File(requireContext().getFilesDir(), selected.getId() + "-556x370.jpg");
         // Load the larger image if it exists
         if (file.exists()) {
