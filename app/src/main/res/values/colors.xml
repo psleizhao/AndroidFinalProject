@@ -15,10 +15,11 @@
     <color name="pink">#E91E63</color>
     <color name="red">#F80303</color>
 
-    <color name="frameBG">#B4F4F6</color>
-    <color name="pageBG">#CFFBFF</color>
+    <color name="frameBG">#C1EAEC</color>
+    <color name="pageBG">#D9F2F4</color>
+    <color name="recipe_btn">#8BBEEA</color>
+    <color name="recipeTitle">#434485</color>
 
-    <color name="recipeTitle">#F454C7</color>
     <color name="sun_sky">#E9482A</color>
 
     <color name="sun_deep_purple">#6955A8</color>

@@ -79,6 +79,7 @@
 
             <Button
                 android:id="@+id/recipeSearchButton"
+                style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_searchButton"
