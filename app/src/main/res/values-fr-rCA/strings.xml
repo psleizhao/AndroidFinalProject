@@ -103,7 +103,7 @@
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
     <string name="sun_help2"><![CDATA[
-        Entrez un nom de ville, TROUVER la latitude et la longitude (facultatif)\n\n
+        Entrez un nom de ville, TROUVER\n\n
         Entrez à la fois la latitude et la longitude, CHERCHER les détails du lever et du coucher du soleil\n\n
         Cliquez sur un enregistrement dans "Mes favoris" pour actualiser et afficher les détails\n\n
         Cliquez sur \u2764 pour accéder à Mes enregistrements sauvegardés\n\n
@@ -125,13 +125,15 @@
     <string name="valid_input_lat">Plage de latitude valide : -90 à +90</string>
     <string name="valid_input_lng">Plage de longitude valide : -180 à +180</string>
     <string name="sun_refresh"> Actualiser / Détails </string>
-    <string name="sun_find_city"><![CDATA[Trouver la lat et la long d\'une ville]]></string>
+    <string name="sun_find_city">Nom de Ville</string>
     <string name="sun_check">Trouver</string>
     <string name="sun_no_name_location">Empl. XYZ</string>
     <string name="sun_found_nothing">Aucun résultat trouvé, longueur du tableau = 0</string>
     <string name="sun_sun_api_status_not_ok">Échec du statut de l\'API Sunrise Sunset</string>
     <string name="sun_sun_api_ok">Résultats et statut de l\'API Sunrise OK</string>
     <string name="sun_sun_api_not_available">L\'API Sun n\'est pas disponible actuellement</string>
+    <string name="sun_switch_left">par ville</string>
+    <string name="sun_switch_right">par Latitude &amp; Longitude</string>
 
     <!--   Dict Strings -->
 
@@ -180,4 +182,5 @@
                                 \uD83D\uDCE5 Sauvegarder le mot\n\n
                                 \uD83D\uDDD1 ️Supprimer le mot\n\n
 </string>
+    <string name="sun_no_input">Veuillez saisir une latitude et une longitude valides</string>
 </resources>

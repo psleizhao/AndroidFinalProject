@@ -12,12 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -224,6 +226,20 @@ public class SunActivity extends AppCompatActivity {
             });
         }
 
+        binding.switch1.setOnCheckedChangeListener((sw, isChecked) ->{
+            if (isChecked) {
+                binding.latLngConst.setVisibility(View.VISIBLE);
+                binding.cityConst.setVisibility(View.GONE);
+                binding.switch1.setTextColor(ContextCompat.getColor(this,R.color.sun_text_gray));
+                binding.sunSwitchByLatLng.setTextColor(ContextCompat.getColor(this,R.color.my_primary));
+            } else {
+                binding.latLngConst.setVisibility(View.GONE);
+                binding.cityConst.setVisibility(View.VISIBLE);
+                binding.switch1.setTextColor(ContextCompat.getColor(this,R.color.my_primary));
+                binding.sunSwitchByLatLng.setTextColor(ContextCompat.getColor(this,R.color.sun_text_gray));
+            }
+        });
+
         binding.citySearchButton.setOnClickListener(cli->{
             cityName = binding.editCity.getText().toString();
 
@@ -265,14 +281,12 @@ public class SunActivity extends AppCompatActivity {
                             double latitude = coord.getDouble("lat");
                             double longitude = coord.getDouble("lon");
 
+                            // bind the lat and lng to the input views
                             binding.latInput.setText(String.valueOf(latitude));
                             binding.lngInput.setText(String.valueOf(longitude));
 
-
+                            // force click the 2nd button automatically
                             binding.sunSearchButton.performClick();
-                            //clear the previous text for editCity;
-                            // TODO: ask prof if this clearing is needed
-//                            binding.editCity.setText("");
 
                         } catch (JSONException e) {
                             e.printStackTrace();

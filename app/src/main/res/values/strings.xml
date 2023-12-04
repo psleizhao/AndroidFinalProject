@@ -102,15 +102,16 @@
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">How to use SunSeeker:</string>
     <string name="sun_help2"><![CDATA[
-        Enter a city name, CHECK Latitude & Longitude (optional)\n\n
-        Enter both Latitude and Longitude, LOOKUP for sunrise sunset details\n\n
-        Click on any record in "My Favourites" to refresh and view details\n\n
-        Click on \u2764 goto My Saved Records\n\n
-        Click on \uD83D\uDCE5 to save this Record\n\n
-        Click on \uD83D\uDDD1 ️to delete this Record\n\n
-        Click on \uD83C\uDF73 Goto RecipeRover\n\n
-        Click on \uD83C\uDFB5 Goto DeezerDiscover\n\n
-        Click on \uD83D\uDCD5 Goto WordWiz\n
+    Enter a city name, CHECK sunrise sunset details\n\n
+    Enter both Latitude and Longitude, LOOKUP for sunrise sunset details\n\n
+    Click on switch to switch search mode\n\n
+    Click on any record in "My Favourites" to refresh and view details\n\n
+    Click on \u2764 goto My Saved Records\n\n
+    Click on \uD83D\uDCE5 to save this Record\n\n
+    Click on \uD83D\uDDD1 ️to delete this Record\n\n
+    Click on \uD83C\uDF73 Goto RecipeRover\n\n
+    Click on \uD83C\uDFB5 Goto DeezerDiscover\n\n
+    Click on \uD83D\uDCD5 Goto WordWiz\n
     ]]></string>
     <string name="sun_save_no_record_warning">No sun record selected</string>
     <string name="sun_save_dupe_record_warning">Sun record already in your Favourite</string>
@@ -124,13 +125,16 @@
     <string name="valid_input_lat">Valid Latitude Range: -90 to +90</string>
     <string name="valid_input_lng">Valid Longitude Range: -180 to +180</string>
     <string name="sun_refresh">🔄</string>
-    <string name="sun_find_city"><![CDATA[Find a city\'s Lat & Lng]]></string>
+    <string name="sun_find_city">City name</string>
     <string name="sun_check">CHECK</string>
     <string name="sun_no_name_location">XYZ Location</string>
     <string name="sun_found_nothing">Found nothing, Array length = 0</string>
     <string name="sun_sun_api_status_not_ok">Sunrise sunset API status not OK</string>
     <string name="sun_sun_api_ok">Sun API Results and Status OK</string>
     <string name="sun_sun_api_not_available">The Sun API is not available now</string>
+    <string name="sun_no_input">Please enter valid latitude and longitude</string>
+    <string name="sun_switch_left">by City</string>
+    <string name="sun_switch_right">by Latitude &amp; Longitude</string>
 
     <!--   Dict Strings -->
     <string name="dict_titleText">Dictionary</string>
