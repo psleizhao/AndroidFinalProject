@@ -79,6 +79,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/music_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/musicRecycleView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/musicRecycleView"
+                app:layout_constraintTop_toTopOf="@+id/musicRecycleView"
+                app:srcCompat="@drawable/music_bg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
         </LinearLayout>
