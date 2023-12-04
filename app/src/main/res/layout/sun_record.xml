@@ -9,7 +9,7 @@
         android:id="@+id/lng_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif-light"
         android:text="Lng: "
@@ -18,19 +18,19 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sun_vector" />
+        app:srcCompat="@drawable/sun_row_trans" />
 
     <TextView
         android:id="@+id/lat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif-light"
         android:text="Lat: "
