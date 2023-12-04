@@ -170,7 +170,10 @@ public class DictActivity extends AppCompatActivity {
             @Override
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
                 Dict obj = dicts.get(position);
-                holder.dictName.setText(obj.getDictName() + " definition " + (position + 1));
+                String word = obj.getDictName();
+                String def = obj.getSummary();
+                String line = word + ": " + def;
+                holder.dictName.setText(line.substring(0, Math.min(line.length(), 22))+ "...");
             }
 
             @Override
