@@ -9,12 +9,11 @@
         android:id="@+id/lng_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="6dp"
         android:fontFamily="sans-serif-light"
         android:text="Lng: "
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/lat_title" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,8 +29,8 @@
         android:id="@+id/lat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-light"
         android:text="Lat: "
         app:layout_constraintStart_toEndOf="@+id/imageView"
