@@ -103,16 +103,20 @@
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
     <string name="sun_help2"><![CDATA[
-    Entrez un nom de ville, VÉRIFIEZ les détails du lever et du coucher du soleil\n\n
-    Entrez à la fois la latitude et la longitude, RECHERCHEZ les détails du lever et du coucher du soleil\n\n
-    Basculez le mode de recherche entre "par ville" et "par latitude et longitude" en cliquant sur l\'interrupteur\n\n
-    Cliquez sur n\'importe quel enregistrement dans "Mes favoris" pour rafraîchir et afficher les détails\n\n
-    Cliquez sur \u2764 pour aller dans "Mes favoris"\n\n
-    Cliquez sur \uD83D\uDCE5 pour enregistrer cet enregistrement\n\n
-    Cliquez sur \uD83D\uDDD1 ️pour supprimer cet enregistrement\n\n
-    Cliquez sur \uD83C\uDF73 pour aller à RecipeRover\n\n
-    Cliquez sur \uD83C\uDFB5 pour aller à DeezerDiscover\n\n
-    Cliquez sur \uD83D\uDCD5 pour aller à WordWiz\n
+    SunSeeker est un programme qui fournit des informations sur le lever et le coucher du soleil pour un emplacement. \n\n
+    SunSeeker a deux modes de recherche pour trouver des informations sur le lever et le coucher du soleil : \"par ville\" et \"par latitude et longitude\".\n\n
+    Changez de mode de recherche en cliquant sur l\'interrupteur en bas de l\'écran.\n\n
+    Mode \"par ville\" :\n
+    Entrez le nom d\'une ville comme emplacement, cliquez sur TROUVER pour les détails du lever et du coucher du soleil.\n\n
+    Mode \"par latitude et longitude\" :\n
+    Entrez la latitude et la longitude, cliquez sur CHERCHER pour les détails du lever et du coucher du soleil.\n\n
+    Cliquez sur n\'importe quel enregistrement dans la page "Mes favoris" pour actualiser et voir les détails d\'un emplacement.\n\n
+    Cliquez sur \u2764 pour aller à \"Mes favoris\".\n\n
+    Cliquez sur \uD83D\uDCE5 pour enregistrer cet enregistrement.\n\n
+    Cliquez sur \uD83D\uDDD1 ️pour supprimer cet enregistrement.\n\n
+    Cliquez sur \uD83C\uDF73 Aller à RecipeRover.\n\n
+    Cliquez sur \uD83C\uDFB5 Aller à DeezerDiscover.\n\n
+    Cliquez sur \uD83D\uDCD5 Aller à WordWiz.\n
 ]]></string>
     <string name="sun_save_no_record_warning">Aucun enregistrement de soleil sélectionné</string>
     <string name="sun_save_dupe_record_warning">Enregistrement de soleil déjà dans vos favoris</string>
