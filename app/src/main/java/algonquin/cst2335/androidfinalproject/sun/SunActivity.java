@@ -56,8 +56,11 @@ import algonquin.cst2335.androidfinalproject.recipe.RecipeActivity;
  *
  * This class represents the main screen of the Sun app, where users can view and interact with Sun records.
  * It utilizes a ViewModel to manage data, a RecyclerView to display records, and a DAO for database operations.
+ * This activity integrates with api.openweathermap.org for city name and latitude longitude conversion
+ * This activity also integrates with api.sunrisesunset.io for sunrise sunset data
+ * This activity use Room database
  *
- * @author Yu Song
+ * @author Yu Song 040873597
  */
 public class SunActivity extends AppCompatActivity {
 
@@ -618,7 +621,7 @@ public class SunActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.favoriteSun:
+            case R.id.favoriteSun: // Go to saved suns
                 Intent nextPage = new Intent(SunActivity.this, SunActivity.class);
 
                 startActivity(nextPage);
@@ -626,7 +629,7 @@ public class SunActivity extends AppCompatActivity {
 
                 break;
 
-            case R.id.saveSun:
+            case R.id.saveSun: // Add the selected recipe to suns
 
                 Executor threadS = Executors.newSingleThreadExecutor();
                 threadS.execute(() -> {

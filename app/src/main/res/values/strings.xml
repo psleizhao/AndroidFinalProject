@@ -104,9 +104,9 @@
     <string name="sun_help2"><![CDATA[
     Enter a city name, CHECK sunrise sunset details\n\n
     Enter both Latitude and Longitude, LOOKUP for sunrise sunset details\n\n
-    Click on switch to switch search mode\n\n
+    Switch search mode between "by City" and "by Latitude and Longitude" by clicking on the switch\n\n
     Click on any record in "My Favourites" to refresh and view details\n\n
-    Click on \u2764 goto My Saved Records\n\n
+    Click on \u2764 goto "My Favourites"\n\n
     Click on \uD83D\uDCE5 to save this Record\n\n
     Click on \uD83D\uDDD1 ️to delete this Record\n\n
     Click on \uD83C\uDF73 Goto RecipeRover\n\n
