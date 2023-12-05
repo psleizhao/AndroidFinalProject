@@ -1,5 +1,11 @@
 package algonquin.cst2335.androidfinalproject;
-
+/**
+ * Name: Lei ZHao 041086365, Zhicheng He 041086226, Yu Song 040873597， Yuling Guo 041069402
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the main activity of the application. It contains the landing
+ *              page, users can navigate to the 4 different activities by clicking the correspondent button.
+ * */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;

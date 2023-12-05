@@ -1,5 +1,12 @@
 package algonquin.cst2335.androidfinalproject.recipe;
-
+/**
+ * Name: Lei ZHao 041086365
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the recipe activity, which allows users to search, save, and review
+ *              the recipes they are interested in. The users can also go to other activities by clicking
+ *              the toolbar items.
+ * */
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
