@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:text="@string/music_sampleList"
         android:textColor="#9052FF"
-        android:textSize="15dp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/musicIcon" />
