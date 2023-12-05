@@ -66,7 +66,7 @@ public class MusicDetailsFragment extends Fragment {
             binding.musicImageView.setImageBitmap(img);
         }
         binding.songTitle.setText(selected.songTitle);
-        binding.duration.setText(selected.duration + "s");
+        binding.duration.setText(getString(R.string.music_duration) + ": " + selected.duration + "s");
         binding.albumName.setText(selected.albumName);
         return binding.getRoot();
     }
