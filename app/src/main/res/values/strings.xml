@@ -101,18 +101,22 @@
     <string name="sun_to_main">Back to main page</string>
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">How to use SunSeeker:</string>
-    <string name="sun_help2"><![CDATA[
-    Enter a city name, CHECK sunrise sunset details\n\n
-    Enter both Latitude and Longitude, LOOKUP for sunrise sunset details\n\n
-    Switch search mode between "by City" and "by Latitude and Longitude" by clicking on the switch\n\n
-    Click on any record in "My Favourites" to refresh and view details\n\n
-    Click on \u2764 goto "My Favourites"\n\n
-    Click on \uD83D\uDCE5 to save this Record\n\n
-    Click on \uD83D\uDDD1 ️to delete this Record\n\n
-    Click on \uD83C\uDF73 Goto RecipeRover\n\n
-    Click on \uD83C\uDFB5 Goto DeezerDiscover\n\n
-    Click on \uD83D\uDCD5 Goto WordWiz\n
-    ]]></string>
+    <string name="sun_help2">
+    SunSeeker is a program that provides sunrise and sunset information of a location. \n\n
+    SunSeeker has two search modes to find sunrise and sunset information: \"by City\" and \"by Latitude and Longitude\".\n\n
+    Change search modes by clicking on the switch at the bottom of the screen.\n\n
+    \"by City\" mode:\n
+    Enter a city name as a location, click CHECK for sunrise and sunset details.\n\n
+    \"by Latitude and Longitude\" mode:\n
+    Enter Latitude and Longitude, click LOOKUP for sunrise and sunset details.\n\n
+    Click on any record in \"My Favourites\" page to refresh and view sun details of a location\n\n
+    Click on \u2764 Goto \"My Favourites\".\n\n
+    Click on \uD83D\uDCE5 to save this Record.\n\n
+    Click on \uD83D\uDDD1 ️to delete this Record.\n\n
+    Click on \uD83C\uDF73 Goto RecipeRover.\n\n
+    Click on \uD83C\uDFB5 Goto DeezerDiscover.\n\n
+    Click on \uD83D\uDCD5 Goto WordWiz.\n
+    </string>
     <string name="sun_save_no_record_warning">No sun record selected</string>
     <string name="sun_save_dupe_record_warning">Sun record already in your Favourite</string>
     <string name="sun_save_success">Sun saved successfully</string>
