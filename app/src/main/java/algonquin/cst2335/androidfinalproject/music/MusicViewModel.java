@@ -1,3 +1,10 @@
+/**
+ * Name: Zhicheng He 041086226
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *
+ */
+
 package algonquin.cst2335.androidfinalproject.music;
 
 import androidx.lifecycle.MutableLiveData;
