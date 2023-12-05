@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +33,7 @@
             android:id="@+id/sun_lat_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed-light"
             android:text="Latitude: "
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -82,7 +83,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/sunrise_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="10dp"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sun_lat_title" />
 
@@ -94,7 +95,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/solar_noon_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="10dp"
+            android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/sun_sunrise_title" />
 
@@ -105,7 +106,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/golden_hour_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="10dp"
+            android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="@+id/sun_noon_title"
             app:layout_constraintTop_toTopOf="@+id/sun_sunset_title" />
 
@@ -117,7 +118,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/sunset_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="10dp"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/sun_sunrise_title"
             app:layout_constraintTop_toBottomOf="@+id/sun_sunrise_detail" />
 
@@ -129,7 +130,7 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/timezone_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="10dp"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/sun_sunset_title"
             app:layout_constraintTop_toBottomOf="@+id/sun_sunset_detail" />
 
@@ -137,7 +138,7 @@
             android:id="@+id/sun_sunrise_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:text="sunrise"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -148,7 +149,7 @@
             android:id="@+id/sun_noon_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:text="solar_noon"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -159,7 +160,7 @@
             android:id="@+id/sun_golden_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:text="golder_hour"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -170,7 +171,7 @@
             android:id="@+id/sun_sunset_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:text="sunset"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -181,7 +182,7 @@
             android:id="@+id/sun_timezone_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:text="timezone"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -207,7 +208,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="12dp"
-        android:fontFamily="sans-serif-thin"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         android:text="Date"
@@ -222,7 +222,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="36dp"
-        android:fontFamily="sans-serif-thin"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         android:text="Time"
