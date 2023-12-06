@@ -125,13 +125,13 @@
     <string name="sun_undo">Undo</string>
     <string name="sun_help1">How to use SunSeeker:</string>
     <string name="sun_help2">
-    SunSeeker is a program that provides sunrise and sunset information of a location. \n\n
-    SunSeeker has two search modes to find sunrise and sunset information: \"by City\" and \"by Latitude and Longitude\".\n\n
+    SunSeeker is an app that provides accurate sunrise and sunset information of the current date of a location.
+    It has two search modes: \"by City\" and \"by Latitude and Longitude\".\n\n
     Change search modes by clicking on the switch at the bottom of the screen.\n\n
     \"by City\" mode:\n
-    Enter a city name as a location, click CHECK for sunrise and sunset details.\n\n
+    Enter a city name, click CHECK for its sunrise and sunset details.\n\n
     \"by Latitude and Longitude\" mode:\n
-    Enter Latitude and Longitude, click LOOKUP for sunrise and sunset details.\n\n
+    Enter valid Latitude and Longitude, click LOOKUP for its sunrise and sunset details.\n\n
     Click on any record in \"My Favourites\" page to refresh and view sun details of a location\n\n
     Click on \u2764 Goto \"My Favourites\".\n\n
     Click on \uD83D\uDCE5 to save this Record.\n\n
