@@ -85,13 +85,24 @@
     <string name="music_no">Non</string>
     <string name="music_undo">Annuler</string>
     <string name="music_deleteSnackBar">Vous avez supprimé la musique #</string>
-    <string name="music_helpDetail">\uD83C\uDF73 RecipeRover\n\n
-                                    \u2600 SunSeeker\n\n
-                                    \uD83D\uDCD5 WordWiz\n\n
-                                    ❤️ Aller à la musique enregistrée\n\n
-                                    \uD83D\uDCE5 Enregistrer cette musique\n\n
-                                    \uD83D\uDDD1 Supprimer cette musique\n\n
-                                    Trouver une musique par la recherche</string>
+    <string name="music_helpDetail">
+            Bienvenue sur DeezerDiscover, voici un guide rapide pour vous :\n\n
+            1. Recherche d\'artiste :\n
+             Tapez le nom de l\'artiste dans la barre de recherche et cliquez sur le bouton Rechercher.\n\n
+             2. Plongez dans les détails :\n
+             Faites défiler vers le bas et cliquez sur le bouton pour tous les détails sur la musique de l\'artiste que vous recherchez.\n\n
+             3. Enregistrer pour plus tard :\n
+             Vous aimez cette musique ? Enregistrez-la pour plus tard en cliquant sur l\'icône de sauvegarde.\n
+             Votre musique enregistrée sera facilement accessible lorsque vous serez prêt à l\'écouter.\n\n
+
+             Voici comment vous pouvez naviguer dans cette application :\n\n
+             - Cliquez sur \u2600 pour aller à SunSeeker.\n\n
+             - Cliquez sur \uD83C\uDF73 pour aller à RecipeRover.\n\n
+             - Cliquez sur \uD83D\uDCD5 pour aller à WordWiz.\n\n
+             - Cliquez sur \u2764 pour aller à la musique enregistrée.\n\n
+             - Cliquez sur \uD83D\uDCE5 pour enregistrer une musique.\n\n
+             - Cliquez sur \uD83D\uDDD1 pour supprimer une musique.\n\n</string>
+
     <string name="music_helpTitle">Comment m\'utiliser : </string>
 
     <!--The following strings belong to Sun Activity-->
