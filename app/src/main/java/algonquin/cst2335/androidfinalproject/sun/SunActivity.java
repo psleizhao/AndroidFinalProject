@@ -308,13 +308,13 @@ public class SunActivity extends AppCompatActivity {
                     (error) -> {
                         Log.e("City JsonObjReq Error", "City Sunset JsonObjectRequest Error");
                         if (error.networkResponse != null && (error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 400)) {
-                            // Handle 500 Internal Server Error
-                            Log.e("Volley Error", "Internal Server Error (404 or 400)");
-                            Toast.makeText(this, "Invalid input, make sure to input valid city name.", Toast.LENGTH_SHORT).show();
+                            // Handle 400 / 404 Internal Server Error
+                            Log.e("Volley Error", "Internal Server Error: " + error.networkResponse.statusCode);
+                            Toast.makeText(this, getString(R.string.sun_invalid_city), Toast.LENGTH_SHORT).show();
                         } else {
                                 // Handle other network errors
                                 Log.e("Volley Error", "Network error: " + error.toString());
-                                Toast.makeText(this, "Service unavailable, please try again later", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, getString(R.string.sun_try_again), Toast.LENGTH_SHORT).show();
                         }
             }
             );
@@ -436,11 +436,11 @@ public class SunActivity extends AppCompatActivity {
                         if (error.networkResponse != null && error.networkResponse.statusCode == 500) {
                             // Handle 500 Internal Server Error
                             Log.e("Volley Error", "Internal Server Error (500)");
-                            Toast.makeText(this, "Invalid input, make sure to input valid latitude and longitude.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.sun_invalid_lat_lng), Toast.LENGTH_SHORT).show();
                         } else {
                             // Handle other network errors
                             Log.e("Volley Error", "Network error: " + error.toString());
-                            Toast.makeText(this, "Service unavailable, please try again later", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.sun_try_again), Toast.LENGTH_SHORT).show();
                         }
                     });
             queue.add(request);
