@@ -71,13 +71,23 @@
     <string name="music_no">No</string>
     <string name="music_undo">Undo</string>>
     <string name="music_deleteSnackBar">You deleted music #</string>
-    <string name="music_helpDetail">\uD83C\uDF73  RecipeRover\n\n
-                                    \u2600 SunSeeker\n\n
-                                    \uD83D\uDCD5  WordWiz\n\n
-                                    ❤️ Go To Saved Music\n\n
-                                    \uD83D\uDCE5 Save This Music\n\n
-                                    \uD83D\uDDD1 ️Delete This Music\n\n
-                                    Find a music from search bar</string>
+    <string name="music_helpDetail">
+            Welcome to DeezerDiscover , here\'s a quick guide for you:\n\n
+            1. Search Artist:
+            Type in the name of the artist in the search bar and click on Search button.\n\n
+            2. Dive into Details:
+            Scroll down and click on the button for all details about the music of the artist that you search.\n\n
+            3. Save for Later:
+            Love this music? Save it for later by clicking on save icon.\n
+            Your saved music will be easily accessible whenever you\'re ready to listen.\n\n
+
+            Here is how you can navigate in this application:\n\n
+            - Click on \u2600 go to SunSeeker\n\n
+            - Click on \uD83C\uDF73 go to RecipeRover\n\n
+            - Click on \uD83D\uDCD5 go to WordWiz\n\n
+            - Click on \u2764 go to saved music\n\n
+            - Click on \uD83D\uDCE5 save a music\n\n
+            - Click on \uD83D\uDDD1 delete a music\n\n</string>
     <string name="music_helpTitle">How to use me: </string>
 
     <!--The following strings belong to Sun Activity-->
