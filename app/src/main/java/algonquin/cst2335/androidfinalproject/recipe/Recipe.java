@@ -1,5 +1,10 @@
 package algonquin.cst2335.androidfinalproject.recipe;
-
+/**
+ * Name: Lei ZHao 041086365
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the transfer object of the recipes.
+ * */
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

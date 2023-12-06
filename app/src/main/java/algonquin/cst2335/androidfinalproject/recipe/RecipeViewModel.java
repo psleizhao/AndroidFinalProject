@@ -1,5 +1,10 @@
 package algonquin.cst2335.androidfinalproject.recipe;
-
+/**
+ * Name: Lei ZHao 041086365
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents view model for holding data.
+ * */
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
