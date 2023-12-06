@@ -41,25 +41,25 @@
         Tapez le nom du plat dans la barre de recherche et cliquez sur le bouton Rechercher.\n
         Parcourez la liste des résultats pour trouver la recette parfaite pour votre aventure culinaire.\n\n
         2. Explorez les Résumés de Recettes:
-        Cliquez sur la recette qui attire votre attention pour voir son résumé.\n\n
+        Cliquez sur la recette qui attire votre intérêt pour voir son résumé.\n\n
         3. Plongez dans les Détails:
         Faites défiler vers le bas et cliquez sur le bouton pour tous les détails de cette recette.\n\n
-        4. Enregistrez pour Plus Tard:
-        Aimez-vous cette recette? Enregistrez-la pour plus tard en cliquant sur l\'icône d\'enregistrement.\n
-        Vos recettes enregistrées seront facilement accessibles lorsque vous serez prêt à concocter quelque chose de délicieux.\n\n
+        4. Sauvegarder pour Plus Tard:
+        Aimez-vous cette recette? Sauvegardez-la pour plus tard en cliquant sur l\'icône de sauvegarde.\n
+        Vos recettes sauvegardées seront facilement accessibles lorsque vous serez prêt à cuisiner un plat délicieux.\n\n
 
         Voici comment naviguer dans cette application:\n\n
         Cliquez \u2600 pour accéder à SunSeeker\n\n
         Cliquez \uD83C\uDFB5 pour accéder à DeezerDiscover\n\n
         Cliquez \uD83D\uDCD5 pour accéder à WordWiz\n\n
         Cliquez \u2764 pour accéder à vos favoris\n\n
-        Cliquez \uD83D\uDCE5 pour sauvegarder une recette\n\n
-        Cliquez \uD83D\uDDD1 pour supprimer une recette\n\n</string>
+        Cliquez \uD83D\uDCE5 pour sauvegarder la recette sélectionnée\n\n
+        Cliquez \uD83D\uDDD1 pour supprimer la recette sélectionnée\n\n</string>
     <string name="recipe_emptyTitle">Trouvez vos recettes préférées ici!</string>
 
     <!--The following strings belong to Music Activity-->
     <string name="music_favItem">Musique Préférée</string>
-    <string name="music_addItem">Enregistrer Cette Musique</string>
+    <string name="music_addItem">Sauvegarder Cette Musique</string>
     <string name="music_deleteItem">Supprimer Cette Musique</string>
     <string name="music_backToMainItem">Retour à l\'Accueil</string>
     <string name="music_aboutItem">À Propos</string>
@@ -75,11 +75,11 @@
 
     <string name="music_albumName">Nom de l\'album</string>
     <string name="music_notFoundToast">Désolé, rien trouvé</string>
-    <string name="music_insertSucceedToast">Musique enregistrée avec succès</string>
+    <string name="music_insertSucceedToast">Musique Sauvegardée avec succès</string>
     <string name="music_alreadyInToast">Musique déjà dans votre liste</string>
     <string name="music_noSelectedToast">Aucune musique sélectionnée</string>
     <string name="music_aboutToast">DeezerDiscover créé par Zhicheng He</string>
-    <string name="music_addTitle">Ajoutez votre chanson préférée</string>
+    <string name="music_addTitle">Ajoutez votre musique préférée</string>
     <string name="music_deleteAlert">Voulez-vous supprimer la musique de</string>
     <string name="music_yes">Oui</string>
     <string name="music_no">Non</string>
@@ -91,17 +91,17 @@
              Tapez le nom de l\'artiste dans la barre de recherche et cliquez sur le bouton Rechercher.\n\n
              2. Plongez dans les détails :\n
              Faites défiler vers le bas et cliquez sur le bouton pour tous les détails sur la musique de l\'artiste que vous recherchez.\n\n
-             3. Enregistrer pour plus tard :\n
-             Vous aimez cette musique ? Enregistrez-la pour plus tard en cliquant sur l\'icône de sauvegarde.\n
-             Votre musique enregistrée sera facilement accessible lorsque vous serez prêt à l\'écouter.\n\n
+             3. Sauvegarder pour plus tard :\n
+             Vous aimez cette musique ? Sauvegardez-la pour plus tard en cliquant sur l\'icône de sauvegarde.\n
+             Votre musique sauvegardée sera facilement accessible lorsque vous serez prêt à l\'écouter.\n\n
 
              Voici comment vous pouvez naviguer dans cette application :\n\n
              - Cliquez sur \u2600 pour aller à SunSeeker.\n\n
              - Cliquez sur \uD83C\uDF73 pour aller à RecipeRover.\n\n
              - Cliquez sur \uD83D\uDCD5 pour aller à WordWiz.\n\n
-             - Cliquez sur \u2764 pour aller à la musique enregistrée.\n\n
-             - Cliquez sur \uD83D\uDCE5 pour enregistrer une musique.\n\n
-             - Cliquez sur \uD83D\uDDD1 pour supprimer une musique.\n\n</string>
+             - Cliquez sur \u2764 pour aller à la musique sauvegardée.\n\n
+             - Cliquez sur \uD83D\uDCE5 pour sauvegarder la musique sélectionnée.\n\n
+             - Cliquez sur \uD83D\uDDD1 pour supprimer la musique sélectionnée.\n\n</string>
 
     <string name="music_helpTitle">Comment m\'utiliser : </string>
 

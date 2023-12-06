@@ -109,7 +109,7 @@ public class RecipeActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this); // Set the queue of API request by Volley
         // binding the layout variables
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(binding.getRoot());  // Set the content view
         binding.recipeSearchButton.setBackgroundColor(ContextCompat.getColor(this, R.color.recipe_btn));
 
         // SharedPreferences for saving the data from last launch
@@ -126,14 +126,14 @@ public class RecipeActivity extends AppCompatActivity {
         // Selected recipe observer to initialize the fragment when select a recipe
         recipeModel.selectedrecipe.observe(this, (selectedRecipe) -> {
             if (selectedRecipe != null) {
-                FragmentManager fMgr = getSupportFragmentManager();
+                FragmentManager fMgr = getSupportFragmentManager(); // Get support fragment manager
                 // Find fragment if exists
                 RecipeDetailsFragment newRecipe = (RecipeDetailsFragment) fMgr.findFragmentByTag(RecipeDetailsFragment.TAG);
                 // create a new fragment to display the selected recipe details
-                if (newRecipe == null) { // No existing frament, create a new one
+                if (newRecipe == null) { // No existing fragment, create a new one
                     newRecipe = new RecipeDetailsFragment(selectedRecipe);
                     FragmentTransaction transaction = fMgr.beginTransaction();
-                    transaction.addToBackStack("any string here");       // remvoe the back stack fragment
+                    transaction.addToBackStack("any string here");       // remove the back stack fragment
                     transaction.replace(R.id.searchFragmentLocation, newRecipe, RecipeDetailsFragment.TAG); //first is the FrameLayout id
                     transaction.commit();//loads it
                 }
@@ -172,7 +172,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         // Set onClickListener
         binding.recipeSearchButton.setOnClickListener(clk -> {
-
 
             // Get input
             String recipeTextInput = binding.recipeTextInput.getText().toString();
@@ -264,7 +263,7 @@ public class RecipeActivity extends AppCompatActivity {
 
             @NonNull
             @Override
-            public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // set row's view
+            public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // inflate row's view
                 SearchRecipeBinding binding = SearchRecipeBinding.inflate(getLayoutInflater(), parent, false);
                 return new MyRowHolder(binding.getRoot());
             }
@@ -284,7 +283,6 @@ public class RecipeActivity extends AppCompatActivity {
                 return recipes.size();
             }
         });
-
         binding.recipeRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
