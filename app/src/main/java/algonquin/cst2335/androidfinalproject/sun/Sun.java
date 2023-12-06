@@ -1,4 +1,10 @@
 package algonquin.cst2335.androidfinalproject.sun;
+/**
+ * Name: Yu Song 040873597
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the transfer object of the suns.
+ * */
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

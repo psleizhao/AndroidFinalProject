@@ -1,5 +1,12 @@
 package algonquin.cst2335.androidfinalproject.recipe;
-
+/**
+ * Name: Lei ZHao 041086365
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the recipe activity, which allows users to search, save, and review
+ *              the recipes they are interested in. The users can also go to other activities by clicking
+ *              the toolbar items.
+ * */
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
@@ -155,9 +162,6 @@ public class RecipeActivity extends AppCompatActivity {
                 if (recipes.size() > 0) { // Load recipes from db
                     runOnUiThread(() -> {
                         binding.recipeTitleText.setText(R.string.recipe_titleText);
-//                        binding.recipeBG.setVisibility(View.INVISIBLE);
-//                        binding.recipeBG.setImageResource(R.drawable.cooking2);
-                        binding.recipeBG.setAlpha(0.05f);
                 });
 
                 }
@@ -241,8 +245,6 @@ public class RecipeActivity extends AppCompatActivity {
                                     // to prevent the asynchronous of the text and the images
                                     binding.recipeTitleText.setText(R.string.recipe_searchTitle);
                                     recipeModel.recipeTitleText.postValue(getString(R.string.recipe_searchTitle));
-//                                    binding.recipeBG.setVisibility(View.INVISIBLE);
-                                    binding.recipeBG.setAlpha(0.05f);
                                 }
                             }
                         } catch (JSONException e) {
@@ -473,11 +475,8 @@ public class RecipeActivity extends AppCompatActivity {
                                         if (recipes.size() == 0) {
                                             runOnUiThread(() -> {
                                                 binding.recipeTitleText.setText(R.string.recipe_emptyTitle);
-//                                                binding.recipeBG.setVisibility(View.VISIBLE);
-                                                binding.recipeBG.setAlpha(0.3f);
-//                                                binding.recipeBG.setImageResource(R.drawable.cooking1);
+
                                             });
-//                    ;
                                         }
                                     });
 
@@ -495,11 +494,7 @@ public class RecipeActivity extends AppCompatActivity {
                                                 if (recipes.size() > 0) {
                                                     runOnUiThread(() -> {
                                                         binding.recipeTitleText.setText(R.string.recipe_titleText);
-//                                                        binding.recipeBG.setVisibility(View.INVISIBLE);
-                                                        binding.recipeBG.setAlpha(0.05f);
-//                                                        binding.recipeBG.setImageResource(R.drawable.cooking2);
                                                     });
-//                    ;
                                                 }
                                                 recipeAdapter.notifyDataSetChanged();
                                             })

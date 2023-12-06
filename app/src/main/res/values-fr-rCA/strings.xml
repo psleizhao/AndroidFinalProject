@@ -35,13 +35,26 @@
     <string name="recipe_aboutToast">RecipeRover créé par Lei Zhao</string>
     <string name="recipe_helpTitle">Infos d\'utilisation </string>
     <string name="recipe_ok">OK</string>
-    <string name="recipe_helpAlert">Cliquez \u2600 pour accéder à SunSeeker\n\n
+    <string name="recipe_helpAlert">
+        Bienvenue sur RecipeRover, voici un guide pour vous:\n\n
+        1. Recherche Facile:
+        Tapez le nom du plat dans la barre de recherche et cliquez sur le bouton Rechercher.\n
+        Parcourez la liste des résultats pour trouver la recette parfaite pour votre aventure culinaire.\n\n
+        2. Explorez les Résumés de Recettes:
+        Cliquez sur la recette qui attire votre attention pour voir son résumé.\n\n
+        3. Plongez dans les Détails:
+        Faites défiler vers le bas et cliquez sur le bouton pour tous les détails de cette recette.\n\n
+        4. Enregistrez pour Plus Tard:
+        Aimez-vous cette recette? Enregistrez-la pour plus tard en cliquant sur l\'icône d\'enregistrement.\n
+        Vos recettes enregistrées seront facilement accessibles lorsque vous serez prêt à concocter quelque chose de délicieux.\n\n
+
+        Voici comment naviguer dans cette application:\n\n
+        Cliquez \u2600 pour accéder à SunSeeker\n\n
         Cliquez \uD83C\uDFB5 pour accéder à DeezerDiscover\n\n
         Cliquez \uD83D\uDCD5 pour accéder à WordWiz\n\n
         Cliquez \u2764 pour accéder à vos favoris\n\n
         Cliquez \uD83D\uDCE5 pour sauvegarder une recette\n\n
-        Cliquez \uD83D\uDDD1 pour supprimer une recette\n\n
-        Trouvez vos recettes préférées en enterant un nom de recette dans la section de recherche</string>
+        Cliquez \uD83D\uDDD1 pour supprimer une recette\n\n</string>
     <string name="recipe_emptyTitle">Trouvez vos recettes préférées ici!</string>
 
     <!--The following strings belong to Music Activity-->

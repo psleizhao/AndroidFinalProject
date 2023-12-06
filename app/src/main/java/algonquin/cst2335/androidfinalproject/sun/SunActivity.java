@@ -1,5 +1,13 @@
 package algonquin.cst2335.androidfinalproject.sun;
-
+/**
+ * Name: Yu Song 040873597
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the sun activity, which allows users to search, save, and review
+ *              the sunrise sunset information of a certain location (determined by latitude and longitude)
+ *              they are interested in. The users can also go to other activities by clicking
+ *              the toolbar items.
+ * */
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
