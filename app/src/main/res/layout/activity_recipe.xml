@@ -89,9 +89,9 @@
 
             <ImageView
                 android:id="@+id/recipeBG"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.3"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:alpha="0.05"
                 app:layout_constraintBottom_toTopOf="@+id/recipeTextInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/recipeRecycleView"
