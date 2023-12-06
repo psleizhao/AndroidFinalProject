@@ -81,7 +81,7 @@ public class SunDetailsFragment extends Fragment {
         String formattedDate = dateFormat.format(currentDate);
 
         // Format the time
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         String formattedTime = timeFormat.format(currentDate);
 
         //set the text views:

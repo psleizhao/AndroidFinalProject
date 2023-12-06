@@ -297,7 +297,18 @@ public class SunActivity extends AppCompatActivity {
                         }
                         Log.d("City Response", "Received " + response.toString()); //this gets called if the server responded
                     },
-                    (error) -> {/*this gets called if there was an error or no response*/}
+                    (error) -> {
+                        Log.e("City JsonObjReq Error", "City Sunset JsonObjectRequest Error");
+                        if (error.networkResponse != null && (error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 400)) {
+                            // Handle 500 Internal Server Error
+                            Log.e("Volley Error", "Internal Server Error (404 or 400)");
+                            Toast.makeText(this, "Invalid input, make sure to input valid city name.", Toast.LENGTH_SHORT).show();
+                        } else {
+                                // Handle other network errors
+                                Log.e("Volley Error", "Network error: " + error.toString());
+                                Toast.makeText(this, "Service unavailable, please try again later", Toast.LENGTH_SHORT).show();
+                        }
+            }
             );
             queue.add(request);
 
@@ -336,6 +347,11 @@ public class SunActivity extends AppCompatActivity {
                                 JSONObject results = response.getJSONObject("results");
                                 String status = response.getString("status"); // get the JSONArray associated with "status"
                                 Log.d("Sun API status", "Status" + status);
+                            } else{
+                                Log.e("API response: ", "response don't have results");
+                                runOnUiThread(() ->
+                                        Toast.makeText(SunActivity.this, getString(R.string.sun_sun_api_not_available), Toast.LENGTH_SHORT).show()
+                                );
                             }
                         } catch (JSONException e) {
                             Log.e("API response: ", "response don't have results");
@@ -408,7 +424,16 @@ public class SunActivity extends AppCompatActivity {
                         }
                     },
                     (error) -> {
-                        Log.e("JsonObjectRequest Error", "JsonObjectRequest Error");
+                        Log.e("Sun JsonObjReq Error", "Sunrise Sunset JsonObjectRequest Error");
+                        if (error.networkResponse != null && error.networkResponse.statusCode == 500) {
+                            // Handle 500 Internal Server Error
+                            Log.e("Volley Error", "Internal Server Error (500)");
+                            Toast.makeText(this, "Invalid input, make sure to input valid latitude and longitude.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Handle other network errors
+                            Log.e("Volley Error", "Network error: " + error.toString());
+                            Toast.makeText(this, "Service unavailable, please try again later", Toast.LENGTH_SHORT).show();
+                        }
                     });
             queue.add(request);
 
