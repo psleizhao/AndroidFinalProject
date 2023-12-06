@@ -1,11 +1,15 @@
 package algonquin.cst2335.androidfinalproject.sun;
-
+/**
+ * Name: Yu Song 040873597
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents view model for holding data.
+ * */
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
-import algonquin.cst2335.androidfinalproject.recipe.Recipe;
 
 /**
  * ViewModel class for managing Sun-related data using LiveData.

@@ -1,5 +1,12 @@
 package algonquin.cst2335.androidfinalproject.sun;
-
+/**
+ * Name: Yu Song 040873597
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the fragment, which is for displaying the details of the
+ *              sunrise and sunset information of the given location determined by latitude and longitude
+ *              when user click on a specific one.
+ * */
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
