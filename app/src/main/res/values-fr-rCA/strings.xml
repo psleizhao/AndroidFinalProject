@@ -152,6 +152,9 @@
     <string name="sun_sun_api_not_available">L\'API Sun n\'est pas disponible actuellement</string>
     <string name="sun_switch_left">par Ville</string>
     <string name="sun_switch_right">par Latitude et Longitude</string>
+    <string name="sun_invalid_city">Entrée non valide, assurez-vous de saisir un nom de ville valide.</string>
+    <string name="sun_invalid_lat_lng">Entrée invalide, assurez-vous de saisir une latitude et une longitude valides.</string>
+    <string name="sun_try_again">Service indisponible, veuillez réessayer ultérieurement.</string>
 
     <!--   Dict Strings -->
 

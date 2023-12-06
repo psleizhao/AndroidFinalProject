@@ -152,6 +152,9 @@
     <string name="sun_no_input">Please enter valid latitude and longitude</string>
     <string name="sun_switch_left">by City</string>
     <string name="sun_switch_right">by Latitude &amp; Longitude</string>
+    <string name="sun_invalid_city">Invalid input, make sure to input valid city name.</string>
+    <string name="sun_invalid_lat_lng">Invalid input, make sure to input valid latitude and longitude.</string>
+    <string name="sun_try_again">Service unavailable, please try again later</string>
 
     <!--   Dict Strings -->
     <string name="dict_titleText">Dictionary</string>
