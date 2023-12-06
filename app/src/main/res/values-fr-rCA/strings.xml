@@ -86,8 +86,8 @@
     <string name="music_undo">Annuler</string>
     <string name="music_deleteSnackBar">Vous avez supprimé la musique #</string>
     <string name="music_helpDetail">
-            Bienvenue sur DeezerDiscover, voici un guide rapide pour vous :\n\n
-            1. Recherche d\'artiste :\n
+             Bienvenue sur DeezerDiscover, voici un guide rapide pour vous :\n\n
+             1. Recherche d\'artiste :\n
              Tapez le nom de l\'artiste dans la barre de recherche et cliquez sur le bouton Rechercher.\n\n
              2. Plongez dans les détails :\n
              Faites défiler vers le bas et cliquez sur le bouton pour tous les détails sur la musique de l\'artiste que vous recherchez.\n\n
