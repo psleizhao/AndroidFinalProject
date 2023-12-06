@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -237,6 +236,7 @@ public class SunActivity extends AppCompatActivity {
             });
         }
 
+        //listener to the switch object
         binding.switch1.setOnCheckedChangeListener((sw, isChecked) ->{
             if (isChecked) {
                 binding.latLngConst.setVisibility(View.VISIBLE);
@@ -251,6 +251,7 @@ public class SunActivity extends AppCompatActivity {
             }
         });
 
+        //listener to the citySearchButton object
         binding.citySearchButton.setOnClickListener(cli->{
             cityName = binding.editCity.getText().toString();
 
@@ -325,6 +326,7 @@ public class SunActivity extends AppCompatActivity {
             binding.lngInput.setText("");
         });
 
+        //listener to the sunSearchButton object
         binding.sunSearchButton.setOnClickListener( cli ->{
 
             String sunLatitude = binding.latInput.getText().toString();
@@ -641,7 +643,7 @@ public class SunActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         //inflate a menu into the toolbar
-        getMenuInflater().inflate(R.menu.sun_detail_menu, menu);
+        getMenuInflater().inflate(R.menu.sun_menu, menu);
         return true;
     }
 
