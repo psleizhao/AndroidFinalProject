@@ -34,13 +34,26 @@
     <string name="recipe_aboutToast">RecipeRover created by Lei Zhao</string>
     <string name="recipe_helpTitle">Use Information</string>
     <string name="recipe_ok">OK</string>
-    <string name="recipe_helpAlert">Click on \u2600 go to SunSeeker\n\n
+    <string name="recipe_helpAlert">
+        Welcome to RecipeRover, here\'s a quick guide for you:\n\n
+        1. Search with Ease:
+        Type in the name of the dish in the search bar and click on Search button.\n
+        Browse through the list of results to find the perfect match for your culinary adventure.\n\n
+        2. Explore Recipe Summaries:
+        Click on the recipe that catches your eye to view its summary.\n\n
+        3. Dive into Details:
+        Scroll down and click on the button for all details about this recipe.\n\n
+        4. Save for Later:
+        Love this recipe? Save it for later by clicking on save icon.\n
+        Your saved recipes will be easily accessible whenever you\'re ready to whip up something delicious.\n\n
+
+        Here is how you can navigate in this application:\n\n
+        Click on \u2600 go to SunSeeker\n\n
         Click on \uD83C\uDFB5 go to DeezerDiscover\n\n
         Click on \uD83D\uDCD5 go to WordWiz\n\n
         Click on \u2764 go to saved recipes\n\n
         Click on \uD83D\uDCE5 save a recipe\n\n
-        Click on \uD83D\uDDD1 ️delete a recipe\n\n
-        Find your interested recipes by typing a name in the search bar</string>
+        Click on \uD83D\uDDD1 ️delete a recipe\n\n</string>
     <string name="recipe_emptyTitle">Find your favorite recipes here!</string>
 
     <!--The following strings belong to Music Activity-->
