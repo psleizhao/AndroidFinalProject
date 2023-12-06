@@ -1,5 +1,10 @@
 package algonquin.cst2335.androidfinalproject.recipe;
-
+/**
+ * Name: Lei ZHao 041086365
+ * Course Section: CST2335 022
+ * Description: This is the final project for the course CST2335 Mobile Graphical Interface Programming.
+ *              This class represents the DAO pattern which can manipulate the database.
+ * */
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
