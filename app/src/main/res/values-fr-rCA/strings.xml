@@ -98,7 +98,7 @@
     <string name="sun_yes">Oui</string>
     <string name="sun_no">Non</string>
     <string name="sun_about_title">À propos</string>
-    <string name="sun_about_detail">Lever et coucher du soleil, Version 1.0, créé par Yu Song</string>
+    <string name="sun_about_detail">SunSeeker, Version 1.0, créé par Yu Song</string>
     <string name="sun_to_main">Retour à la page d\'accueil</string>
     <string name="sun_undo">Annuler</string>
     <string name="sun_help1">Aide</string>
@@ -137,8 +137,8 @@
     <string name="sun_sun_api_status_not_ok">Échec du statut de l\'API Sunrise Sunset</string>
     <string name="sun_sun_api_ok">Résultats et statut de l\'API Sunrise OK</string>
     <string name="sun_sun_api_not_available">L\'API Sun n\'est pas disponible actuellement</string>
-    <string name="sun_switch_left">par ville</string>
-    <string name="sun_switch_right">par Latitude &amp; Longitude</string>
+    <string name="sun_switch_left">par Ville</string>
+    <string name="sun_switch_right">par Latitude et Longitude</string>
 
     <!--   Dict Strings -->
 
