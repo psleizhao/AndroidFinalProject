@@ -40,6 +40,8 @@ public class MusicDetailsFragment extends Fragment {
      * static final variable TAG for fragment
      * */
     public static final String TAG = "MusicDetailsFragment";
+
+    /** Default constructor for MusicDetailsFragment. */
     public MusicDetailsFragment() {    }
 
     /**
